@@ -29,9 +29,14 @@ const navigation = [
     icon: "bi bi-journal-text",
   },
   {
+    title: "Users",
+    href: "/users",
+    icon: "bi bi-people",
+  },
+  {
     title: "About",
     href: "/about",
-    icon: "bi bi-people",
+    icon: "bi bi-person",
   },
 ];
 
@@ -42,7 +47,7 @@ const Sidebar = () => {
   let location = useLocation();
 
   return (
-    <div className="p-3 position-fixed ">
+    <div className="p-md-3 position-fixed ">
       <div className="d-flex align-items-center bg-dark rounded p-4 ">
         <Logo />
         <Button
@@ -58,6 +63,7 @@ const Sidebar = () => {
             <NavItem key={index} className="sidenav-bg">
               <Link
                 to={navi.href}
+                onClick={() => showMobilemenu()}
                 className={
                   location.pathname === navi.href
                     ? "text-light fs-6 fw-bold bg-dark rounded-3 nav-link py-3"

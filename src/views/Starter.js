@@ -4,97 +4,104 @@ import Feeds from "../components/dashboard/Feeds";
 import ProjectTables from "../components/dashboard/ProjectTable";
 import TopCards from "../components/dashboard/TopCards";
 import Blog from "../components/dashboard/Blog";
-import bg1 from "../assets/images/bg/bg1.jpg";
-import bg2 from "../assets/images/bg/bg2.jpg";
-import bg3 from "../assets/images/bg/bg3.jpg";
-import bg4 from "../assets/images/bg/bg4.jpg";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-
-const BlogData = [
-  {
-    image: bg1,
-    title: "This is simple blog",
-    subtitle: "2 comments, 1 Like",
-    description:
-      "This is a wider card with supporting text below as a natural lead-in to additional content.",
-    btnbg: "primary",
-  },
-  {
-    image: bg2,
-    title: "Lets be simple blog",
-    subtitle: "2 comments, 1 Like",
-    description:
-      "This is a wider card with supporting text below as a natural lead-in to additional content.",
-    btnbg: "primary",
-  },
-  {
-    image: bg3,
-    title: "Don't Lamp blog",
-    subtitle: "2 comments, 1 Like",
-    description:
-      "This is a wider card with supporting text below as a natural lead-in to additional content.",
-    btnbg: "primary",
-  },
-  {
-    image: bg4,
-    title: "Simple is beautiful",
-    subtitle: "2 comments, 1 Like",
-    description:
-      "This is a wider card with supporting text below as a natural lead-in to additional content.",
-    btnbg: "primary",
-  },
-];
 const Starter = () => {
+  const [courses, setCourses] = useState([]);
+  const [internships, setInternships] = useState([]);
+  const [events, setEvents] = useState([]);
+  // const [earning,setEarning] = useState(0);
+  const [users, setUsers] = useState([]);
   const Navigate =useNavigate();
   useEffect(()=>{
     if(!localStorage.getItem('myuser')){
       Navigate("/login")
     }
+    fetch("https://api-cyu8h01yw-chiragbhanderi1.vercel.app/getcourses")
+      .then((res) => res.json())
+      .then((data) => {
+        setCourses(data)
+      })
+      .catch((err) => console.log(err));
+
+    fetch("https://api-cyu8h01yw-chiragbhanderi1.vercel.app/getinterships")
+    .then((res) => res.json())
+    .then((data) =>{setInternships(data)})
+    .catch((err) => console.log(err));
+
+    fetch("https://api-cyu8h01yw-chiragbhanderi1.vercel.app/getevents")
+      .then((res) => res.json())
+      .then((data) => setEvents(data))
+      .catch((err) => console.log(err));
+
+    fetch("https://api-cyu8h01yw-chiragbhanderi1.vercel.app/getusers")
+    .then((res) => res.json())
+    .then((data) =>{setUsers(data)})
+    .catch((err) => console.log(err));
      // eslint-disable-next-line
   },[])
   return (
     <div>
       {/***Top Cards***/}
-      <Row>
+      <Row className="text-center">
         <Col sm="6" lg="3">
           <TopCards
             bg="bg-light-success text-success"
-            title="Profit"
-            subtitle="Yearly Earning"
-            earning="$21k"
-            icon="bi bi-wallet"
+            title="Courses"
+            subtitle="Total Courses"
+            earning={courses.length}
+            icon="bi bi-book"
           />
         </Col>
         <Col sm="6" lg="3">
           <TopCards
             bg="bg-light-danger text-danger"
-            title="Refunds"
-            subtitle="Refund given"
-            earning="$1k"
-            icon="bi bi-coin"
+            title="Internships"
+            subtitle="Total Internships"
+            earning={internships.length}
+            icon="bi bi-bullseye"
           />
         </Col>
         <Col sm="6" lg="3">
           <TopCards
             bg="bg-light-warning text-warning"
-            title="New Project"
-            subtitle="Yearly Project"
-            earning="456"
-            icon="bi bi-basket3"
+            title="Events"
+            subtitle="Total Events"
+            earning={events.length}
+            icon="bi bi-calendar-event"
           />
         </Col>
         <Col sm="6" lg="3">
           <TopCards
             bg="bg-light-info text-into"
-            title="Sales"
-            subtitle="Weekly Sales"
-            earning="210"
-            icon="bi bi-bag"
+            title="Users"
+            subtitle="Total Users"
+            earning={users.length}
+            icon="bi bi-people"
           />
         </Col>
       </Row>
+      {/* <Row className="text-center align-items-center justify-content-center">
+      <Col sm="6" lg="4">
+          <TopCards
+            bg="bg-light-info text-into"
+            title="Users"
+            subtitle="Total Users"
+            earning={earning}
+            icon="bi bi-people"
+          />
+        </Col>
+      <Col sm="6" lg="4">
+          <TopCards
+            bg="bg-light-info text-into"
+            title="Users"
+            subtitle="Total Users"
+            earning={users.length}
+            icon="bi bi-people"
+          />
+        </Col>
+      </Row> */}
       {/***Sales & Feed***/}
       <Row>
         <Col sm="6" lg="6" xl="7" xxl="8">
@@ -111,15 +118,18 @@ const Starter = () => {
         </Col>
       </Row>
       {/***Blog Cards***/}
-      <Row>
-        {BlogData.map((blg, index) => (
+      
+      <Row className="bg-white p-1 m-1">
+        <h5 className="mt-1 mb-1">Events</h5>
+        <h6 className="text-muted mb-4">Some Events</h6>
+        {events.map((blg, index) => index<4 && (
           <Col sm="6" lg="6" xl="3" key={index}>
             <Blog
-              image={blg.image}
+              image={blg.img}
               title={blg.title}
               subtitle={blg.subtitle}
-              text={blg.description}
-              color={blg.btnbg}
+              text1={blg.details}
+              color="dark"
             />
           </Col>
         ))}

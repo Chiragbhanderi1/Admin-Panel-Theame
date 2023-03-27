@@ -13,6 +13,7 @@ const InternshipDetails = lazy(()=>import("../views/ui/InternshipDetails"));
 const Assignments = lazy(()=>import("../views/ui/Assignments"));
 const CourseDetails = lazy(()=>import("../views/ui/CourseDetails"));
 const Login = lazy(()=>import("../views/ui/Login"));
+const Users = lazy(()=>import("../views/ui/Users"))
 const EventDetails = lazy(()=>import("../views/ui/EventDetails"));
 const Courses = lazy(() => import("../views/ui/Courses"));
 const Events = lazy(() => import("../views/ui/Events"));
@@ -25,7 +26,7 @@ const ThemeRoutes = [
     element: <FullLayout />,
     children: [
       { path: "/", element: <Navigate to="/starter" /> },
-      
+      { path: "/users", exact: true, element: <Users   /> },
       { path: "/starter", exact: true, element: <Starter   /> },
       { path: "/about", exact: true, element: <About /> },
       { path: "/internships", exact: true, element: <Internships /> },
