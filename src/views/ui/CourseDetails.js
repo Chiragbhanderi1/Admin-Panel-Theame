@@ -15,7 +15,7 @@ const CoursesDetails = () => {
       Navigate("/login")
     }
     // Fetch all internships from the API
-    fetch(`https://api-cyu8h01yw-chiragbhanderi1.vercel.app/getcourse/${courseslug}`)
+    fetch(`https://api-p1sakfilu-chiragbhanderi1.vercel.app/getcourse/${courseslug}`)
       .then((res) => res.json())
       .then((data) =>{
         setCourses(data)
@@ -35,21 +35,21 @@ const CoursesDetails = () => {
             <h1 className="text-center border-bottom mb-3">{courses.title}</h1>
         <div className="row ">
           <div className="col-md">
-            <h5 className="mt-3">Details :</h5>
+            <h5 className="mt-3 bg-white p-2">Details :</h5>
             <div className="ms-5">
                 { details.map((item)=>(
                     <div className="col-md">{item}</div>
                 ))}
             </div>
-            <h5 className="mt-3">Benifits :</h5>
+            <h5 className="mt-3 bg-white p-2">Benifits :</h5>
             <div className="ms-5 ">
                 { benifits.map((item)=>(
                     <div className="col-md">{item}</div>
                 ))}
             </div>
-          <h5 className="mt-3">Duration :</h5>
+          <h5 className="mt-3 bg-white p-2">Duration :</h5>
           <div className="col-md ms-5 ">{courses.duration}</div>
-          <h5 className="mt-3">Price :</h5>
+          <h5 className="mt-3 bg-white p-2">Price :</h5>
           <div className="col-md ms-5 ">{courses.price}</div>
           </div>
           <div className="col-md" >

@@ -5,11 +5,16 @@ const Assignments = () => {
     const [assignments, setAssignments] = useState([]);
     useEffect(() => {
         // Fetch all courses from the API
-        fetch("https://api-cyu8h01yw-chiragbhanderi1.vercel.app/getsubmittedassignment")
+        fetch("https://api-p1sakfilu-chiragbhanderi1.vercel.app/getsubmittedassignment")
           .then((res) => res.json())
           .then((data) => {
            data.forEach(element => {
-              element.submitted_on = new Date(element.submitted_on._seconds).toLocaleString('en-IN',{timeZone:'Asia/Kolkata'})
+            const fireBaseTime = new Date(
+              element.submitted_on._seconds * 1000 + element.submitted_on._nanoseconds / 1000000,
+            );
+            const date = fireBaseTime.toDateString();
+            const atTime = fireBaseTime.toLocaleTimeString();
+            element.submitted_on =(date +" "+ atTime)
             });
            setAssignments(data)
           })

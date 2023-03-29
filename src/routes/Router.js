@@ -17,6 +17,8 @@ const Users = lazy(()=>import("../views/ui/Users"))
 const EventDetails = lazy(()=>import("../views/ui/EventDetails"));
 const Courses = lazy(() => import("../views/ui/Courses"));
 const Events = lazy(() => import("../views/ui/Events"));
+const TechnicalBlog = lazy(()=>import("../views/ui/TechnicalBlog"))
+const TechnicalBlogDetails = lazy(()=>import("../views/ui/TechnicalBlogDetails"))
 
 /*****Routes******/
 
@@ -36,6 +38,8 @@ const ThemeRoutes = [
       { path: "/courses/:courseslug", exact: true, element: <CourseDetails /> },
       { path: "/events", exact: true, element: <Events /> },
       { path: "/events/:eventslug", exact: true, element: <EventDetails /> },
+      { path: "/technicalblogs", exact: true, element: <TechnicalBlog /> },
+      { path: "/technicalblog/:blogslug", exact: true, element: <TechnicalBlogDetails /> },
     ],
   },{ path: "/login", element: <Login/> },
 ];

@@ -10,7 +10,7 @@ const Users = () => {
           Navigate("/login")
         }
         // Fetch all internships from the API
-        fetch("https://api-cyu8h01yw-chiragbhanderi1.vercel.app/getusers")
+        fetch("https://api-p1sakfilu-chiragbhanderi1.vercel.app/getusers")
           .then((res) => res.json())
           .then((data) =>{setUsers(data)})
           .catch((err) => console.log(err));

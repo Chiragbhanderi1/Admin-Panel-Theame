@@ -34,6 +34,11 @@ const navigation = [
     icon: "bi bi-people",
   },
   {
+    title: "Technical Blogs",
+    href: "/technicalblogs",
+    icon: "bi bi-people",
+  },
+  {
     title: "About",
     href: "/about",
     icon: "bi bi-person",

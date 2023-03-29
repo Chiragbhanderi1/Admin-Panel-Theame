@@ -26,13 +26,13 @@ const EventsDetails = () => {
             <h1 className="text-center border-bottom mb-3">{events.title}</h1>
         <div className="row">
           <div className="col-md">
-            <h5 className="mt-3">Details :</h5>
+            <h5 className="mt-3 bg-white p-2">Details :</h5>
             <div className="ms-5">
                <p>{events.details}</p>
             </div>
-          <h5 className="mt-3">Date :</h5>
+          <h5 className="mt-3 bg-white p-2">Date :</h5>
           <div className="col-md ms-5 ">{events.date}</div>
-          <h5 className="mt-3">Price :</h5>
+          <h5 className="mt-3 bg-white p-2">Price :</h5>
           <div className="col-md ms-5 ">{events.price}</div>
           </div>
           <div className="col-md" >
