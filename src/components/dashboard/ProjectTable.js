@@ -4,7 +4,7 @@ import { Card, CardBody, CardTitle, CardSubtitle, Table } from "reactstrap";
 const ProjectTables = () => {
   const [courses, setCourses] = useState([]);
   useEffect(()=>{
-    fetch("https://api-p1sakfilu-chiragbhanderi1.vercel.app/getcourses")
+    fetch("https://api-ilio3z2hq-chiragbhanderi1.vercel.app/getcourses")
     .then((res) => res.json())
     .then((data) => {
       setCourses(data)

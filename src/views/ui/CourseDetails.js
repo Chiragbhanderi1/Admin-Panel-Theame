@@ -15,7 +15,7 @@ const CoursesDetails = () => {
       Navigate("/login")
     }
     // Fetch all internships from the API
-    fetch(`https://api-p1sakfilu-chiragbhanderi1.vercel.app/getcourse/${courseslug}`)
+    fetch(`https://api-ilio3z2hq-chiragbhanderi1.vercel.app/getcourse/${courseslug}`)
       .then((res) => res.json())
       .then((data) =>{
         setCourses(data)

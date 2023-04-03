@@ -5,7 +5,7 @@ const Assignments = () => {
     const [assignments, setAssignments] = useState([]);
     useEffect(() => {
         // Fetch all courses from the API
-        fetch("https://api-p1sakfilu-chiragbhanderi1.vercel.app/getsubmittedassignment")
+        fetch("https://api-ilio3z2hq-chiragbhanderi1.vercel.app/getsubmittedassignments")
           .then((res) => res.json())
           .then((data) => {
            data.forEach(element => {
@@ -25,10 +25,16 @@ const Assignments = () => {
       <h1 className='border-bottom'>Assignments</h1>
       {assignments.map((assignment,index)=>(
         <div key={index} className="border-bottom pb-3 pt-3">
-          <div><b>UserId : </b>{assignment.user}</div>
-          <div><b>Submitted on : </b>{assignment.submitted_on}</div>
-          <div><b>Course Name : </b>{assignment.course}</div>
-          <a href={assignment.assignment}><button className='btn btn-dark'>View</button></a>
+          <div className='d-flex align-items-center'>
+            <p className='me-4'>{index+1}</p>
+            <div>
+              <div><b>UserId : </b>{assignment.user}</div>
+              <div><b>Submitted on : </b>{assignment.submitted_on}</div>
+              <div><b>Course Name : </b>{assignment.course}</div>
+              <div><b>Assignment Name : </b>{assignment.name}</div>
+              <a href={assignment.assignment}><button className='btn btn-dark'>View</button></a>
+            </div>
+          </div>
         </div>
       ))}
     </div>
