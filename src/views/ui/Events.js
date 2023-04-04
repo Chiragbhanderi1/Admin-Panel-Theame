@@ -197,7 +197,7 @@ const Events = () => {
                   type="date"
                   value={eventData.date}
                   onChange={handleInputChange}
-                  min={new Date().toISOString().split('T')[0]}
+                  // min={new Date().toISOString().split('T')[0]}
                 />
               </FormGroup>
               <FormGroup>
