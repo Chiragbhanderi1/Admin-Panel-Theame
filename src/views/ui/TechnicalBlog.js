@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Blog from "../../components/dashboard/Blog";
 import {
   Card,
   Row,
@@ -11,25 +10,28 @@ import {
   FormGroup,
   Label,
   Input,
-  FormText
+  FormText,
+  CardSubtitle,
+  CardText,
 } from "reactstrap";
 import { useNavigate } from 'react-router-dom';
 const TechnicalBlog = () => {
   const Navigate =useNavigate();
   const [blogss, setBlog] = useState([]);
-  const [selectedImg, setSelectedImg] = useState(null);
+  // eslint-disable-next-line
+  const [selectedImg, setSelectedImg] = useState([]);
   const [update,setUpdate] =useState(false)
   const [loading,setLoading] =useState(false)
-  const [blogsData, setBlogData] = useState({
+  const [blogData, setBlogData] = useState({
     title: "",
     subtitle: "",
     details: "",
     date: "",
-    img:""
+    img:[]
   });
   const handleInputChange = (e) => {
     setBlogData({
-      ...blogsData,
+      ...blogData,
       [e.target.name]: e.target.value,
     });
   };
@@ -38,7 +40,7 @@ const TechnicalBlog = () => {
       Navigate("/login")
     }
     // Fetch all blogss from the API
-    fetch("https://api-ilio3z2hq-chiragbhanderi1.vercel.app/gettechnicalblogs")
+    fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/gettechnicalblogs")
       .then((res) => res.json())
       .then((data) => {
         data.forEach(element => {
@@ -55,34 +57,45 @@ const TechnicalBlog = () => {
       // eslint-disable-next-line
   }, []);
   const handleImageUpload = (e)=>{
-    setSelectedImg(e.target.files[0]);
+    const uploadedFiles = (e.target.files);
+      for (let i = 0; i < uploadedFiles.length; i++) {
+        const file = uploadedFiles[i];
+        selectedImg[file.name] = file;
+      }
   }
   const uploadImg = async()=>{
     setLoading(true)
-    const formData = new FormData();
-    formData.append("file", selectedImg);
-    const res = await  fetch("https://api-ilio3z2hq-chiragbhanderi1.vercel.app/fileevent",{
-      method:"POST",
-      body:formData
-    })
-     console.log(res);
-      const json = await res.json()
-      const downloadUrl = await json.downloadUrl;
-      setBlogData({
-        ...blogsData,
-        img:downloadUrl
-      })
-      setLoading(false)
+      for(const name in selectedImg){
+        try {
+        const formData = new FormData();
+        formData.append("file", selectedImg[name]);
+        const res = await  fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/fileevent",{
+          method:"POST",
+          body:formData
+        })
+        const json = await res.json()
+        const downloadUrl = await json.downloadUrl;
+        selectedImg.push( downloadUrl[0])
+        setBlogData({
+          ...blogData,
+          img:selectedImg
+        })
+        console.log(selectedImg)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    setLoading(false)
   }
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Add the blogs to the database with the download URLs of the files
-    fetch("https://api-ilio3z2hq-chiragbhanderi1.vercel.app/technicalblogs", {
+    fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/technicalblogs", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(blogsData),
+      body: JSON.stringify(blogData),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -94,7 +107,7 @@ const TechnicalBlog = () => {
   };
   const handleDeleteBlog = (id) => {
     // Send a DELETE request to the API to delete the blogs with the given ID
-    fetch(`https://api-ilio3z2hq-chiragbhanderi1.vercel.app/deletetechnicalblog/${id}`, {
+    fetch(`https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/deletetechnicalblog/${id}`, {
       method: "DELETE",
     })
       .then(() => {
@@ -108,12 +121,12 @@ const TechnicalBlog = () => {
   const handleUpdateBlog = (e) => {
     e.preventDefault();
     // Send a PUT request to the API to update the blogs with the given ID
-    fetch(`https://api-ilio3z2hq-chiragbhanderi1.vercel.app/updatetechnicalblog/${blogsData.title}`, {
+    fetch(`https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/updatetechnicalblog/${blogData.title}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(blogsData),
+      body: JSON.stringify(blogData),
     })
       .then((res) =>{ 
         if(Response.status ===200){
@@ -158,7 +171,7 @@ const TechnicalBlog = () => {
                   id="title"
                   name="title"
                   placeholder="Title for a Blog"
-                  value={blogsData.title}
+                  value={blogData.title}
                   onChange={handleInputChange}
                   type="text"
                 />
@@ -168,7 +181,7 @@ const TechnicalBlog = () => {
                 <Input
                   id="subtitle"
                   name="subtitle"
-                  value={blogsData.subtitle}
+                  value={blogData.subtitle}
                   onChange={handleInputChange}
                   placeholder="SubTitle"
                   type="text"
@@ -179,7 +192,7 @@ const TechnicalBlog = () => {
                 <Input
                   id="details"
                   name="details"
-                  value={blogsData.details}
+                  value={blogData.details}
                   onChange={handleInputChange}
                   placeholder="Details in form of paragraph"
                   type="text"
@@ -188,7 +201,7 @@ const TechnicalBlog = () => {
               <FormGroup>
                 <Label for="img">Image</Label>
                 <div className='d-flex'>
-                <Input id="img" name="img" type="file" onChange={handleImageUpload}/>
+                <Input id="img" name="img" multiple type="file" onChange={handleImageUpload}/>
                 <Button onClick={uploadImg} className='ms-2'>Upload</Button>
                 </div>
                 <FormText>
@@ -196,7 +209,7 @@ const TechnicalBlog = () => {
                   You Must Wait Unit Image is been Uploaded
                 </FormText>
               </FormGroup>
-              <Button type='submit' style={{width:"100%"}}>{update?"Update":"Add"} Blog</Button>
+              <Button type='submit'disabled={loading} style={{width:"100%"}}>{update?"Update":"Add"} Blog</Button>
             </Form>
           </CardBody>
         </Card>
@@ -205,17 +218,20 @@ const TechnicalBlog = () => {
     <Row>
         {blogss.map((blg, index) => (
           <Col sm="6" lg="6" xl="3" key={index}>
-            <Blog
-              image={blg.img}
-              title={blg.title}
-              subtitle={blg.subtitle}
-              text1={blg.date}
-              text2={blg.details.slice(10)}
-              deletebtn ={()=>{handleDeleteBlog(blg.title)}}
-              morebtn ={()=>{handleMore(blg.title)}}
-              editbtn ={()=>{handleEditBlog(blg)}}
-              color="dark"
-            />
+            <Card>
+              <div className='text-center justify-content-center d-flex align-items-center p-2'>
+                <iframe src={blg.img[0]} title="something" height={"200px"} width={"100%"} style={{width:"275px"}}></iframe>
+              </div>
+              <CardBody className="p-4">
+                <CardTitle tag="h5">{blg.title}</CardTitle>
+                <CardSubtitle>{blg.subtitle}</CardSubtitle>
+                <CardText className="mt-3" dangerouslySetInnerHTML={{__html:blg.details}}></CardText>
+                <div className="text-center">
+                <Button onClick={()=>{handleEditBlog(blg)}} color="dark" className="mt-1">Edit</Button>
+                <Button onClick={()=>{handleDeleteBlog(blg.id)}} color="dark" className="ms-2 mt-1">Delete</Button>
+                <Button onClick={()=>{handleMore(blg.id)}} color="dark" className="ms-2  mt-1">More</Button></div>
+              </CardBody>
+            </Card>
           </Col>
         ))}
       </Row>

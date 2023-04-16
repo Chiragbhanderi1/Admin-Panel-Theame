@@ -7,7 +7,6 @@ const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
 /***** Pages ****/
 
 const Starter = lazy(() => import("../views/Starter.js"));
-const About = lazy(() => import("../views/About.js"));
 const Internships = lazy(() => import("../views/ui/Internships"));
 const InternshipDetails = lazy(()=>import("../views/ui/InternshipDetails"));
 const Assignments = lazy(()=>import("../views/ui/Assignments"));
@@ -19,7 +18,10 @@ const Courses = lazy(() => import("../views/ui/Courses"));
 const Events = lazy(() => import("../views/ui/Events"));
 const TechnicalBlog = lazy(()=>import("../views/ui/TechnicalBlog"))
 const TechnicalBlogDetails = lazy(()=>import("../views/ui/TechnicalBlogDetails"))
-
+const Banner = lazy(()=>import("../views/ui/Banner"))
+const Blogs = lazy(()=>import("../views/ui/Blogs"))
+const Contactus = lazy(()=>import("../views/ui/Contactus"))
+const Achievement = lazy(()=>import("../views/ui/Achievements.js"))
 /*****Routes******/
 
 const ThemeRoutes = [
@@ -30,7 +32,6 @@ const ThemeRoutes = [
       { path: "/", element: <Navigate to="/starter" /> },
       { path: "/users", exact: true, element: <Users   /> },
       { path: "/starter", exact: true, element: <Starter   /> },
-      { path: "/about", exact: true, element: <About /> },
       { path: "/internships", exact: true, element: <Internships /> },
       { path: "/internships/:internshipslug", exact: true, element: <InternshipDetails /> },
       { path: "/courses", exact: true, element: <Courses /> },
@@ -40,6 +41,10 @@ const ThemeRoutes = [
       { path: "/events/:eventslug", exact: true, element: <EventDetails /> },
       { path: "/technicalblogs", exact: true, element: <TechnicalBlog /> },
       { path: "/technicalblog/:blogslug", exact: true, element: <TechnicalBlogDetails /> },
+      { path: "/banner", exact: true, element: <Banner/> },
+      { path: "/blogs", exact: true, element: <Blogs/> },
+      { path: "/contactus", exact: true, element: <Contactus/> },
+      { path: "/achievements", exact: true, element: <Achievement/> },
     ],
   },{ path: "/login", element: <Login/> },
 ];

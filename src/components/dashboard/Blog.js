@@ -1,10 +1,10 @@
 import {
   Card,
   CardBody,
-  CardImg,
   CardSubtitle,
   CardText,
   CardTitle,
+  CardImg,
   Button,
 } from "reactstrap";
 
@@ -15,8 +15,8 @@ const Blog = (props) => {
       <CardBody className="p-4">
         <CardTitle tag="h5">{props.title}</CardTitle>
         <CardSubtitle>{props.subtitle}</CardSubtitle>
-        <CardText className="mt-3">{props.text1}</CardText>
-        <CardText className="mt-3">{props.text2}</CardText>
+        <CardText className="mt-3" dangerouslySetInnerHTML={{__html:props.text1}}></CardText>
+        <CardText className="mt-3" dangerouslySetInnerHTML={{__html:props.text2}}></CardText>
         <CardText className="mt-3">{props.text3}</CardText>
         <CardText className="mt-3">{props.text4}</CardText>
         <div className="text-center">

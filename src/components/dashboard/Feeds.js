@@ -13,7 +13,7 @@ import {
 const Feeds = () => {
   const [users, setUsers] = useState([]);
   useEffect(()=>{
-    fetch("https://api-ilio3z2hq-chiragbhanderi1.vercel.app/getusers")
+    fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/getusers")
     .then((res) => res.json())
     .then((data) =>{setUsers(data)})
     .catch((err) => console.log(err));

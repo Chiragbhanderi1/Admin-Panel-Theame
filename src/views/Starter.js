@@ -18,24 +18,24 @@ const Starter = () => {
     if(!localStorage.getItem('myuser')){
       Navigate("/login")
     }
-    fetch("https://api-ilio3z2hq-chiragbhanderi1.vercel.app/getcourses")
+    fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/getcourses")
       .then((res) => res.json())
       .then((data) => {
         setCourses(data)
       })
       .catch((err) => console.log(err));
 
-    fetch("https://api-ilio3z2hq-chiragbhanderi1.vercel.app/getinterships")
+    fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/getinterships")
     .then((res) => res.json())
     .then((data) =>{setInternships(data)})
     .catch((err) => console.log(err));
 
-    fetch("https://api-ilio3z2hq-chiragbhanderi1.vercel.app/getevents")
+    fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/getevents")
       .then((res) => res.json())
       .then((data) => setEvents(data))
       .catch((err) => console.log(err));
 
-    fetch("https://api-ilio3z2hq-chiragbhanderi1.vercel.app/getusers")
+    fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/getusers")
     .then((res) => res.json())
     .then((data) =>{setUsers(data)})
     .catch((err) => console.log(err));

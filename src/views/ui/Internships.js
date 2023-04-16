@@ -41,7 +41,7 @@ const Internships = () => {
       Navigate("/login")
     }
     // Fetch all internships from the API
-    fetch("https://api-ilio3z2hq-chiragbhanderi1.vercel.app/getinterships")
+    fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/getinterships")
       .then((res) => res.json())
       .then((data) =>{setInternships(data)})
       .catch((err) => console.log(err));
@@ -80,7 +80,7 @@ const Internships = () => {
     setLoading(true)
     const formData = new FormData();
     formData.append("file", selectedImg);
-    const res = await  fetch("https://api-ilio3z2hq-chiragbhanderi1.vercel.app/fileinteship",{
+    const res = await  fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/fileinteship",{
       method:"POST",
       body:formData
     })
@@ -97,7 +97,7 @@ const Internships = () => {
   const handleAddInternship = async (e) => {
     e.preventDefault();
     // Add the internship to the database with the download URLs of the files
-    fetch("https://api-ilio3z2hq-chiragbhanderi1.vercel.app/interships", {
+    fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/interships", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -114,7 +114,7 @@ const Internships = () => {
   };
   const handleDeleteInternship = (id) => {
     // Send a DELETE request to the API to delete the internship with the given ID
-    fetch(`https://api-ilio3z2hq-chiragbhanderi1.vercel.app/deleteintership/${id}`, {
+    fetch(`https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/deleteintership/${id}`, {
       method: "DELETE",
     })
       .then(() => {
@@ -129,7 +129,7 @@ const Internships = () => {
    try{ 
      e.preventDefault();
      // Send a PUT request to the API to update the internship with the given ID
-     fetch(`https://api-ilio3z2hq-chiragbhanderi1.vercel.app/updateintership/${internshipData.title}`, {
+     fetch(`https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/updateintership/${internshipData.title}`, {
        method: "PUT",
        headers: {
          "Content-Type": "application/json",
@@ -292,7 +292,7 @@ const Internships = () => {
                   name="perks"
                   value={internshipData.perks}
                   onChange={handleInputChange}
-                  placeholder="Perks in form of points, seprated by '*'"
+                  placeholder="Perks in form paragraph could contain html tags"
                   type="text"
                 />
               </FormGroup>
@@ -307,7 +307,7 @@ const Internships = () => {
                   You Must Wait Unit Image is been Uploaded
                 </FormText>
               </FormGroup>
-              <Button type='submit' style={{width:"100%"}}>{update?"Update":"Add"} Internship</Button>
+              <Button type='submit' disabled={loading} style={{width:"100%"}}>{update?"Update":"Add"} Internship</Button>
             </Form>
           </CardBody>
         </Card>

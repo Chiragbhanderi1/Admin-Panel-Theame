@@ -36,12 +36,27 @@ const navigation = [
   {
     title: "Technical Blogs",
     href: "/technicalblogs",
-    icon: "bi bi-people",
+    icon: "bi bi-journal-code",
   },
   {
-    title: "About",
-    href: "/about",
-    icon: "bi bi-person",
+    title: "Banner",
+    href: "/banner",
+    icon: "bi bi-kanban",
+  },
+  {
+    title: "Blogs",
+    href: "/blogs",
+    icon: "bi bi-journal-richtext",
+  },
+  {
+    title: "Achievements",
+    href: "/achievements",
+    icon: "bi bi-bar-chart",
+  },
+  {
+    title: "Contact Us",
+    href: "/contactus",
+    icon: "bi bi-person-lines-fill",
   },
 ];
 
@@ -52,7 +67,7 @@ const Sidebar = () => {
   let location = useLocation();
 
   return (
-    <div className="p-md-3 position-fixed ">
+    <div className="p-md-3 position-fixed">
       <div className="d-flex align-items-center bg-dark rounded p-4 ">
         <Logo />
         <Button
@@ -62,7 +77,7 @@ const Sidebar = () => {
           onClick={() => showMobilemenu()}
         ></Button>
       </div>
-      <div className="pt-4 mt-2 ">
+      <div className=" mt-2 ">
         <Nav vertical className="sidebarNav">
           {navigation.map((navi, index) => (
             <NavItem key={index} className="sidenav-bg">

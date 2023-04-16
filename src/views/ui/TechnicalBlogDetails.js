@@ -9,7 +9,7 @@ const TechnicalBlogDetails = () => {
       Navigate("/login")
     }
     // Fetch all internships from the API
-    fetch(`https://api-ilio3z2hq-chiragbhanderi1.vercel.app/gettechnicalblog/${blogslug}`)
+    fetch(`https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/gettechnicalblog/${blogslug}`)
     .then((res) => res.json())
     .then((data) =>{
             const fireBaseTime = new Date(
@@ -37,11 +37,16 @@ const TechnicalBlogDetails = () => {
                <p>{blogs.details}</p>
             </div>
           </div>
-          <div className="col-md" >
-            <img
+          <div className="col-md wrap" >
+            <iframe
               src={`${blogs.img}`}
               alt="Blog "
-              className="img-fluid mx-auto d-block"
+              className="img-fluid mx-auto d-block frame"
+              width={"100%"} 
+              frameborder='0' 
+              scrolling='no'
+              height={"100%"}
+              title="sometihnf"
             />
           </div>
         </div>

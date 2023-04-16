@@ -46,6 +46,7 @@ const Courses = () => {
     duration: "",
     price: "",
     img:"",
+    category:"",
     materails:{},
     assignments:{},
     videos:{}
@@ -55,7 +56,7 @@ const Courses = () => {
       Navigate("/login")
     }
     // Fetch all courses from the API
-    fetch("https://api-ilio3z2hq-chiragbhanderi1.vercel.app/getcourses")
+    fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/getcourses")
       .then((res) => res.json())
       .then((data) => setCourses(data))
       .catch((err) => console.log(err));
@@ -75,7 +76,7 @@ const Courses = () => {
     setLoadingimg(true)
     const formData = new FormData();
     formData.append("file", selectedImg);
-    const res = await  fetch("https://api-ilio3z2hq-chiragbhanderi1.vercel.app/filecourses",{
+    const res = await  fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/filecourses",{
       method:"POST",
       body:formData
     })
@@ -103,7 +104,7 @@ const Courses = () => {
         try {
         const formData = new FormData();
         formData.append("file", assignments[name]);
-        const res = await  fetch("https://api-ilio3z2hq-chiragbhanderi1.vercel.app/filecourses",{
+        const res = await  fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/filecourses",{
           method:"POST",
           body:formData
         })
@@ -134,7 +135,7 @@ const Courses = () => {
     for(const name in materails){
       try{const formData = new FormData();
       formData.append("file", materails[name]);
-      const res = await  fetch("https://api-ilio3z2hq-chiragbhanderi1.vercel.app/filecourses",{
+      const res = await  fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/filecourses",{
         method:"POST",
         body:formData
       })
@@ -167,7 +168,7 @@ const Courses = () => {
     for(const name in files){
       try{const formData = new FormData();
       formData.append("file", files[name]);
-      const res = await  fetch("https://api-ilio3z2hq-chiragbhanderi1.vercel.app/filecourses",{
+      const res = await  fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/filecourses",{
         method:"POST",
         body:formData
       })
@@ -187,17 +188,16 @@ const Courses = () => {
     setLoadingvid(false)
   }
   const handleAddCourse = async (e) => {
-    console.log(courseData)
     e.preventDefault();
     // Add the course to the database with the download URLs of the files
-    fetch("https://api-ilio3z2hq-chiragbhanderi1.vercel.app/courses", {
+    fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/courses", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(courseData),
     })
-      .then((res) => res.json())
+      .then((res) => {res.json()})
       .then((data) => {
         setUpdate(false);
         // eslint-disable-next-line no-restricted-globals
@@ -207,7 +207,7 @@ const Courses = () => {
   };
   const handleDeleteCourse = (id) => {
     // Send a DELETE request to the API to delete the course with the given ID
-    fetch(`https://api-ilio3z2hq-chiragbhanderi1.vercel.app/deletecourse/${id}`, {
+    fetch(`https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/deletecourse/${id}`, {
       method: "DELETE",
     })
       .then(() => {
@@ -218,7 +218,7 @@ const Courses = () => {
   const handleUpdateCourse = (e) => {
    try{ e.preventDefault();
     // Send a PUT request to the API to update the course with the given ID
-    fetch(`https://api-ilio3z2hq-chiragbhanderi1.vercel.app/updatecourse/${courseData.title}`, {
+    fetch(`https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/updatecourse/${courseData.title}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -253,6 +253,7 @@ const Courses = () => {
       price: course.price,
       duration: course.duration,
       img:course.img,
+      category:course.category,
       videos:course.videos,
       assignments:course.assignments,
       materails:course.materails
@@ -294,7 +295,24 @@ const Courses = () => {
                   value={courseData.subtitle}
                   onChange={handleInputChange}
                   type="text"
-                />
+                /></FormGroup>
+              <FormGroup>
+                <Label for="category">Category</Label>
+                <Input
+                  id="category"
+                  name="category"
+                  value={courseData.category}
+                  onChange={handleInputChange}
+                  type="select"
+                > 
+                <option disabled>Select Category</option>
+                <option  value={"Data Science"}>Data Science</option>
+                <option value={"IOT"}>IOT</option>
+                <option value={"SEO"}>SEO</option>
+                <option value={"Digital Marketing"}>Digital Marketing</option>
+                <option value={"Machine Learning"}>Machine Learning</option>
+                <option value={"Others"}>Others</option>
+                </Input>
               </FormGroup> 
               <FormGroup>
                 <Label for="details">Details</Label>
@@ -303,7 +321,7 @@ const Courses = () => {
                   name="details"
                   value={courseData.details}
                   onChange={handleInputChange}
-                  placeholder="Details in form of points, seprated by '*'"
+                  placeholder="Details in form of paraagraphs could contain html tags"
                   type="text"
                 />
               </FormGroup>
@@ -314,7 +332,7 @@ const Courses = () => {
                   name="benifits"
                   value={courseData.benifits}
                   onChange={handleInputChange}
-                  placeholder="Benifits in form of points, seprated by '*'"
+                  placeholder="Benifits in Form of paragraphs could contain html tags"
                   type="text"
                 />
               </FormGroup>
@@ -384,7 +402,7 @@ const Courses = () => {
                   You Must Wait Until Assignments is been Uploaded
                 </FormText>
               </FormGroup>
-              <Button type="submit"   style={{width:"100%"}}>{update?"Update":"Add"} Courses</Button>
+              <Button type="submit" disabled={loadingass || loadingimg || loadingmat || loadingvid}  style={{width:"100%"}}>{update?"Update":"Add"} Courses</Button>
             </Form>
           </CardBody>
         </Card>

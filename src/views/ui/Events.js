@@ -39,7 +39,7 @@ const Events = () => {
       Navigate("/login")
     }
     // Fetch all events from the API
-    fetch("https://api-ilio3z2hq-chiragbhanderi1.vercel.app/getevents")
+    fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/getevents")
       .then((res) => res.json())
       .then((data) => setEvents(data))
       .catch((err) => console.log(err));
@@ -52,7 +52,7 @@ const Events = () => {
     setLoading(true)
     const formData = new FormData();
     formData.append("file", selectedImg);
-    const res = await  fetch("https://api-ilio3z2hq-chiragbhanderi1.vercel.app/fileevent",{
+    const res = await  fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/fileevent",{
       method:"POST",
       body:formData
     })
@@ -68,7 +68,7 @@ const Events = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Add the event to the database with the download URLs of the files
-    fetch("https://api-ilio3z2hq-chiragbhanderi1.vercel.app/events", {
+    fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/events", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -85,7 +85,7 @@ const Events = () => {
   };
   const handleDeleteEvent = (id) => {
     // Send a DELETE request to the API to delete the event with the given ID
-    fetch(`https://api-ilio3z2hq-chiragbhanderi1.vercel.app/deleteevent/${id}`, {
+    fetch(`https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/deleteevent/${id}`, {
       method: "DELETE",
     })
       .then(() => {
@@ -99,7 +99,7 @@ const Events = () => {
   const handleUpdateEvent = (e) => {
     e.preventDefault();
     // Send a PUT request to the API to update the event with the given ID
-    fetch(`https://api-ilio3z2hq-chiragbhanderi1.vercel.app/updateevent/${eventData.title}`, {
+    fetch(`https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/updateevent/${eventData.title}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -211,7 +211,7 @@ const Events = () => {
                   You Must Wait Unit Image is been Uploaded
                 </FormText>
               </FormGroup>
-              <Button type='submit' style={{width:"100%"}}>{update?"Update":"Add"} Event</Button>
+              <Button type='submit' disabled={loading} style={{width:"100%"}}>{update?"Update":"Add"} Event</Button>
             </Form>
           </CardBody>
         </Card>

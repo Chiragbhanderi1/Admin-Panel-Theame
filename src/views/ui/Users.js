@@ -40,7 +40,7 @@ const Users = () => {
     const Navigate = useNavigate();
     const openModal =(uid)=>{
       setModalShow(true)
-      fetch(`https://api-ilio3z2hq-chiragbhanderi1.vercel.app/getsubmittedassignment/${uid}`)
+      fetch(`https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/getsubmittedassignment/${uid}`)
       .then((res) => res.json())
       .then((data) => setModalData(data))
       .catch((err) => console.log(err));
@@ -51,7 +51,7 @@ const Users = () => {
           Navigate("/login")
         }
         // Fetch all internships from the API
-        fetch("https://api-ilio3z2hq-chiragbhanderi1.vercel.app/getusers")
+        fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/getusers")
           .then((res) => res.json())
           .then((data) =>{setUsers(data)})
           .catch((err) => console.log(err));
@@ -66,7 +66,7 @@ const Users = () => {
             <i className="bi bi-people me-2"> </i>
             Users
           </CardTitle>
-          <CardBody style={{overflowX:"scroll"}}>
+          <CardBody style={{overflowX:"auto"}}>
             <Table bordered hover>
               <thead>
                 <tr>

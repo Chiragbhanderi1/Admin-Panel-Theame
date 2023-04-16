@@ -15,7 +15,7 @@ const CoursesDetails = () => {
       Navigate("/login")
     }
     // Fetch all internships from the API
-    fetch(`https://api-ilio3z2hq-chiragbhanderi1.vercel.app/getcourse/${courseslug}`)
+    fetch(`https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/getcourse/${courseslug}`)
       .then((res) => res.json())
       .then((data) =>{
         setCourses(data)
@@ -35,16 +35,17 @@ const CoursesDetails = () => {
             <h1 className="text-center border-bottom mb-3">{courses.title}</h1>
         <div className="row ">
           <div className="col-md">
+            <h4>Category : {courses.category}</h4>
             <h5 className="mt-3 bg-white p-2">Details :</h5>
             <div className="ms-5">
-                { details.map((item)=>(
-                    <div className="col-md">{item}</div>
+                { details.map((item,index)=>(
+                    <div  dangerouslySetInnerHTML={{__html:item}} key={index}></div>
                 ))}
             </div>
             <h5 className="mt-3 bg-white p-2">Benifits :</h5>
             <div className="ms-5 ">
-                { benifits.map((item)=>(
-                    <div className="col-md">{item}</div>
+                { benifits.map((item,index)=>(
+                   <div  dangerouslySetInnerHTML={{__html:item}} key={index}></div>
                 ))}
             </div>
           <h5 className="mt-3 bg-white p-2">Duration :</h5>
@@ -104,9 +105,9 @@ const CoursesDetails = () => {
           <div className="col-md justify-content-center">
             <h1 className="text-center"> Students Enrolled</h1>
             {student.length===0 && <div className="text-center">No Students Have Enrolled Yet.</div>}
+            <h5>Total No. of Students Enrolled :{student.length}</h5>
             {student.map((item)=>(
               <div>
-                <h5>Total No. of Students Enrolled :{student.length}</h5>
               <ul class="list-group">
                 <li class="list-group-item">{item}</li>
               </ul>
