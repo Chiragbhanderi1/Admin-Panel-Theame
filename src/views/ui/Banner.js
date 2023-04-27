@@ -19,13 +19,15 @@ import {
 const Banner = () => {
     const [banners, setBanners] = useState([]);
     const [selectedImg, setSelectedImg] = useState(null);
+    const [selectedImgMob, setSelectedImgMob] = useState(null);
     const [update,setUpdate] =useState(false)
     const [loading,setLoading] =useState(false)
     const [bannerData, setBannerData] = useState({
       title: "",
       subtitle: "",
       type:"",
-      img:""
+      imgDesk:"",
+      imgMob:""
     });
     const handleInputChange = (e) => {
       setBannerData({
@@ -39,7 +41,7 @@ const Banner = () => {
           Navigate("/login")
         }
         // Fetch all internships from the API
-        fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/getbanners")
+        fetch("https://api-otkz60obx-chiragbhanderi1.vercel.app/getbanners")
           .then((res) => res.json())
           .then((data) =>{setBanners(data);console.log(banners) })
           .catch((err) => console.log(err));
@@ -52,7 +54,7 @@ const Banner = () => {
         setLoading(true)
         const formData = new FormData();
         formData.append("file", selectedImg);
-        const res = await  fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/fileevent",{
+        const res = await  fetch("https://api-otkz60obx-chiragbhanderi1.vercel.app/fileevent",{
           method:"POST",
           body:formData
         })
@@ -60,14 +62,33 @@ const Banner = () => {
           const downloadUrl = await json.downloadUrl;
           setBannerData({
             ...bannerData,
-            img:downloadUrl
+            imgDesk:downloadUrl
+          })
+          setLoading(false)
+      }
+      const handleImageMobileUpload = (e)=>{
+        setSelectedImgMob(e.target.files[0]);
+      }
+      const uploadImgMobile = async()=>{
+        setLoading(true)
+        const formData = new FormData();
+        formData.append("file", selectedImgMob);
+        const res = await  fetch("https://api-otkz60obx-chiragbhanderi1.vercel.app/fileevent",{
+          method:"POST",
+          body:formData
+        })
+          const json = await res.json()
+          const downloadUrl = await json.downloadUrl;
+          setBannerData({
+            ...bannerData,
+            imgMob:downloadUrl
           })
           setLoading(false)
       }
       const handleSubmit = async (e) => {
         e.preventDefault();
         // Add the banner to the database with the download URLs of the files
-        fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/banners", {
+        fetch("https://api-otkz60obx-chiragbhanderi1.vercel.app/banners", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -84,7 +105,7 @@ const Banner = () => {
       };
       const handleDeleteBanner = (id) => {
         // Send a DELETE request to the API to delete the banner with the given ID
-        fetch(`https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/deletebanner/${id}`, {
+        fetch(`https://api-otkz60obx-chiragbhanderi1.vercel.app/deletebanner/${id}`, {
           method: "DELETE",
         })
           .then((res) => {
@@ -96,7 +117,7 @@ const Banner = () => {
       const handleUpdateBanner = (e) => {
         e.preventDefault();
         // Send a PUT request to the API to update the banner with the given ID
-        fetch(`https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/updatebanner/${bannerData.id}`, {
+        fetch(`https://api-otkz60obx-chiragbhanderi1.vercel.app/updatebanner/${bannerData.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -173,10 +194,20 @@ const Banner = () => {
                 </Input>
               </FormGroup> 
               <FormGroup>
-                <Label for="img">Image</Label>
+                <Label for="imgDesk">Desktop Image</Label>
                 <div className='d-flex'>
-                <Input id="img" name="img" type="file" onChange={handleImageUpload}/>
+                <Input id="imgDesk" name="imgDesk" type="file" onChange={handleImageUpload}/>
                 <Button onClick={uploadImg} className='ms-2'>Upload</Button>
+                </div>
+                <FormText>
+                  You Must Wait Unit Image is been Uploaded
+                </FormText>
+              </FormGroup>
+              <FormGroup>
+                <Label for="imgMob">Mobile Image</Label>
+                <div className='d-flex'>
+                <Input id="imgMob" name="imgMob" type="file" onChange={handleImageMobileUpload}/>
+                <Button onClick={uploadImgMobile} className='ms-2'>Upload</Button>
                 </div>
                 <FormText>
                   You Must Wait Unit Image is been Uploaded
@@ -189,7 +220,8 @@ const Banner = () => {
             <thead>
               <tr>
                 <th>Sr.</th>
-                <th>Image</th>
+                <th>Desk Image</th>
+                <th>Mobile Image</th>
                 <th>Title</th>
                 <th>Subtitle</th>
                 <th>Type</th>
@@ -201,7 +233,8 @@ const Banner = () => {
                   {banners.map((banner,index)=>(
               <tr key={index} onClick={() => {}}>
                 <th scope="row">{index+1}</th>
-                <td><a href={banner.img}><img src={banner.img} alt='banner' height={"100px"} width={"200px"} /></a></td>
+                <td><a href={banner.imgDesk}><img src={banner.imgDesk} alt='banner' height={"100px"} width={"200px"} /></a></td>
+                <td><a href={banner.imgMob}><img src={banner.imgMob} alt='banner' height={"100px"} width={"200px"} /></a></td>
                 <td>{banner.title}</td>
                 <td>{banner.subtitle}</td>
                 <td>{banner.type}</td>

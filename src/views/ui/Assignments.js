@@ -5,7 +5,7 @@ const Assignments = () => {
     const [assignments, setAssignments] = useState([]);
     useEffect(() => {
         // Fetch all courses from the API
-        fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/getsubmittedassignments")
+        fetch("https://api-otkz60obx-chiragbhanderi1.vercel.app/getsubmittedassignments")
           .then((res) => res.json())
           .then((data) => {
            data.forEach(element => {

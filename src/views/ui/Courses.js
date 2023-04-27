@@ -9,6 +9,7 @@ import {
   Button,
   Form,
   FormGroup,
+  Table,
   Label,
   Input,
   FormText
@@ -17,27 +18,39 @@ import { useNavigate } from "react-router-dom";
 const Courses = () => {
   const Navigate =useNavigate();
   const [loadingimg,setLoadingimg] =useState();
+  const [loadingbann,setLoadingbann] =useState();
   const [loadingvid,setLoadingvid] =useState();
   const [loadingmat,setLoadingmat] =useState();
   const [loadingass,setLoadingass] =useState();
   const [courses, setCourses] = useState([]);
-  const [isButtonDisabled, setIsButtonDisabled] = useState(0);
   // eslint-disable-next-line
   const [files, setFiles] = useState({});
+  const [videoData, setVideoData] = useState({
+    url:"",
+    title:"",
+    desc:""
+  });
+  // eslint-disable-next-line
+  const [videoArray,setVideoArray]=useState([]);
   const [update, setUpdate] = useState(null);
   // eslint-disable-next-line
-  const [fileUrls,setfileUrls] =useState([]);
-  // eslint-disable-next-line
-  const [materails,setMaterails] =useState({})
+  const [materials,setMaterials] =useState({})
+  const [materialArray,setMaterialArray]=useState([]);
+  const [materialData, setMaterialData] = useState({
+    url:"",
+    title:"",
+  });
   // eslint-disable-next-line
   const [error,setError] =useState([])
   // eslint-disable-next-line
-  const [materailsUrls, setMaterailsUrls] = useState([])
-  // eslint-disable-next-line
   const [assignments,setAssignments] =useState({})
-  // eslint-disable-next-line
-  const [assignmentsUrls, setAssignmentsUrls] = useState([])
+  const [assignmentArray,setAssignmentArray]=useState([]);
+  const [assignmentData, setAssignmentData] = useState({
+    url:"",
+    title:"",
+  });
   const [selectedImg, setSelectedImg] = useState(null);
+  const [selectedBann, setSelectedBann] = useState(null);
   const [courseData, setCourseData] = useState({
     title: "",
     subtitle:"",
@@ -46,8 +59,9 @@ const Courses = () => {
     duration: "",
     price: "",
     img:"",
+    banner:"",
     category:"",
-    materails:{},
+    materials:{},
     assignments:{},
     videos:{}
   });
@@ -56,7 +70,7 @@ const Courses = () => {
       Navigate("/login")
     }
     // Fetch all courses from the API
-    fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/getcourses")
+    fetch("https://api-otkz60obx-chiragbhanderi1.vercel.app/getcourses")
       .then((res) => res.json())
       .then((data) => setCourses(data))
       .catch((err) => console.log(err));
@@ -68,6 +82,26 @@ const Courses = () => {
       [e.target.name]: e.target.value,
     });
   };
+  const handleBannerUpload = (e)=>{
+    setSelectedBann(e.target.files[0]);
+  }
+  const uploadBanner = async()=>{
+   try{ 
+    setLoadingbann(true)
+    const formData = new FormData();
+    formData.append("file", selectedBann);
+    const res = await  fetch("https://api-otkz60obx-chiragbhanderi1.vercel.app/filecourses",{
+      method:"POST",
+      body:formData
+    })
+      const json = await res.json()
+      const downloadUrl = await json.downloadUrl;
+      setCourseData({
+        ...courseData,
+        banner:downloadUrl
+      })
+      setLoadingbann(false)}catch(error){console.log(error)}
+  }
   const handleImageUpload = (e)=>{
     setSelectedImg(e.target.files[0]);
   }
@@ -76,121 +110,172 @@ const Courses = () => {
     setLoadingimg(true)
     const formData = new FormData();
     formData.append("file", selectedImg);
-    const res = await  fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/filecourses",{
+    const res = await  fetch("https://api-otkz60obx-chiragbhanderi1.vercel.app/filecourses",{
       method:"POST",
       body:formData
     })
-     console.log(res);
       const json = await res.json()
       const downloadUrl = await json.downloadUrl;
       setCourseData({
         ...courseData,
         img:downloadUrl
       })
-      setLoadingimg(false)
-      setIsButtonDisabled(isButtonDisabled+1);}catch(error){console.log(error)}
+      setLoadingimg(false)}catch(error){console.log(error)}
   }
   const handleAssignmentUpload = (e) => {
-      const uploadedFiles = (e.target.files);
-      for (let i = 0; i < uploadedFiles.length; i++) {
-        const file = uploadedFiles[i];
-        assignments[file.name] = file;
-      }
+      setAssignments(e.target.files[0]);
   };
+  const addAssignments=()=>{
+    try{
+      assignmentArray.push(assignmentData);
+      setAssignmentData({
+        url:"",
+        title:""
+      }) 
+      setCourseData({...courseData,assignments:assignmentArray}) 
+    }catch(error){
+      setError(error)
+    }
+  }
   const uploadAssignment = async ()=>{
       // Upload files to the database and get their download URLs
       setLoadingass(true)
-      for(const name in assignments){
         try {
         const formData = new FormData();
-        formData.append("file", assignments[name]);
-        const res = await  fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/filecourses",{
+        formData.append("file", assignments);
+        const res = await  fetch("https://api-otkz60obx-chiragbhanderi1.vercel.app/filecourses",{
           method:"POST",
           body:formData
         })
-        console.log(res);
         const json = await res.json()
         const downloadUrl = await json.downloadUrl;
-        assignments[name] = downloadUrl[0]
-        setCourseData({
-          ...courseData,
-          assignments:assignments
+        // assignments = downloadUrl[0]
+        setAssignmentData({
+          title:assignments.name,
+          url:downloadUrl[0]
         })
       } catch (error) {
         setError(error)
       }
-    }
     setLoadingass(false)
   }
-  const handleMaterailsUpload = (e) => {
-    const uploadedFiles = (e.target.files);
-    for (let i = 0; i < uploadedFiles.length; i++) {
-      const file = uploadedFiles[i];
-      materails[file.name] = file;
-    }
+  const handleMaterialsUpload = (e) => {
+    setMaterials(e.target.files[0]);
   };
-  const uploadMaterail = async ()=>{
-    setLoadingmat(true)
-    // Upload files to the database and get their download URLs
-    for(const name in materails){
-      try{const formData = new FormData();
-      formData.append("file", materails[name]);
-      const res = await  fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/filecourses",{
-        method:"POST",
-        body:formData
-      })
-      console.log(res);
-      const json = await res.json()
-      const downloadUrl = await json.downloadUrl;
-        console.log("done");
-        materails[name] = downloadUrl[0]
-        setCourseData({
-          ...courseData,
-          materails:materails
-        })
-        setIsButtonDisabled(isButtonDisabled+1);
+  const addmaterials=()=>{
+    try{
+      materialArray.push(materialData);
+      setMaterialData({
+        url:"",
+        title:""
+      }) 
+      setCourseData({...courseData,materials:materialArray})
     }catch(error){
       setError(error)
     }
- }
+  }
+  const uploadMaterial = async ()=>{
+    setLoadingmat(true)
+    // Upload files to the database and get their download URLs
+      try{
+        const formData = new FormData();
+        formData.append("file", materials);
+        const res = await  fetch("https://api-otkz60obx-chiragbhanderi1.vercel.app/filecourses",{
+          method:"POST",
+          body:formData
+        })
+        const json = await res.json()
+        const downloadUrl = await json.downloadUrl;
+        setMaterialData({
+          title:materials.name,
+          url:downloadUrl[0]
+        })
+    }catch(error){
+      setError(error)
+    }
   setLoadingmat(false)
   }
   const handleVideoUpload = (e) => {
-    const uploadedFiles = (e.target.files);
-    for (let i = 0; i < uploadedFiles.length; i++) {
-      const filename = uploadedFiles[i];
-      files[filename.name] = filename;
-    }
+    setFiles(e.target.files[0]);
   };
-  const uploadVideo = async ()=>{
+  const uploadVideo = async()=>{
     setLoadingvid(true)
-    // Upload files to the database and get their download URLs
-    for(const name in files){
-      try{const formData = new FormData();
-      formData.append("file", files[name]);
-      const res = await  fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/filecourses",{
+    try {
+      const formData = new FormData();
+      formData.append("file", files);
+      const res = await  fetch("https://api-otkz60obx-chiragbhanderi1.vercel.app/filecourses",{
         method:"POST",
         body:formData
       })
-       console.log(res);
         const json = await res.json()
         const downloadUrl = await json.downloadUrl;
-        files[name] = downloadUrl[0]
-        console.log("done");
-        setCourseData({
-          ...courseData,
-          videos:files
+        setVideoData({
+          ...videoData,
+          title:files.name,
+          url:downloadUrl[0],
         })
+        setLoadingvid(false)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const AddvideoData=()=>{
+    // Upload files to the database and get their download URLs
+      try{
+        videoArray.push(videoData);
+        setVideoData({
+          url:"",
+          title:"",
+          desc:"",
+        })
+        setCourseData({...courseData,videos:videoArray})
       }catch(error){
         setError(error)
       }
-    }
-    setLoadingvid(false)
   }
+  const deleteVideo=(index)=>{
+    setVideoArray(videoArray.filter((item, i) => i!== index));
+    setVideoData({
+      url:"",
+      title:"",
+      desc:"",
+    })
+    setCourseData({...courseData,videos:videoArray})
+    console.log(courseData)
+  }
+  const deleteMat=(index)=>{
+    setMaterialArray(materialArray.filter((item, i) => i!== index));
+    setMaterialData({
+      url:"",
+      title:""
+    })
+    setCourseData({...courseData,materials:materialArray})
+  }
+  const deleteAss=(index)=>{
+    setAssignmentArray(assignmentArray.filter((item, i) => i!== index));
+    setAssignmentData({
+      url:"",
+      title:""
+    })
+    setCourseData({...courseData,assignments:assignmentArray})
+  }
+  const handleVideoData=(e)=>{
+    setVideoData({
+      ...videoData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   const handleAddCourse = async (e) => {
     e.preventDefault();
+    setCourseData({
+      ...courseData,
+      videos:videoArray,
+      materials:materialArray,
+      assignments:assignmentArray
+    })
     // Add the course to the database with the download URLs of the files
-    fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/courses", {
+    fetch("https://api-otkz60obx-chiragbhanderi1.vercel.app/trycourses", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -207,7 +292,7 @@ const Courses = () => {
   };
   const handleDeleteCourse = (id) => {
     // Send a DELETE request to the API to delete the course with the given ID
-    fetch(`https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/deletecourse/${id}`, {
+    fetch(`https://api-otkz60obx-chiragbhanderi1.vercel.app/deletecourse/${id}`, {
       method: "DELETE",
     })
       .then(() => {
@@ -218,7 +303,7 @@ const Courses = () => {
   const handleUpdateCourse = (e) => {
    try{ e.preventDefault();
     // Send a PUT request to the API to update the course with the given ID
-    fetch(`https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/updatecourse/${courseData.title}`, {
+    fetch(`https://api-otkz60obx-chiragbhanderi1.vercel.app/updatecourse/${courseData.title}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -256,13 +341,13 @@ const Courses = () => {
       category:course.category,
       videos:course.videos,
       assignments:course.assignments,
-      materails:course.materails
+      materials:course.materials
     });
     setUpdate(true);
   };
   return (
     <div>
-           <Row>
+      <Row>
       <Col>
         <Card>
           <CardTitle tag="h4" className="text-center border-bottom p-3 mb-0">
@@ -370,28 +455,71 @@ const Courses = () => {
                 </FormText>
               </FormGroup>
               <FormGroup>
-                <Label for="videos">Videos</Label>
+                <Label for="banner">Banner</Label>
                 <div className='d-flex'>
-                <Input id="videos" name="videos" multiple type="file" onChange={handleVideoUpload} />
-                <Button onClick={uploadVideo} className='ms-2'>Upload</Button>
+                <Input id="banner" name="banner" type="file" onChange={handleBannerUpload}/>
+                <Button onClick={uploadBanner} className='ms-2'>Upload</Button>
                 </div>
                 <FormText>
-                {loadingvid && <p className='text-danger'>Please Wait Videos are Been Uploading</p>}
-                  You Must Wait Until Videos are been Uploaded
+                {loadingbann && <p className='text-danger'>Please Wait Banner is Been Uploading</p>}
+                  You Must Wait Until Image is been Uploaded
                 </FormText>
               </FormGroup>
-              <FormGroup>
-                <Label for="materails">Materials</Label>
+              <FormGroup style={{backgroundColor:"#c5e8fa"}} className="p-3 rounded">
+                <Label for="videos">Video</Label>
                 <div className='d-flex'>
-                <Input id="materails" name="materails" multiple type="file" onChange={handleMaterailsUpload}/>
-                <Button onClick={uploadMaterail} className='ms-2'>Upload</Button>
+                <Input id="videos" name="videos"  type="file" readOnly={loadingvid} onChange={handleVideoUpload} />
+                <Button onClick={uploadVideo} className="ms-1">Upload</Button>
+                </div>
+                <FormText >
+                {loadingvid && <p className='text-danger'>Please Wait Videos are Been Uploading</p>}<br/>
+                </FormText>
+                <Label for="desc" className="mt-1">Video Description</Label>
+                <Input id="desc" name="desc" type="text" value={videoData.desc} readOnly={loadingvid} placeholder="Decription for the above video" onChange={handleVideoData}/>
+                <Button onClick={AddvideoData} disabled={loadingvid} className="mt-2">Add</Button>
+                {videoArray!=null && videoArray.map((videos,index)=>(
+                            <CardBody style={{overflowX:"auto"}}  key={index} >
+                            <Table bordered hover>
+                              <tbody>                                   
+                                <tr >
+                                  <th scope="row">{index+1}</th>
+                                  <td>{videos.title}</td>
+                                  <td><a href={videos.url}> <video src={videos.url} width={"100px"} height={"100px"}/></a></td>
+                                  <td>{videos.desc}</td>
+                                  <td   onClick={()=>{deleteVideo(index)}} className="text-center align-middle" ><i className="bi bi-trash bg-dark text-white p-2 rounded " role="button" > </i></td>
+                                </tr>                                   
+                              </tbody>
+                            </Table>                           
+                          </CardBody>
+                   ))}
+              </FormGroup>
+              <FormGroup style={{backgroundColor:"#fbfca2"}} className="rounded p-3">
+                <Label for="materials">Materials</Label>
+                <div className='d-flex'>
+                <Input id="materials" name="materials" multiple type="file" onChange={handleMaterialsUpload}/>
+                <Button onClick={uploadMaterial} className='ms-2'>Upload</Button>
                 </div>
                 <FormText>
                 {loadingmat && <p className='text-danger'>Please Wait Materials are Been Uploading</p>}
-                  You Must Wait Until Materials are been Uploaded
+                  You Must Wait Until Materials are been Uploaded<br/>
                 </FormText>
+                <Button onClick={addmaterials} disabled={loadingmat} className="mt-2">Add</Button>
+                {materialArray!=null && materialArray.map((mat,index)=>(
+                            <CardBody style={{overflowX:"auto"}}  key={index} >
+                            <Table bordered hover>
+                              <tbody>                                   
+                                <tr >
+                                  <th scope="row">{index+1}</th>
+                                  <td>{mat.title}</td>
+                                  <td><a href={mat.url}> <embed src={mat.url} width="100px" height="100px" /></a></td>
+                                  <td onClick={()=>{deleteMat(index)}} className="text-center align-middle" ><i className="bi bi-trash bg-dark text-white p-2 rounded " role="button" > </i></td>
+                                </tr>                                   
+                              </tbody>
+                            </Table>                           
+                          </CardBody>
+                   ))}
               </FormGroup>
-              <FormGroup>
+              <FormGroup  style={{backgroundColor:"#a2fcab"}} className="rounded p-3">
                 <Label for="assignments">Assignments</Label>
                 <div className='d-flex'>
                 <Input id="assignments" name="assignments" multiple type="file" onChange={handleAssignmentUpload} />
@@ -399,10 +527,25 @@ const Courses = () => {
                 </div>
                 <FormText>
                 {loadingass && <p className='text-danger'>Please Wait Assignments are Been Uploading</p>}
-                  You Must Wait Until Assignments is been Uploaded
+                  You Must Wait Until Assignments is been Uploaded<br/>
                 </FormText>
+                <Button onClick={addAssignments} disabled={loadingass} className="mt-2">Add</Button>
+                {assignmentArray!=null && assignmentArray.map((ass,index)=>(
+                            <CardBody style={{overflowX:"auto"}}  key={index} >
+                            <Table bordered hover>
+                              <tbody>                                   
+                                <tr >
+                                  <th scope="row">{index+1}</th>
+                                  <td>{ass.title}</td>
+                                  <td><a href={ass.url}> <embed src={ass.url} width="100px" height="100px" /></a></td>
+                                  <td onClick={()=>{deleteAss(index)}} className="text-center align-middle" ><i className="bi bi-trash bg-dark text-white p-2 rounded " role="button" > </i></td>
+                                </tr>                                   
+                              </tbody>
+                            </Table>                           
+                          </CardBody>
+                   ))}
               </FormGroup>
-              <Button type="submit" disabled={loadingass || loadingimg || loadingmat || loadingvid}  style={{width:"100%"}}>{update?"Update":"Add"} Courses</Button>
+              <Button type="submit" disabled={loadingass || loadingimg || loadingmat || loadingvid || loadingbann}  style={{width:"100%"}}>{update?"Update":"Add"} Courses</Button>
             </Form>
           </CardBody>
         </Card>

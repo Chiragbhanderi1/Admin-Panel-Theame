@@ -18,24 +18,24 @@ const Starter = () => {
     if(!localStorage.getItem('myuser')){
       Navigate("/login")
     }
-    fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/getcourses")
+    fetch("https://api-otkz60obx-chiragbhanderi1.vercel.app/getcourses")
       .then((res) => res.json())
       .then((data) => {
         setCourses(data)
       })
       .catch((err) => console.log(err));
 
-    fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/getinterships")
+    fetch("https://api-otkz60obx-chiragbhanderi1.vercel.app/getinterships")
     .then((res) => res.json())
     .then((data) =>{setInternships(data)})
     .catch((err) => console.log(err));
 
-    fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/getevents")
+    fetch("https://api-otkz60obx-chiragbhanderi1.vercel.app/getevents")
       .then((res) => res.json())
       .then((data) => setEvents(data))
       .catch((err) => console.log(err));
 
-    fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/getusers")
+    fetch("https://api-otkz60obx-chiragbhanderi1.vercel.app/getusers")
     .then((res) => res.json())
     .then((data) =>{setUsers(data)})
     .catch((err) => console.log(err));
@@ -105,16 +105,16 @@ const Starter = () => {
       {/***Sales & Feed***/}
       <Row>
         <Col sm="6" lg="6" xl="7" xxl="8">
-          <SalesChart />
+          <SalesChart events={events} internships={internships} courses={courses}/>
         </Col>
         <Col sm="6" lg="6" xl="5" xxl="4">
-          <Feeds />
+          <Feeds users={users}/>
         </Col>
       </Row>
       {/***Table ***/}
       <Row>
         <Col lg="12">
-          <ProjectTables />
+          <ProjectTables courses={courses} />
         </Col>
       </Row>
       {/***Blog Cards***/}
@@ -128,8 +128,8 @@ const Starter = () => {
               image={blg.img}
               title={blg.title}
               subtitle={blg.subtitle}
-              text1={blg.details}
               color="dark"
+              button="true"
             />
           </Col>
         ))}

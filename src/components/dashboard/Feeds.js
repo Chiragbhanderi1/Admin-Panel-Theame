@@ -10,14 +10,12 @@ import {
 } from "reactstrap";
 
 
-const Feeds = () => {
+const Feeds = (props) => {
   const [users, setUsers] = useState([]);
   useEffect(()=>{
-    fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/getusers")
-    .then((res) => res.json())
-    .then((data) =>{setUsers(data)})
-    .catch((err) => console.log(err));
-  })
+    setUsers(props.users)
+    // eslint-disable-next-line
+  },[])
   return (
     <Card>
       <CardBody>

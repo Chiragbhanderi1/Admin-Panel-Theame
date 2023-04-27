@@ -9,7 +9,7 @@ const TechnicalBlogDetails = () => {
       Navigate("/login")
     }
     // Fetch all internships from the API
-    fetch(`https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/gettechnicalblog/${blogslug}`)
+    fetch(`https://api-otkz60obx-chiragbhanderi1.vercel.app/gettechnicalblog/${blogslug}`)
     .then((res) => res.json())
     .then((data) =>{
             const fireBaseTime = new Date(

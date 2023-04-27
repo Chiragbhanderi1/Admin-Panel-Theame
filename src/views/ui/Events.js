@@ -18,15 +18,18 @@ const Events = () => {
   const Navigate =useNavigate();
   const [events, setEvents] = useState([]);
   const [selectedImg, setSelectedImg] = useState(null);
+  const [selectedBann, setSelectedBann] = useState(null);
   const [update,setUpdate] =useState(false)
   const [loading,setLoading] =useState(false)
+  const [loadingbann,setLoadingbann] =useState(false);
   const [eventData, setEventData] = useState({
     title: "",
     subtitle: "",
     details: "",
     date: "",
     price: "",
-    img:""
+    img:"",
+    banner:""
   });
   const handleInputChange = (e) => {
     setEventData({
@@ -39,7 +42,7 @@ const Events = () => {
       Navigate("/login")
     }
     // Fetch all events from the API
-    fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/getevents")
+    fetch("https://api-otkz60obx-chiragbhanderi1.vercel.app/getevents")
       .then((res) => res.json())
       .then((data) => setEvents(data))
       .catch((err) => console.log(err));
@@ -52,7 +55,7 @@ const Events = () => {
     setLoading(true)
     const formData = new FormData();
     formData.append("file", selectedImg);
-    const res = await  fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/fileevent",{
+    const res = await  fetch("https://api-otkz60obx-chiragbhanderi1.vercel.app/fileevent",{
       method:"POST",
       body:formData
     })
@@ -65,10 +68,30 @@ const Events = () => {
       })
       setLoading(false)
   }
+  const handleBannerUpload = (e)=>{
+    setSelectedBann(e.target.files[0]);
+  }
+  const uploadBanner = async()=>{
+    setLoadingbann(true)
+    const formData = new FormData();
+    formData.append("file", selectedBann);
+    const res = await  fetch("https://api-otkz60obx-chiragbhanderi1.vercel.app/fileevent",{
+      method:"POST",
+      body:formData
+    })
+     console.log(res);
+      const json = await res.json()
+      const downloadUrl = await json.downloadUrl;
+      setEventData({
+        ...eventData,
+        banner:downloadUrl
+      })
+      setLoadingbann(false)
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Add the event to the database with the download URLs of the files
-    fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/events", {
+    fetch("https://api-otkz60obx-chiragbhanderi1.vercel.app/events", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -85,7 +108,7 @@ const Events = () => {
   };
   const handleDeleteEvent = (id) => {
     // Send a DELETE request to the API to delete the event with the given ID
-    fetch(`https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/deleteevent/${id}`, {
+    fetch(`https://api-otkz60obx-chiragbhanderi1.vercel.app/deleteevent/${id}`, {
       method: "DELETE",
     })
       .then(() => {
@@ -99,7 +122,7 @@ const Events = () => {
   const handleUpdateEvent = (e) => {
     e.preventDefault();
     // Send a PUT request to the API to update the event with the given ID
-    fetch(`https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/updateevent/${eventData.title}`, {
+    fetch(`https://api-otkz60obx-chiragbhanderi1.vercel.app/updateevent/${eventData.title}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -211,7 +234,18 @@ const Events = () => {
                   You Must Wait Unit Image is been Uploaded
                 </FormText>
               </FormGroup>
-              <Button type='submit' disabled={loading} style={{width:"100%"}}>{update?"Update":"Add"} Event</Button>
+              <FormGroup>
+                <Label for="banner">Banner</Label>
+                <div className='d-flex'>
+                <Input id="banner" name="banner" type="file" onChange={handleBannerUpload}/>
+                <Button onClick={uploadBanner} className='ms-2'>Upload</Button>
+                </div>
+                <FormText>
+                {loadingbann && <p className='text-danger'>Please Wait Image is Been Uploading</p>}
+                  You Must Wait Unit Image is been Uploaded
+                </FormText>
+              </FormGroup>
+              <Button type='submit' disabled={loading || loadingbann} style={{width:"100%"}}>{update?"Update":"Add"} Event</Button>
             </Form>
           </CardBody>
         </Card>

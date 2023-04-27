@@ -1,7 +1,6 @@
 import { Button, Nav, NavItem } from "reactstrap";
 import Logo from "./Logo";
 import { Link, useLocation } from "react-router-dom";
-
 const navigation = [
   {
     title: "Dashboard",
@@ -67,8 +66,10 @@ const Sidebar = () => {
   let location = useLocation();
 
   return (
-    <div className="p-md-3 position-fixed">
-      <div className="d-flex align-items-center bg-dark rounded p-4 ">
+    <div className="p-md-3 " style={{position:"sticky",
+      top: "0",
+      bottom: "0"}}>
+      <div className="d-flex align-items-center bg-dark rounded pe-4 ps-4 pb-3 pt-3 ">
         <Logo />
         <Button
           close
@@ -77,7 +78,7 @@ const Sidebar = () => {
           onClick={() => showMobilemenu()}
         ></Button>
       </div>
-      <div className=" mt-2 ">
+      <div className=" mt-2 " >
         <Nav vertical className="sidebarNav">
           {navigation.map((navi, index) => (
             <NavItem key={index} className="sidenav-bg">

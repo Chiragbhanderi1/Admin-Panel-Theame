@@ -20,9 +20,9 @@ const Blog = (props) => {
         <CardText className="mt-3">{props.text3}</CardText>
         <CardText className="mt-3">{props.text4}</CardText>
         <div className="text-center">
-        <Button onClick={props.editbtn} color={props.color} className="mt-1">Edit</Button>
-        <Button onClick={props.deletebtn} color={props.color} className="ms-2 mt-1">Delete</Button>
-        <Button onClick={props.morebtn} color={props.color} className="ms-2  mt-1">More</Button></div>
+        {props.button !=="true" &&<Button onClick={props.editbtn}  color={props.color} className="mt-1">Edit</Button>}
+        {props.button !=="true" &&<Button onClick={props.deletebtn} color={props.color} className="ms-2 mt-1">Delete</Button>}
+        {props.button !=="true" &&<Button onClick={props.morebtn} color={props.color} className="ms-2  mt-1">More</Button>}</div>
       </CardBody>
     </Card>
   );

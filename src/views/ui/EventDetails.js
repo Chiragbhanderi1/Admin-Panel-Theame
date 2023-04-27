@@ -15,7 +15,7 @@ const EventsDetails = () => {
       Navigate("/login")
     }
     // Fetch all internships from the API
-    fetch(`https://api-1i547ey3k-chiragbhanderi1.vercel.app/getevent/${eventslug}`)
+    fetch(`https://api-otkz60obx-chiragbhanderi1.vercel.app/getevent/${eventslug}`)
     .then((res) => res.json())
     .then((data) =>{
       setEvents(data)
@@ -55,6 +55,7 @@ const EventsDetails = () => {
   return (
     <div>
       <div className="container bg-white">
+        <img src={events.banner} width={"100%"} alt="banner"/>
             <h1 className="text-center border-bottom mb-3">{events.title}</h1>
         <div className="row">
           <div className="col-md">

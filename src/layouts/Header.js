@@ -21,9 +21,10 @@ const Header = () => {
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
   const Navigate = useNavigate();
   const toggle = () => setDropdownOpen((prevState) => !prevState);
-  const Handletoggle = () => {
-    setIsOpen(!isOpen);
-  };
+  // const Handletoggle = () => {
+  //   setIsOpen(!isOpen);
+  // };
+  
   
   const handlelogout =()=>{
     localStorage.removeItem("myuser")
@@ -46,18 +47,22 @@ const Header = () => {
           <i className="bi bi-list"></i>
         </Button>
       </div>
-      <div className="hstack gap-2">
+      <div className="hstack gap-2" >
         <Button
           color="dark"
           size="sm"
           className="d-sm-block d-md-none"
-          onClick={Handletoggle}
+          onClick={() => {
+            setIsOpen(!isOpen);
+          }}
+
         >
           {isOpen ? (
             <i className="bi bi-x"></i>
           ) : (
             <i className="bi bi-three-dots-vertical"></i>
           )}
+          
         </Button>
       </div>
 

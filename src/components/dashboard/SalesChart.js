@@ -1,16 +1,30 @@
 import { Card, CardBody, CardSubtitle, CardTitle } from "reactstrap";
 import Chart from "react-apexcharts";
+// import { element } from "prop-types";
 
-const SalesChart = () => {
+const SalesChart = (props) => {
+  const {events,internships,courses}=props
+  let eventStudents = 0;
+  events.forEach(element => {
+   eventStudents += element.students.length
+  });
+  let courseStudents =0;
+  courses.forEach(element =>{
+    courseStudents+= element.students.length
+  })
+  let internshipsStudents =0;
+  internships.forEach(element =>{
+    internshipsStudents+= element.students.length
+  })
   const chartoptions = {
     series: [
       {
-        name: "Iphone 13",
-        data: [0, 31, 40, 28, 51, 42, 109, 100],
+        name: "No. of Students",
+        data: [courseStudents, eventStudents, internshipsStudents],
       },  
       {
-        name: "Oneplue 9",
-        data: [0, 11, 32, 45, 32, 34, 52, 41],
+        name: "No. of Courses/Events/Internship",
+        data: [courses.length, events.length, internships.length],
       },
     ],
     options: {
@@ -18,7 +32,7 @@ const SalesChart = () => {
         type: "area",
       },
       dataLabels: {
-        enabled: false,
+        enabled: true,
       },
       grid: {
         strokeDashArray: 3,
@@ -30,15 +44,10 @@ const SalesChart = () => {
       },
       xaxis: {
         categories: [
-          "Jan",
-          "Feb",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-          "Aug",
-        ],
+          "Courses",
+          "Events",
+          "Internships"
+        ], 
       },
     },
   };
@@ -50,7 +59,7 @@ const SalesChart = () => {
           Yearly Sales Report
         </CardSubtitle>
         <Chart
-          type="area"
+          type="bar"
           width="100%"
           height="390"
           options={chartoptions.options}

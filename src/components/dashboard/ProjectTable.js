@@ -1,16 +1,13 @@
 import { useEffect, useState } from "react";
 import { Card, CardBody, CardTitle, CardSubtitle, Table } from "reactstrap";
 
-const ProjectTables = () => {
+const ProjectTables = (props) => {
   const [courses, setCourses] = useState([]);
   useEffect(()=>{
-    fetch("https://api-l3pjjlrtb-chiragbhanderi1.vercel.app/getcourses")
-    .then((res) => res.json())
-    .then((data) => {
-      setCourses(data)
-    })
-    .catch((err) => console.log(err)); 
-  })
+    const cour = props.courses;
+    setCourses(cour)
+    // eslint-disable-next-line
+  },[])
   return (
     <div>
       <Card>
