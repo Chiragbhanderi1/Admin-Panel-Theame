@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Card,
   CardBody,
@@ -11,11 +11,7 @@ import {
 
 
 const Feeds = (props) => {
-  const [users, setUsers] = useState([]);
-  useEffect(()=>{
-    setUsers(props.users)
-    // eslint-disable-next-line
-  },[])
+  const users = props.users;
   return (
     <Card>
       <CardBody>

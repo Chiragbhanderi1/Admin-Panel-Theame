@@ -9,7 +9,7 @@ const TechnicalBlogDetails = () => {
       Navigate("/login")
     }
     // Fetch all internships from the API
-    fetch(`https://api-otkz60obx-chiragbhanderi1.vercel.app/gettechnicalblog/${blogslug}`)
+    fetch(`https://api-23jv80idk-chiragbhanderi1.vercel.app/gettechnicalblog/${blogslug}`)
     .then((res) => res.json())
     .then((data) =>{
             const fireBaseTime = new Date(
@@ -18,7 +18,7 @@ const TechnicalBlogDetails = () => {
             const date = fireBaseTime.toDateString();
             const atTime = fireBaseTime.toLocaleTimeString();
             data.date =(date +" "+ atTime)
-       setBlogs(data)
+       setBlogs(data);
     })
     .catch((err) => console.log(err));
     // eslint-disable-next-line
@@ -38,15 +38,22 @@ const TechnicalBlogDetails = () => {
             </div>
           </div>
           <div className="col-md wrap" >
-            <iframe
-              src={`${blogs.img}`}
-              alt="Blog "
+           {/* {(blogs.img[0].includes('.mp4')) && <iframe
+              src={`${blogs.img[0]}`}
+              alt="Blog " 
               className="img-fluid mx-auto d-block frame"
               width={"100%"} 
               frameborder='0' 
               scrolling='no'
               height={"100%"}
-              title="sometihnf"
+              title="someting"
+            />} */}
+            <img
+              src={`${blogs.img}`}
+              alt="Blog"
+              className="img-fluid mx-auto d-block frame"
+              width={"100%"} 
+              height={"100%"}
             />
           </div>
         </div>

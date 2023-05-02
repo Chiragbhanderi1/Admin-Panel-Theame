@@ -39,7 +39,7 @@ const Achievements = () => {
           Navigate("/login")
         }
         // Fetch all achievements from the API
-        fetch("https://api-otkz60obx-chiragbhanderi1.vercel.app/getachievements")
+        fetch("https://api-23jv80idk-chiragbhanderi1.vercel.app/getachievements")
           .then((res) => res.json())
           .then((data) => {setAchievements(data);console.log(data)})
           .catch((err) => console.log(err));
@@ -52,7 +52,7 @@ const Achievements = () => {
         setLoading(true)
         const formData = new FormData();
         formData.append("file", selectedImg);
-        const res = await  fetch("https://api-otkz60obx-chiragbhanderi1.vercel.app/fileevent",{
+        const res = await  fetch("https://api-23jv80idk-chiragbhanderi1.vercel.app/fileevent",{
           method:"POST",
           body:formData
         })
@@ -68,7 +68,7 @@ const Achievements = () => {
       const handleSubmit = async (e) => {
         e.preventDefault();
         // Add the achievement to the database with the download URLs of the files
-        fetch("https://api-otkz60obx-chiragbhanderi1.vercel.app/achievements", {
+        fetch("https://api-23jv80idk-chiragbhanderi1.vercel.app/achievements", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -85,7 +85,7 @@ const Achievements = () => {
       };
       const handleDeleteAchievement = (id) => {
         // Send a DELETE request to the API to delete the achievement with the given ID
-        fetch(`https://api-otkz60obx-chiragbhanderi1.vercel.app/deleteachievement/${id}`, {
+        fetch(`https://api-23jv80idk-chiragbhanderi1.vercel.app/deleteachievement/${id}`, {
           method: "DELETE",
         })
           .then(() => {
@@ -99,7 +99,7 @@ const Achievements = () => {
       const handleUpdateAchievement = (e) => {
         e.preventDefault();
         // Send a PUT request to the API to update the achievement with the given ID
-        fetch(`https://api-otkz60obx-chiragbhanderi1.vercel.app/updateachievement/${achievementData.id}`, {
+        fetch(`https://api-23jv80idk-chiragbhanderi1.vercel.app/updateachievement/${achievementData.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",

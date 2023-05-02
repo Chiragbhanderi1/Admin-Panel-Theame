@@ -17,7 +17,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 const TechnicalBlog = () => {
   const Navigate =useNavigate();
-  const [blogss, setBlog] = useState([]);
+  const [blog, setBlog] = useState([]);
   // eslint-disable-next-line
   const [selectedImg, setSelectedImg] = useState([]);
   const [update,setUpdate] =useState(false)
@@ -39,8 +39,8 @@ const TechnicalBlog = () => {
     if(!localStorage.getItem('myuser')){
       Navigate("/login")
     }
-    // Fetch all blogss from the API
-    fetch("https://api-otkz60obx-chiragbhanderi1.vercel.app/gettechnicalblogs")
+    // Fetch all blog from the API
+    fetch("https://api-23jv80idk-chiragbhanderi1.vercel.app/gettechnicalblogs")
       .then((res) => res.json())
       .then((data) => {
         data.forEach(element => {
@@ -69,7 +69,7 @@ const TechnicalBlog = () => {
         try {
         const formData = new FormData();
         formData.append("file", selectedImg[name]);
-        const res = await  fetch("https://api-otkz60obx-chiragbhanderi1.vercel.app/fileevent",{
+        const res = await  fetch("https://api-23jv80idk-chiragbhanderi1.vercel.app/fileevent",{
           method:"POST",
           body:formData
         })
@@ -90,7 +90,7 @@ const TechnicalBlog = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Add the blogs to the database with the download URLs of the files
-    fetch("https://api-otkz60obx-chiragbhanderi1.vercel.app/technicalblogs", {
+    fetch("https://api-23jv80idk-chiragbhanderi1.vercel.app/technicalblogs", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -107,11 +107,11 @@ const TechnicalBlog = () => {
   };
   const handleDeleteBlog = (id) => {
     // Send a DELETE request to the API to delete the blogs with the given ID
-    fetch(`https://api-otkz60obx-chiragbhanderi1.vercel.app/deletetechnicalblog/${id}`, {
+    fetch(`https://api-23jv80idk-chiragbhanderi1.vercel.app/deletetechnicalblog/${id}`, {
       method: "DELETE",
     })
       .then(() => {
-        setBlog(blogss.filter((blogs) => blogs.id !== id));
+        setBlog(blog.filter((blogs) => blogs.id !== id));
       })
       .catch((err) => console.log(err));
   };
@@ -121,7 +121,7 @@ const TechnicalBlog = () => {
   const handleUpdateBlog = (e) => {
     e.preventDefault();
     // Send a PUT request to the API to update the blogs with the given ID
-    fetch(`https://api-otkz60obx-chiragbhanderi1.vercel.app/updatetechnicalblog/${blogData.title}`, {
+    fetch(`https://api-23jv80idk-chiragbhanderi1.vercel.app/updatetechnicalblog/${blogData.title}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -206,7 +206,7 @@ const TechnicalBlog = () => {
                 </div>
                 <FormText>
                 {loading && <p className='text-danger'>Please Wait Image is Been Uploading</p>}
-                  You Must Wait Unit Image is been Uploaded
+                  You Must Upload 2 Images.
                 </FormText>
               </FormGroup>
               <Button type='submit'disabled={loading} style={{width:"100%"}}>{update?"Update":"Add"} Blog</Button>
@@ -216,11 +216,12 @@ const TechnicalBlog = () => {
       </Col>
     </Row>
     <Row>
-        {blogss.map((blg, index) => (
+        {blog.map((blg, index) => (
           <Col sm="6" lg="6" xl="3" key={index}>
             <Card>
               <div className='text-center justify-content-center d-flex align-items-center p-2'>
-                <iframe src={blg.img[0]} title="something" height={"200px"} width={"100%"} style={{width:"275px"}}></iframe>
+               {blg.img[0].includes('.mp4') && <iframe src={blg.img[0]} title="something" height={"200px"} width={"100%"} style={{width:"275px"}}></iframe>}
+               {!blg.img[0].includes('.mp4') && <img src={blg.img[0]} height={"200px"} width={"100%"} alt='blog' style={{width:"275px"}}></img>}
               </div>
               <CardBody className="p-4">
                 <CardTitle tag="h5">{blg.title}</CardTitle>

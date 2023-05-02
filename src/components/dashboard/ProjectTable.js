@@ -1,13 +1,7 @@
-import { useEffect, useState } from "react";
 import { Card, CardBody, CardTitle, CardSubtitle, Table } from "reactstrap";
 
 const ProjectTables = (props) => {
-  const [courses, setCourses] = useState([]);
-  useEffect(()=>{
-    const cour = props.courses;
-    setCourses(cour)
-    // eslint-disable-next-line
-  },[])
+  const courses = props.courses
   return (
     <div>
       <Card>

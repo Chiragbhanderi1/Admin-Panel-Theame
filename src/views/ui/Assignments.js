@@ -5,7 +5,7 @@ const Assignments = () => {
     const [assignments, setAssignments] = useState([]);
     useEffect(() => {
         // Fetch all courses from the API
-        fetch("https://api-otkz60obx-chiragbhanderi1.vercel.app/getsubmittedassignments")
+        fetch("https://api-23jv80idk-chiragbhanderi1.vercel.app/getsubmittedassignments")
           .then((res) => res.json())
           .then((data) => {
            data.forEach(element => {
@@ -30,7 +30,7 @@ const Assignments = () => {
             <div>
               <div><b>UserId : </b>{assignment.user}</div>
               <div><b>Submitted on : </b>{assignment.submitted_on}</div>
-              <div><b>Course Name : </b>{assignment.course}</div>
+              <div><b>Course Name:</b> {assignment.course.replace("%20",' ')}</div>
               <div><b>Assignment Name : </b>{assignment.name}</div>
               <a href={assignment.assignment}><button className='btn btn-dark'>View</button></a>
             </div>

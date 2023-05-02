@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Row, Col, Table, Card, CardTitle, CardBody } from "reactstrap";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+
 function MyVerticallyCenteredModal(props) {
   return (
     <Modal
@@ -21,37 +22,38 @@ function MyVerticallyCenteredModal(props) {
         {props.data.map(((data,index)=>(
           <Modal.Body key={index}>
               <div><b>UserId : </b>{data.user}</div>
-              <div><b>Submitted on : </b>{data.submitted_on}</div>
-              <div><b>Course Name : </b>{data.course}</div>
+              {/* <div><b>Submitted on : </b>{data.submitted_on}</div> */}
+              <div><b>Course Name:</b> {data.course.replace("%20", ' ')}</div>
               <div><b>Assignment Name : </b>{data.name}</div>
               <a href={data.assignment}><button className='btn btn-dark'>View</button></a>
           </Modal.Body>
         )))}
       <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
+        <Button onClick={props.onHide}  className='btn btn-dark '>Close</Button>
       </Modal.Footer>
     </Modal>
   );
 }
-const Users = () => {
+const Users = () => { 
     const [users, setUsers] = useState([]);
     const [modalShow, setModalShow] = useState(false);
     const [modalData,setModalData] =useState([])
     const Navigate = useNavigate();
     const openModal =(uid)=>{
       setModalShow(true)
-      fetch(`https://api-otkz60obx-chiragbhanderi1.vercel.app/getsubmittedassignment/${uid}`)
+      fetch(`https://api-23jv80idk-chiragbhanderi1.vercel.app/getsubmittedassignment/${uid}`)
       .then((res) => res.json())
       .then((data) => setModalData(data))
       .catch((err) => console.log(err));
       console.log(modalData)
     }
+  
     useEffect(() => {
         if(!localStorage.getItem('myuser')){
           Navigate("/login")
         }
         // Fetch all internships from the API
-        fetch("https://api-otkz60obx-chiragbhanderi1.vercel.app/getusers")
+        fetch("https://api-23jv80idk-chiragbhanderi1.vercel.app/getusers")
           .then((res) => res.json())
           .then((data) =>{setUsers(data)})
           .catch((err) => console.log(err));
@@ -67,7 +69,7 @@ const Users = () => {
             Users
           </CardTitle>
           <CardBody style={{overflowX:"auto"}}>
-            <Table bordered hover>
+            <Table bordered hover >
               <thead>
                 <tr>
                   <th>Sr.</th>

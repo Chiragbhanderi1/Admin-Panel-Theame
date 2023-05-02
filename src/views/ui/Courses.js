@@ -70,7 +70,7 @@ const Courses = () => {
       Navigate("/login")
     }
     // Fetch all courses from the API
-    fetch("https://api-otkz60obx-chiragbhanderi1.vercel.app/getcourses")
+    fetch("https://api-23jv80idk-chiragbhanderi1.vercel.app/getcourses")
       .then((res) => res.json())
       .then((data) => setCourses(data))
       .catch((err) => console.log(err));
@@ -90,7 +90,7 @@ const Courses = () => {
     setLoadingbann(true)
     const formData = new FormData();
     formData.append("file", selectedBann);
-    const res = await  fetch("https://api-otkz60obx-chiragbhanderi1.vercel.app/filecourses",{
+    const res = await  fetch("https://api-23jv80idk-chiragbhanderi1.vercel.app/filecourses",{
       method:"POST",
       body:formData
     })
@@ -110,7 +110,7 @@ const Courses = () => {
     setLoadingimg(true)
     const formData = new FormData();
     formData.append("file", selectedImg);
-    const res = await  fetch("https://api-otkz60obx-chiragbhanderi1.vercel.app/filecourses",{
+    const res = await  fetch("https://api-23jv80idk-chiragbhanderi1.vercel.app/filecourses",{
       method:"POST",
       body:formData
     })
@@ -143,7 +143,7 @@ const Courses = () => {
         try {
         const formData = new FormData();
         formData.append("file", assignments);
-        const res = await  fetch("https://api-otkz60obx-chiragbhanderi1.vercel.app/filecourses",{
+        const res = await  fetch("https://api-23jv80idk-chiragbhanderi1.vercel.app/filecourses",{
           method:"POST",
           body:formData
         })
@@ -169,7 +169,7 @@ const Courses = () => {
         url:"",
         title:""
       }) 
-      setCourseData({...courseData,materials:materialArray})
+      setCourseData({...courseData,materials:materialArray});
     }catch(error){
       setError(error)
     }
@@ -180,7 +180,7 @@ const Courses = () => {
       try{
         const formData = new FormData();
         formData.append("file", materials);
-        const res = await  fetch("https://api-otkz60obx-chiragbhanderi1.vercel.app/filecourses",{
+        const res = await  fetch("https://api-23jv80idk-chiragbhanderi1.vercel.app/filecourses",{
           method:"POST",
           body:formData
         })
@@ -203,7 +203,7 @@ const Courses = () => {
     try {
       const formData = new FormData();
       formData.append("file", files);
-      const res = await  fetch("https://api-otkz60obx-chiragbhanderi1.vercel.app/filecourses",{
+      const res = await  fetch("https://api-23jv80idk-chiragbhanderi1.vercel.app/filecourses",{
         method:"POST",
         body:formData
       })
@@ -234,17 +234,18 @@ const Courses = () => {
       }
   }
   const deleteVideo=(index)=>{
-    setVideoArray(videoArray.filter((item, i) => i!== index));
+    const updatedArray = videoArray.filter((item, i) => i !== index);
+    setVideoArray(updatedArray);
     setVideoData({
       url:"",
       title:"",
       desc:"",
     })
     setCourseData({...courseData,videos:videoArray})
-    console.log(courseData)
   }
   const deleteMat=(index)=>{
-    setMaterialArray(materialArray.filter((item, i) => i!== index));
+    const updatedArray = materialArray.filter((item, i) => i !== index);
+    setMaterialArray(updatedArray);
     setMaterialData({
       url:"",
       title:""
@@ -252,7 +253,8 @@ const Courses = () => {
     setCourseData({...courseData,materials:materialArray})
   }
   const deleteAss=(index)=>{
-    setAssignmentArray(assignmentArray.filter((item, i) => i!== index));
+    const updatedArray = assignmentArray.filter((item, i) => i !== index);
+    setAssignmentArray(updatedArray);
     setAssignmentData({
       url:"",
       title:""
@@ -275,7 +277,7 @@ const Courses = () => {
       assignments:assignmentArray
     })
     // Add the course to the database with the download URLs of the files
-    fetch("https://api-otkz60obx-chiragbhanderi1.vercel.app/trycourses", {
+    fetch("https://api-23jv80idk-chiragbhanderi1.vercel.app/courses", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -292,7 +294,7 @@ const Courses = () => {
   };
   const handleDeleteCourse = (id) => {
     // Send a DELETE request to the API to delete the course with the given ID
-    fetch(`https://api-otkz60obx-chiragbhanderi1.vercel.app/deletecourse/${id}`, {
+    fetch(`https://api-23jv80idk-chiragbhanderi1.vercel.app/deletecourse/${id}`, {
       method: "DELETE",
     })
       .then(() => {
@@ -301,9 +303,11 @@ const Courses = () => {
       .catch((err) => console.log(err));
   };
   const handleUpdateCourse = (e) => {
-   try{ e.preventDefault();
+   try{ 
+    e.preventDefault();
+   
     // Send a PUT request to the API to update the course with the given ID
-    fetch(`https://api-otkz60obx-chiragbhanderi1.vercel.app/updatecourse/${courseData.title}`, {
+    fetch(`https://api-23jv80idk-chiragbhanderi1.vercel.app/updatecourse/${courseData.title}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -327,6 +331,9 @@ const Courses = () => {
     Navigate(`/courses/${id}`)
   }
   const handleEditCourse = (course) => {
+    setVideoArray(course.videos);
+    setMaterialArray(course.materials);
+    setAssignmentArray(course.assignments);
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
     setCourseData({
@@ -337,11 +344,11 @@ const Courses = () => {
       benifits: course.benifits,
       price: course.price,
       duration: course.duration,
-      img:course.img,
       category:course.category,
+      img:course.img,
       videos:course.videos,
-      assignments:course.assignments,
-      materials:course.materials
+      materials:course.materials,
+      assignments:course.assignments
     });
     setUpdate(true);
   };
@@ -465,7 +472,7 @@ const Courses = () => {
                   You Must Wait Until Image is been Uploaded
                 </FormText>
               </FormGroup>
-              <FormGroup style={{backgroundColor:"#c5e8fa"}} className="p-3 rounded">
+              {!update && <FormGroup style={{backgroundColor:"#c5e8fa"}} className="p-3 rounded">
                 <Label for="videos">Video</Label>
                 <div className='d-flex'>
                 <Input id="videos" name="videos"  type="file" readOnly={loadingvid} onChange={handleVideoUpload} />
@@ -492,8 +499,8 @@ const Courses = () => {
                             </Table>                           
                           </CardBody>
                    ))}
-              </FormGroup>
-              <FormGroup style={{backgroundColor:"#fbfca2"}} className="rounded p-3">
+              </FormGroup>}
+              {!update &&<FormGroup style={{backgroundColor:"#fbfca2"}} className="rounded p-3">
                 <Label for="materials">Materials</Label>
                 <div className='d-flex'>
                 <Input id="materials" name="materials" multiple type="file" onChange={handleMaterialsUpload}/>
@@ -518,8 +525,8 @@ const Courses = () => {
                             </Table>                           
                           </CardBody>
                    ))}
-              </FormGroup>
-              <FormGroup  style={{backgroundColor:"#a2fcab"}} className="rounded p-3">
+              </FormGroup>}
+             {!update && <FormGroup  style={{backgroundColor:"#a2fcab"}} className="rounded p-3">
                 <Label for="assignments">Assignments</Label>
                 <div className='d-flex'>
                 <Input id="assignments" name="assignments" multiple type="file" onChange={handleAssignmentUpload} />
@@ -544,7 +551,7 @@ const Courses = () => {
                             </Table>                           
                           </CardBody>
                    ))}
-              </FormGroup>
+              </FormGroup>}
               <Button type="submit" disabled={loadingass || loadingimg || loadingmat || loadingvid || loadingbann}  style={{width:"100%"}}>{update?"Update":"Add"} Courses</Button>
             </Form>
           </CardBody>
