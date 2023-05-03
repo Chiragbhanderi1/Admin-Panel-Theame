@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
 const TechnicalBlogDetails = () => {
   const [blogs, setBlogs] = useState([]);
+  const [image, setImage] = useState([]);
   const { blogslug } = useParams();
   const Navigate =useNavigate();
   useEffect(()=>{
@@ -19,6 +20,7 @@ const TechnicalBlogDetails = () => {
             const atTime = fireBaseTime.toLocaleTimeString();
             data.date =(date +" "+ atTime)
        setBlogs(data);
+       setImage(data.img[0])
     })
     .catch((err) => console.log(err));
     // eslint-disable-next-line
@@ -38,7 +40,7 @@ const TechnicalBlogDetails = () => {
             </div>
           </div>
           <div className="col-md wrap" >
-           {/* {(blogs.img[0].includes('.mp4')) && <iframe
+           {(image.includes('.mp4')) && <iframe
               src={`${blogs.img[0]}`}
               alt="Blog " 
               className="img-fluid mx-auto d-block frame"
@@ -47,14 +49,14 @@ const TechnicalBlogDetails = () => {
               scrolling='no'
               height={"100%"}
               title="someting"
-            />} */}
-            <img
-              src={`${blogs.img}`}
+            />}
+            {(!image.includes('.mp4')) &&<img
+              src={`${image}`}
               alt="Blog"
               className="img-fluid mx-auto d-block frame"
               width={"100%"} 
               height={"100%"}
-            />
+            />}
           </div>
         </div>
         </div>
