@@ -94,7 +94,7 @@ const Achievements = () => {
           .catch((err) => console.log(err));
       };
       const handleMore =(id)=>{
-        Navigate(`/achievements/${id}`)
+        // Navigate(`/achievements/${id}`)
       }
       const handleUpdateAchievement = (e) => {
         e.preventDefault();

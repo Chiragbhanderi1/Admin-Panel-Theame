@@ -54,11 +54,7 @@ const InternshipDetails = () => {
               </ul>
             <h5 className="mt-3">Perks :</h5>
             <div >
-                { perks.map((item)=>(
-                    <ul className="list-group">
-                        <li className="list-group-item">{item}</li>
-                  </ul>
-                ))}
+                    <p dangerouslySetInnerHTML={{__html:perks}}></p>               
             </div>
           </div>
           <div className="col-md" >
