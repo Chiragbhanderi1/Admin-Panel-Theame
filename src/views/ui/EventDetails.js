@@ -34,6 +34,7 @@ const EventsDetails = () => {
     
     // eslint-disable-next-line
   },[])
+  
   function convertToExcel(data) {
     const worksheet = XLSX.utils.json_to_sheet(data);
     const workbook = {
@@ -43,13 +44,23 @@ const EventsDetails = () => {
     const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
     return excelBuffer;
   }
+  
   function downloadExcelFile(buffer, fileName) {
     const data = new Blob([buffer], { type: 'application/octet-stream' });
     saveAs(data, `${fileName}.xlsx`);
   }
+  
   function handleClick(data) {
-    const buffer = convertToExcel(data);
-    downloadExcelFile(buffer, 'my_data');
+      const convertedData = Object.entries(data).map(([email, id], index) => ({
+      Sr: index + 1,
+      Email: email,
+      Id: id
+    }));
+    
+    console.log(convertedData);
+    
+    const buffer = convertToExcel(convertedData);
+    downloadExcelFile(buffer, events.title);
   }
   
   return (
