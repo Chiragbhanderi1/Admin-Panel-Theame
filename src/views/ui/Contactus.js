@@ -18,7 +18,7 @@ const Contactus = () => {
           Navigate("/login")
         }
         // Fetch all contacts from the API
-        fetch("https://api-23jv80idk-chiragbhanderi1.vercel.app/getcontactus")
+        fetch("https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/getcontactus")
           .then((res) => res.json())
           .then((data) => {setContacts(data)})
           .catch((err) => console.log(err));
@@ -26,7 +26,7 @@ const Contactus = () => {
       }, []);
       const handleDeletecontact = (id) => {
         // Send a DELETE request to the API to delete the event with the given ID
-        fetch(`https://api-23jv80idk-chiragbhanderi1.vercel.app/deletecontact/${id}`, {
+        fetch(`https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/deletecontact/${id}`, {
           method: "DELETE",
         })
           .then(() => {

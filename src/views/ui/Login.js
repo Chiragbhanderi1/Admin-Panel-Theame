@@ -13,7 +13,7 @@ const Login = () => {
   },[])
   const handleSubmit=(e)=>{
     e.preventDefault();
-    if(email==="admin" && password==="admin"){
+    if(email==="technoithub" && password==="admin@technoithub"){
       localStorage.setItem('myuser',"admin")
       Navigate("/")
     }

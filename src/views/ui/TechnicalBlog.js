@@ -40,7 +40,7 @@ const TechnicalBlog = () => {
       Navigate("/login")
     }
     // Fetch all blog from the API
-    fetch("https://api-23jv80idk-chiragbhanderi1.vercel.app/gettechnicalblogs")
+    fetch("https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/gettechnicalblogs")
       .then((res) => res.json())
       .then((data) => {
         data.forEach(element => {
@@ -69,7 +69,7 @@ const TechnicalBlog = () => {
         try {
         const formData = new FormData();
         formData.append("file", selectedImg[name]);
-        const res = await  fetch("https://api-23jv80idk-chiragbhanderi1.vercel.app/fileevent",{
+        const res = await  fetch("https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/fileevent",{
           method:"POST",
           body:formData
         })
@@ -90,7 +90,7 @@ const TechnicalBlog = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Add the blogs to the database with the download URLs of the files
-    fetch("https://api-23jv80idk-chiragbhanderi1.vercel.app/technicalblogs", {
+    fetch("https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/technicalblogs", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -107,7 +107,7 @@ const TechnicalBlog = () => {
   };
   const handleDeleteBlog = (id) => {
     // Send a DELETE request to the API to delete the blogs with the given ID
-    fetch(`https://api-23jv80idk-chiragbhanderi1.vercel.app/deletetechnicalblog/${id}`, {
+    fetch(`https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/deletetechnicalblog/${id}`, {
       method: "DELETE",
     })
       .then(() => {
@@ -121,7 +121,7 @@ const TechnicalBlog = () => {
   const handleUpdateBlog = (e) => {
     e.preventDefault();
     // Send a PUT request to the API to update the blogs with the given ID
-    fetch(`https://api-23jv80idk-chiragbhanderi1.vercel.app/updatetechnicalblog/${blogData.title}`, {
+    fetch(`https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/updatetechnicalblog/${blogData.title}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
