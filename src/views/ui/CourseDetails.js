@@ -277,7 +277,7 @@ const CoursesDetails = () => {
             Add Videos
           </Button>
           </div>
-          <div className="rounded" style={{backgroundColor:"#c5e8fa"}}>
+          <div className="rounded" style={{backgroundColor:"#ededed"}}>
           {( !Array.isArray(videos) || videos.length === 0) && <div> No Videos to show</div>}
           {Array.isArray(videos) && videos.map((video,index)=>{
              return  <CardBody style={{overflowX:"auto", padding:"0"}}   key={index} >
@@ -309,7 +309,7 @@ const CoursesDetails = () => {
             Add Materials
           </Button>
           </div>
-          <div className="rounded" style={{backgroundColor:"#fbfca2"}}>
+          <div className="rounded" style={{backgroundColor:"#ededed"}}>
           {(!Array.isArray(materials) || materials.length ===0) && <div> No Materials to show</div>}
           {Array.isArray(materials) && materials.map((materials,index)=>{
              return <CardBody style={{overflowX:"auto", padding:"0"}}  key={index} >
@@ -336,7 +336,7 @@ const CoursesDetails = () => {
             Add Assignments
           </Button>
           </div>
-          <div className="rounded mt-2" style={{backgroundColor:"#a2fcab"}}>
+          <div className="rounded mt-2" style={{backgroundColor:"#ededed"}}>
           {(!Array.isArray(assignments) || assignments.length ===0 )&& <div> No Assignments to show</div>}
           {Array.isArray(assignments) && assignments.map((assignment,index)=>{
              return <CardBody style={{overflowX:"auto", padding:"0"}}  key={index} >

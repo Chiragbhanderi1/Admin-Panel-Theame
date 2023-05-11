@@ -259,7 +259,6 @@ const Events = () => {
               title={blg.title}
               subtitle={blg.subtitle}
               text1={blg.date}
-              text2={blg.details}
               deletebtn ={()=>{handleDeleteEvent(blg.title)}}
               morebtn ={()=>{handleMore(blg.title)}}
               editbtn ={()=>{handleEditEvent(blg)}}

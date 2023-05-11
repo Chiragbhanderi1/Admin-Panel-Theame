@@ -40,16 +40,7 @@ const TechnicalBlogDetails = () => {
             </div>
           </div>
           <div className="col-md wrap" >
-           {(image.includes('.mp4')) && <iframe
-              src={`${blogs.img[0]}`}
-              alt="Blog " 
-              className="img-fluid mx-auto d-block frame"
-              width={"100%"} 
-              frameborder='0' 
-              scrolling='no'
-              height={"100%"}
-              title="someting"
-            />}
+           {(image.includes('.mp4')) && <video controls style={{width:"100%"}}><source src={image}  type="video/mp4"/>Your browser does not support the video.</video>}
             {(!image.includes('.mp4')) &&<img
               src={`${image}`}
               alt="Blog"

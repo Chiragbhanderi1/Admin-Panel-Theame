@@ -33,7 +33,7 @@ const navigation = [
     icon: "bi bi-people",
   },
   {
-    title: "Technical Blogs",
+    title: "Technical Update",
     href: "/technicalblogs",
     icon: "bi bi-journal-code",
   },

@@ -208,7 +208,7 @@ const Achievements = () => {
       </Row>
         <Row>
         {achievements.map((blg, index) => (
-          <Col sm="6" lg="6" xl="3" key={index}>
+          <Col sm="12" lg="12" xl="6" key={index}>
             <Blog
               image={blg.img}
               title={blg.title}
@@ -216,7 +216,7 @@ const Achievements = () => {
               text1={blg.date}
               text2={blg.details}
               deletebtn ={()=>{handleDeleteAchievement(blg.id)}}
-              morebtn ={()=>{handleMore(blg.id)}}
+              morebutton = "true"
               editbtn ={()=>{handleEditAchievement(blg)}}
               color="dark"
             />

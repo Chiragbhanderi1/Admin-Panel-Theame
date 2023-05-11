@@ -206,6 +206,7 @@ const Blogs = () => {
               text1={blg.date} 
               text2={blg.details}
               deletebtn ={()=>{handleDeleteBlog(blg.id)}}
+              morebutton = "true"
               editbtn ={()=>{handleEditBlog(blg)}}
               color="dark"
             />

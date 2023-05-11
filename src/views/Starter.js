@@ -129,7 +129,9 @@ const Starter = () => {
               title={blg.title}
               subtitle={blg.subtitle}
               color="dark"
-              button="true"
+              editbutton="true"
+              delbutton="true"
+              morebutton="true"
             />
           </Col>
         ))}

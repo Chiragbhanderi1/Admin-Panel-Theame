@@ -165,7 +165,14 @@ const Internships = () => {
       title: internship.title,
       subtitle: internship.subtitle,
       perks: internship.perks,
-      details:detailsData
+      details:{
+        duration:internship.details.duration,
+        location:internship.details.location,
+        exp:internship.details.exp,
+        know:internship.details.know,
+        mode:internship.details.mode,
+        stippend:internship.details.stippend
+      }
     });
     setUpdate(true);
   };
@@ -190,6 +197,7 @@ const Internships = () => {
                   id="title"
                   name="title"
                   value={internshipData.title}
+                  readOnly={update}
                   onChange={handleInputChange}
                   placeholder="Title for a Intership"
                   // onFocus={this.placeholder=""}
@@ -243,9 +251,9 @@ const Internships = () => {
                         onChange={handleDetailsChange}
                         type="select"
                       >
-                        <option defaultValue={this} value={"online"}>Online</option>
-                        <option value={"offline"}>Offline</option>
-                        <option value={"hybrid"}>Hybrid</option>
+                        <option defaultValue={this} value={"Online"}>Online</option>
+                        <option value={"Offline"}>Offline</option>
+                        <option value={"Hybrid"}>Hybrid</option>
                       </Input>
                 </FormGroup>
                 <FormGroup>

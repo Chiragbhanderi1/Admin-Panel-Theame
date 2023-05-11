@@ -374,6 +374,7 @@ const Courses = () => {
                   name="title"
                   placeholder="Title of a Courses"
                   value={courseData.title}
+                  readOnly={update}
                   onChange={handleInputChange}
                   type="text"
                 />
@@ -418,13 +419,13 @@ const Courses = () => {
                 />
               </FormGroup>
               <FormGroup>
-                <Label for="benifits">Benifits</Label>
+                <Label for="benifits">Benefits</Label>
                 <Input
                   id="benifits"
                   name="benifits"
                   value={courseData.benifits}
                   onChange={handleInputChange}
-                  placeholder="Benifits in Form of paragraphs could contain html tags"
+                  placeholder="Benefits in Form of paragraphs could contain html tags"
                   type="text"
                 />
               </FormGroup>
@@ -472,7 +473,7 @@ const Courses = () => {
                   You Must Wait Until Image is been Uploaded
                 </FormText>
               </FormGroup>
-              {!update && <FormGroup style={{backgroundColor:"#c5e8fa"}} className="p-3 rounded">
+              {!update && <FormGroup style={{backgroundColor:"#ededed"}} className="p-3 rounded">
                 <Label for="videos">Video</Label>
                 <div className='d-flex'>
                 <Input id="videos" name="videos"  type="file" readOnly={loadingvid} onChange={handleVideoUpload} />
@@ -500,7 +501,7 @@ const Courses = () => {
                           </CardBody>
                    ))}
               </FormGroup>}
-              {!update &&<FormGroup style={{backgroundColor:"#fbfca2"}} className="rounded p-3">
+              {!update &&<FormGroup style={{backgroundColor:"#ededed"}} className="rounded p-3">
                 <Label for="materials">Materials</Label>
                 <div className='d-flex'>
                 <Input id="materials" name="materials" multiple type="file" onChange={handleMaterialsUpload}/>
@@ -526,7 +527,7 @@ const Courses = () => {
                           </CardBody>
                    ))}
               </FormGroup>}
-             {!update && <FormGroup  style={{backgroundColor:"#a2fcab"}} className="rounded p-3">
+             {!update && <FormGroup  style={{backgroundColor:"#ededed"}} className="rounded p-3">
                 <Label for="assignments">Assignments</Label>
                 <div className='d-flex'>
                 <Input id="assignments" name="assignments" multiple type="file" onChange={handleAssignmentUpload} />
@@ -565,7 +566,6 @@ const Courses = () => {
               image={blg.img}
               title={blg.title}
               subtitle={blg.subtitle}
-              text1={blg.details}
               text2={blg.price}
               deletebtn ={()=>{handleDeleteCourse(blg.title)}}
               morebtn ={()=>{handleMore(blg.title)}}

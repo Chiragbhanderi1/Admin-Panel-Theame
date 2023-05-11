@@ -189,8 +189,8 @@ const Banner = () => {
                   type="select"
                 > 
                 <option disabled>Select Banner Type</option>
-                <option  value={"courses"}>For Courses</option>
-                <option value={"events"}>For Events</option>
+                <option  value={"Courses"}>For Courses</option>
+                <option value={"Events"}>For Events</option>
                 </Input>
               </FormGroup> 
               <FormGroup>

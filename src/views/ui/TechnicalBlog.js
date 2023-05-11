@@ -220,13 +220,12 @@ const TechnicalBlog = () => {
           <Col sm="6" lg="6" xl="3" key={index}>
             <Card>
               <div className='text-center justify-content-center d-flex align-items-center p-2'>
-               {blg.img[0].includes('.mp4') && <iframe src={blg.img[0]} title="something" height={"200px"} width={"100%"} style={{width:"275px"}}></iframe>}
+               {blg.img[0].includes('.mp4') && <video controls style={{width:"100%"}}><source src={blg.img[0]}  type="video/mp4"/>Your browser does not support the video.</video>}
                {!blg.img[0].includes('.mp4') && <img src={blg.img[0]} height={"200px"} width={"100%"} alt='blog' style={{width:"275px"}}></img>}
               </div>
               <CardBody className="p-4">
                 <CardTitle tag="h5">{blg.title}</CardTitle>
                 <CardSubtitle>{blg.subtitle}</CardSubtitle>
-                <CardText className="mt-3" dangerouslySetInnerHTML={{__html:blg.details}}></CardText>
                 <div className="text-center">
                 <Button onClick={()=>{handleEditBlog(blg)}} color="dark" className="mt-1">Edit</Button>
                 <Button onClick={()=>{handleDeleteBlog(blg.id)}} color="dark" className="ms-2 mt-1">Delete</Button>

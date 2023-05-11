@@ -23,6 +23,7 @@ const Assignments = () => {
   return (
     <div className='bg-white p-5'>
       <h1 className='border-bottom'>Assignments</h1>
+      {assignments.length ===0 && <h5>No Assignments to show</h5>}
       {assignments.map((assignment,index)=>(
         <div key={index} className="border-bottom pb-3 pt-3">
           <div className='d-flex align-items-center'>
