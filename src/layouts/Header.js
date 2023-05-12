@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Navbar,
   Collapse,
@@ -24,10 +24,10 @@ const Header = () => {
   // const Handletoggle = () => {
   //   setIsOpen(!isOpen);
   // };
-  
+  const name = localStorage.getItem('name');
   
   const handlelogout =()=>{
-    localStorage.removeItem("myuser")
+    localStorage.removeItem("name")
     Navigate("/login")
   }
   const showMobilemenu = () => {
@@ -69,7 +69,7 @@ const Header = () => {
       <Collapse navbar isOpen={isOpen}>
         <Nav className="me-auto" navbar>
           <NavItem className="text-white">
-            WelCome Admin :)
+            WelCome {name} :)
           </NavItem>
 
         </Nav>
@@ -84,8 +84,8 @@ const Header = () => {
           </DropdownToggle>
           <DropdownMenu>
             <DropdownItem header>Info</DropdownItem>
-            <DropdownItem>My Account</DropdownItem>
-            <DropdownItem>Edit Profile</DropdownItem>
+            <DropdownItem><Link className="text-decoration-none text-dark" to={'/myaccount'}>My Account</Link></DropdownItem>
+            <DropdownItem> <Link className="text-decoration-none text-dark" to={'/signup'}>Add Admin </Link></DropdownItem>
             <DropdownItem divider />
             <DropdownItem onClick={handlelogout}>Logout</DropdownItem>
           </DropdownMenu>

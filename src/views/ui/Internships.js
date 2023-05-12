@@ -37,11 +37,11 @@ const Internships = () => {
     img:""
   });
   useEffect(() => {
-    if(!localStorage.getItem('myuser')){
+    if(!localStorage.getItem('name')){
       Navigate("/login")
     }
     // Fetch all internships from the API
-    fetch("https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/getinterships")
+    fetch("https://api-4l9mujm5u-chiragbhanderi1.vercel.app/getinternships")
       .then((res) => res.json())
       .then((data) =>{setInternships(data)})
       .catch((err) => console.log(err));
@@ -80,7 +80,7 @@ const Internships = () => {
     setLoading(true)
     const formData = new FormData();
     formData.append("file", selectedImg);
-    const res = await  fetch("https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/fileinteship",{
+    const res = await  fetch("https://api-4l9mujm5u-chiragbhanderi1.vercel.app/fileinternship",{
       method:"POST",
       body:formData
     })
@@ -97,7 +97,7 @@ const Internships = () => {
   const handleAddInternship = async (e) => {
     e.preventDefault();
     // Add the internship to the database with the download URLs of the files
-    fetch("https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/interships", {
+    fetch("https://api-4l9mujm5u-chiragbhanderi1.vercel.app/internships", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -114,7 +114,7 @@ const Internships = () => {
   };
   const handleDeleteInternship = (id) => {
     // Send a DELETE request to the API to delete the internship with the given ID
-    fetch(`https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/deleteintership/${id}`, {
+    fetch(`https://api-4l9mujm5u-chiragbhanderi1.vercel.app/deleteinternship/${id}`, {
       method: "DELETE",
     })
       .then(() => {
@@ -129,7 +129,7 @@ const Internships = () => {
    try{ 
      e.preventDefault();
      // Send a PUT request to the API to update the internship with the given ID
-     fetch(`https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/updateintership/${internshipData.title}`, {
+     fetch(`https://api-4l9mujm5u-chiragbhanderi1.vercel.app/updateinternship/${internshipData.title}`, {
        method: "PUT",
        headers: {
          "Content-Type": "application/json",
@@ -199,7 +199,7 @@ const Internships = () => {
                   value={internshipData.title}
                   readOnly={update}
                   onChange={handleInputChange}
-                  placeholder="Title for a Intership"
+                  placeholder="Title for a Internship"
                   // onFocus={this.placeholder=""}
                   type="text"
                 />

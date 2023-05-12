@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 const InternshipDetails = () => {
-  const [interships, setInterships] = useState([]);
+  const [internships, setInternships] = useState([]);
   const [student,setStudent] = useState([])
   const [perks,setPerks] = useState([])
   const [detailsData,setdetailsData] = useState({
@@ -15,14 +15,14 @@ const InternshipDetails = () => {
   const { internshipslug } = useParams(); 
   const Navigate =useNavigate();
   useEffect(()=>{
-    if(!localStorage.getItem('myuser')){
+    if(!localStorage.getItem('name')){
       Navigate("/login")
     }
     // Fetch all internships from the API
-    fetch(`https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/getintership/${internshipslug}`)
+    fetch(`https://api-4l9mujm5u-chiragbhanderi1.vercel.app/getinternship/${internshipslug}`)
     .then((res) => res.json())
     .then((data) =>{
-      setInterships(data)
+      setInternships(data)
       setStudent(data.students)
       setPerks((data.perks || "").split("*"))
       setdetailsData({
@@ -40,10 +40,10 @@ const InternshipDetails = () => {
   return (
     <div>
         <div className="container bg-white p-5">
-            <h2 className="text-center border-bottom mb-3">{interships.title}</h2>
+            <h2 className="text-center border-bottom mb-3">{internships.title}</h2>
         <div className="row">
           <div className="col-md">
-            <h5 className="text-center">{interships.subtitle}</h5>
+            <h5 className="text-center">{internships.subtitle}</h5>
             <h5 className="mt-3">Details :</h5>
             <ul className="list-group">
                 <li className="list-group-item"><b>Duration :</b>{detailsData.duration}</li>
@@ -59,7 +59,7 @@ const InternshipDetails = () => {
           </div>
           <div className="col-md" >
             <img
-              src={`${interships.img}`}
+              src={`${internships.img}`}
               alt="Blog "
               className="img-fluid mx-auto d-block"
             />

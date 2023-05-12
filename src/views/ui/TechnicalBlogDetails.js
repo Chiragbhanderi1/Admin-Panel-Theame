@@ -6,11 +6,11 @@ const TechnicalBlogDetails = () => {
   const { blogslug } = useParams();
   const Navigate =useNavigate();
   useEffect(()=>{
-    if(!localStorage.getItem('myuser')){
+    if(!localStorage.getItem('name')){
       Navigate("/login")
     }
     // Fetch all internships from the API
-    fetch(`https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/gettechnicalblog/${blogslug}`)
+    fetch(`https://api-4l9mujm5u-chiragbhanderi1.vercel.app/gettechnicalblog/${blogslug}`)
     .then((res) => res.json())
     .then((data) =>{
             const fireBaseTime = new Date(
@@ -40,8 +40,8 @@ const TechnicalBlogDetails = () => {
             </div>
           </div>
           <div className="col-md wrap" >
-           {(image.includes('.mp4')) && <video controls style={{width:"100%"}}><source src={image}  type="video/mp4"/>Your browser does not support the video.</video>}
-            {(!image.includes('.mp4')) &&<img
+           {image && (image.includes('.mp4')) && <video controls style={{width:"100%"}}><source src={image}  type="video/mp4"/>Your browser does not support the video.</video>}
+            {image &&(!image.includes('.mp4')) &&<img
               src={`${image}`}
               alt="Blog"
               className="img-fluid mx-auto d-block frame"

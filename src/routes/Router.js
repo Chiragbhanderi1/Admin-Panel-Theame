@@ -12,6 +12,7 @@ const InternshipDetails = lazy(()=>import("../views/ui/InternshipDetails"));
 const Assignments = lazy(()=>import("../views/ui/Assignments"));
 const CourseDetails = lazy(()=>import("../views/ui/CourseDetails"));
 const Login = lazy(()=>import("../views/ui/Login"));
+const Signup = lazy(()=>import("../views/ui/Signup"));
 const Users = lazy(()=>import("../views/ui/Users"))
 const EventDetails = lazy(()=>import("../views/ui/EventDetails"));
 const Courses = lazy(() => import("../views/ui/Courses"));
@@ -22,6 +23,7 @@ const Banner = lazy(()=>import("../views/ui/Banner"))
 const Blogs = lazy(()=>import("../views/ui/Blogs"))
 const Contactus = lazy(()=>import("../views/ui/Contactus"))
 const Achievement = lazy(()=>import("../views/ui/Achievements.js"))
+const MyAccount = lazy(()=>import("../views/ui/MyAccount.js"))
 /*****Routes******/
 
 const ThemeRoutes = [
@@ -45,6 +47,8 @@ const ThemeRoutes = [
       { path: "/blogs", exact: true, element: <Blogs/> },
       { path: "/contactus", exact: true, element: <Contactus/> },
       { path: "/achievements", exact: true, element: <Achievement/> },
+      { path: "/signup", exact: true, element: <Signup/> },
+      { path: "/myaccount", exact: true, element: <MyAccount/> },
     ],
   },{ path: "/login", element: <Login/> },
 ];

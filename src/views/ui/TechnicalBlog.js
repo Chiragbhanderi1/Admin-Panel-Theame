@@ -12,7 +12,6 @@ import {
   Input,
   FormText,
   CardSubtitle,
-  CardText,
 } from "reactstrap";
 import { useNavigate } from 'react-router-dom';
 const TechnicalBlog = () => {
@@ -36,32 +35,51 @@ const TechnicalBlog = () => {
     });
   };
   useEffect(() => {
-    if(!localStorage.getItem('myuser')){
+    if(!localStorage.getItem('name')){
       Navigate("/login")
     }
     // Fetch all blog from the API
-    fetch("https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/gettechnicalblogs")
+    fetch("https://api-4l9mujm5u-chiragbhanderi1.vercel.app/gettechnicalblogs")
       .then((res) => res.json())
       .then((data) => {
-        data.forEach(element => {
-              const fireBaseTime = new Date(
-                element.date._seconds * 1000 + element.date._nanoseconds / 1000000,
-              );
-              const date = fireBaseTime.toDateString();
-              const atTime = fireBaseTime.toLocaleTimeString();
-              element.date =(date +" "+ atTime)
-          });
-         setBlog(data)
+        if (data != null) {
+          data.forEach(element => {
+                const fireBaseTime = new Date(
+                  element.date._seconds * 1000 + element.date._nanoseconds / 1000000,
+                );
+                const date = fireBaseTime.toDateString();
+                const atTime = fireBaseTime.toLocaleTimeString();
+                element.date =(date +" "+ atTime)
+            });
+           setBlog(data)
+        }
         })
       .catch((err) => console.log(err));
       // eslint-disable-next-line
   }, []);
   const handleImageUpload = (e)=>{
     const uploadedFiles = (e.target.files);
-      for (let i = 0; i < uploadedFiles.length; i++) {
-        const file = uploadedFiles[i];
-        selectedImg[file.name] = file;
+    const fileArray = Array.from(uploadedFiles);
+    fileArray.sort((a, b) => {
+      const extensionA = a.name.split('.').pop().toLowerCase();
+      const extensionB = b.name.split('.').pop().toLowerCase();
+
+      // Define the sorting criteria
+      if (extensionA === 'mp4' || extensionA === 'mov') {
+        return -1; // Video files come first
+      } else if (extensionB === 'mp4' || extensionB === 'mov') {
+        return 1;
+      } else {
+        return a.name.localeCompare(b.name); // Sort alphabetically for other files
       }
+    });
+    fileArray.forEach((file) => {
+      // Process each file here
+      selectedImg[file.name] = file;
+    });
+    // for (let i = 0; i < uploadedFiles.length; i++) {
+    //   const file = uploadedFiles[i];
+    // }
   }
   const uploadImg = async()=>{
     setLoading(true)
@@ -69,7 +87,7 @@ const TechnicalBlog = () => {
         try {
         const formData = new FormData();
         formData.append("file", selectedImg[name]);
-        const res = await  fetch("https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/fileevent",{
+        const res = await  fetch("https://api-4l9mujm5u-chiragbhanderi1.vercel.app/fileevent",{
           method:"POST",
           body:formData
         })
@@ -90,7 +108,7 @@ const TechnicalBlog = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Add the blogs to the database with the download URLs of the files
-    fetch("https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/technicalblogs", {
+    fetch("https://api-4l9mujm5u-chiragbhanderi1.vercel.app/technicalblogs", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -107,7 +125,7 @@ const TechnicalBlog = () => {
   };
   const handleDeleteBlog = (id) => {
     // Send a DELETE request to the API to delete the blogs with the given ID
-    fetch(`https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/deletetechnicalblog/${id}`, {
+    fetch(`https://api-4l9mujm5u-chiragbhanderi1.vercel.app/deletetechnicalblog/${id}`, {
       method: "DELETE",
     })
       .then(() => {
@@ -121,7 +139,7 @@ const TechnicalBlog = () => {
   const handleUpdateBlog = (e) => {
     e.preventDefault();
     // Send a PUT request to the API to update the blogs with the given ID
-    fetch(`https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/updatetechnicalblog/${blogData.title}`, {
+    fetch(`https://api-4l9mujm5u-chiragbhanderi1.vercel.app/updatetechnicalblog/${blogData.title}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -157,11 +175,11 @@ const TechnicalBlog = () => {
         <Card>
           <CardTitle tag="h4" className="text-center border-bottom p-3 mb-0">
             <i className="bi bi-calendar-blogs me-2"> </i>
-            Blog
+            Techinal Updates
           </CardTitle>
           <CardTitle tag="h6" className=" p-3 mb-0">
             <i className="bi bi-plus me-2"> </i>
-            Add Blog
+            Add Updates
           </CardTitle>
           <CardBody>
             <Form onSubmit={update?handleUpdateBlog:handleSubmit}>
@@ -220,8 +238,8 @@ const TechnicalBlog = () => {
           <Col sm="6" lg="6" xl="3" key={index}>
             <Card>
               <div className='text-center justify-content-center d-flex align-items-center p-2'>
-               {blg.img[0].includes('.mp4') && <video controls style={{width:"100%"}}><source src={blg.img[0]}  type="video/mp4"/>Your browser does not support the video.</video>}
-               {!blg.img[0].includes('.mp4') && <img src={blg.img[0]} height={"200px"} width={"100%"} alt='blog' style={{width:"275px"}}></img>}
+               {blg.img[0] && blg.img[0].includes('.mp4') && <video controls style={{width:"100%"}}><source src={blg.img[0]}  type="video/mp4"/>Your browser does not support the video.</video>}
+               {blg.img[0] && !blg.img[0].includes('.mp4') && <img src={blg.img[0]} height={"200px"} width={"100%"} alt='blog' style={{width:"275px"}}></img>}
               </div>
               <CardBody className="p-4">
                 <CardTitle tag="h5">{blg.title}</CardTitle>

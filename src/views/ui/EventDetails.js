@@ -11,11 +11,11 @@ const EventsDetails = () => {
   const students = [];
   const ids=[];
   useEffect(()=>{
-    if(!localStorage.getItem('myuser')){
+    if(!localStorage.getItem('name')){
       Navigate("/login")
     }
     // Fetch all internships from the API
-    fetch(`https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/getevent/${eventslug}`)
+    fetch(`https://api-4l9mujm5u-chiragbhanderi1.vercel.app/getevent/${eventslug}`)
     .then((res) => res.json())
     .then((data) =>{
       setEvents(data)

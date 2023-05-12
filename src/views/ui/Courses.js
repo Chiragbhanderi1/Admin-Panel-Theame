@@ -55,7 +55,7 @@ const Courses = () => {
     title: "",
     subtitle:"",
     details: "",
-    benifits:"",
+    benefits:"",
     duration: "",
     price: "",
     img:"",
@@ -66,11 +66,11 @@ const Courses = () => {
     videos:{}
   });
   useEffect(() => {
-    if(!localStorage.getItem('myuser')){
+    if(!localStorage.getItem('name')){
       Navigate("/login")
     }
     // Fetch all courses from the API
-    fetch("https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/getcourses")
+    fetch("https://api-4l9mujm5u-chiragbhanderi1.vercel.app/getcourses")
       .then((res) => res.json())
       .then((data) => setCourses(data))
       .catch((err) => console.log(err));
@@ -90,7 +90,7 @@ const Courses = () => {
     setLoadingbann(true)
     const formData = new FormData();
     formData.append("file", selectedBann);
-    const res = await  fetch("https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/filecourses",{
+    const res = await  fetch("https://api-4l9mujm5u-chiragbhanderi1.vercel.app/filecourses",{
       method:"POST",
       body:formData
     })
@@ -110,7 +110,7 @@ const Courses = () => {
     setLoadingimg(true)
     const formData = new FormData();
     formData.append("file", selectedImg);
-    const res = await  fetch("https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/filecourses",{
+    const res = await  fetch("https://api-4l9mujm5u-chiragbhanderi1.vercel.app/filecourses",{
       method:"POST",
       body:formData
     })
@@ -143,7 +143,7 @@ const Courses = () => {
         try {
         const formData = new FormData();
         formData.append("file", assignments);
-        const res = await  fetch("https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/filecourses",{
+        const res = await  fetch("https://api-4l9mujm5u-chiragbhanderi1.vercel.app/filecourses",{
           method:"POST",
           body:formData
         })
@@ -180,7 +180,7 @@ const Courses = () => {
       try{
         const formData = new FormData();
         formData.append("file", materials);
-        const res = await  fetch("https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/filecourses",{
+        const res = await  fetch("https://api-4l9mujm5u-chiragbhanderi1.vercel.app/filecourses",{
           method:"POST",
           body:formData
         })
@@ -203,7 +203,7 @@ const Courses = () => {
     try {
       const formData = new FormData();
       formData.append("file", files);
-      const res = await  fetch("https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/filecourses",{
+      const res = await  fetch("https://api-4l9mujm5u-chiragbhanderi1.vercel.app/filecourses",{
         method:"POST",
         body:formData
       })
@@ -277,7 +277,7 @@ const Courses = () => {
       assignments:assignmentArray
     })
     // Add the course to the database with the download URLs of the files
-    fetch("https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/courses", {
+    fetch("https://api-4l9mujm5u-chiragbhanderi1.vercel.app/courses", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -294,11 +294,11 @@ const Courses = () => {
   };
   const handleDeleteCourse = (id) => {
     // Send a DELETE request to the API to delete the course with the given ID
-    fetch(`https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/deletecourse/${id}`, {
+    fetch(`https://api-4l9mujm5u-chiragbhanderi1.vercel.app/deletecourse/${id}`, {
       method: "DELETE",
     })
       .then(() => {
-        setCourses(courses.filter((course) => course.id !== id));
+        setCourses(courses.filter((course) => course.title !== id));
       })
       .catch((err) => console.log(err));
   };
@@ -307,7 +307,7 @@ const Courses = () => {
     e.preventDefault();
    
     // Send a PUT request to the API to update the course with the given ID
-    fetch(`https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/updatecourse/${courseData.title}`, {
+    fetch(`https://api-4l9mujm5u-chiragbhanderi1.vercel.app/updatecourse/${courseData.title}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -341,7 +341,7 @@ const Courses = () => {
       title: course.title,
       subtitle: course.subtitle,
       details: course.details,
-      benifits: course.benifits,
+      benefits: course.benefits,
       price: course.price,
       duration: course.duration,
       category:course.category,
@@ -419,11 +419,11 @@ const Courses = () => {
                 />
               </FormGroup>
               <FormGroup>
-                <Label for="benifits">Benefits</Label>
+                <Label for="benefits">Benefits</Label>
                 <Input
-                  id="benifits"
-                  name="benifits"
-                  value={courseData.benifits}
+                  id="benefits"
+                  name="benefits"
+                  value={courseData.benefits}
                   onChange={handleInputChange}
                   placeholder="Benefits in Form of paragraphs could contain html tags"
                   type="text"

@@ -34,11 +34,11 @@ const CoursesDetails = () => {
   const { courseslug } = useParams();
   const Navigate =useNavigate();
   useEffect(()=>{
-    if(!localStorage.getItem('myuser')){
+    if(!localStorage.getItem('name')){
       Navigate("/login")
     }
     // Fetch all internships from the API
-    fetch(`https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/getcourse/${courseslug}`)
+    fetch(`https://api-4l9mujm5u-chiragbhanderi1.vercel.app/getcourse/${courseslug}`)
       .then((res) => res.json())
       .then((data) =>{
         setCourses(data) 
@@ -58,7 +58,7 @@ const CoursesDetails = () => {
     setShowaddModal(!showaddModal);
   };
   const deleteVideo =(id)=>{
-    fetch(`https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/deletecoursedata/${courses.title}/videos/${id}`, {
+    fetch(`https://api-4l9mujm5u-chiragbhanderi1.vercel.app/deletecoursedata/${courses.title}/videos/${id}`, {
     method: "DELETE",
   })
     .then(() => {
@@ -67,7 +67,7 @@ const CoursesDetails = () => {
     .catch((err) => console.log(err));
   }
   const deleteMat =(id)=>{
-    fetch(`https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/deletecoursedata/${courses.title}/materials/${id}`, {
+    fetch(`https://api-4l9mujm5u-chiragbhanderi1.vercel.app/deletecoursedata/${courses.title}/materials/${id}`, {
     method: "DELETE",
   })
     .then(() => {
@@ -76,7 +76,7 @@ const CoursesDetails = () => {
     .catch((err) => console.log(err));
   }
   const deleteAss =(id)=>{
-    fetch(`https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/deletecoursedata/${courses.title}/assignments/${id}`, {
+    fetch(`https://api-4l9mujm5u-chiragbhanderi1.vercel.app/deletecoursedata/${courses.title}/assignments/${id}`, {
     method: "DELETE",
   })
     .then(() => {
@@ -89,7 +89,7 @@ const CoursesDetails = () => {
     try {
       const formData = new FormData();
       formData.append("file", files);
-      const res = await  fetch("https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/filecourses",{
+      const res = await  fetch("https://api-4l9mujm5u-chiragbhanderi1.vercel.app/filecourses",{
         method:"POST",
         body:formData
       })
@@ -108,7 +108,7 @@ const CoursesDetails = () => {
   }
   const addvideos =(e)=>{
   // Add the course to the database with the download URLs of the files
-  fetch(`https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/addcoursedata/${courses.title}/videos`, {
+  fetch(`https://api-4l9mujm5u-chiragbhanderi1.vercel.app/addcoursedata/${courses.title}/videos`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -125,7 +125,7 @@ const CoursesDetails = () => {
   }
   const addass =()=>{
     // Add the course to the database with the download URLs of the files
-    fetch(`https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/addcoursedata/${courses.title}/assignments`, {
+    fetch(`https://api-4l9mujm5u-chiragbhanderi1.vercel.app/addcoursedata/${courses.title}/assignments`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -142,7 +142,7 @@ const CoursesDetails = () => {
   }
   const addmat =()=>{
       // Add the course to the database with the download URLs of the files
-    fetch(`https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/addcoursedata/${courses.title}/materials`, {
+    fetch(`https://api-4l9mujm5u-chiragbhanderi1.vercel.app/addcoursedata/${courses.title}/materials`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -171,7 +171,7 @@ const CoursesDetails = () => {
   const editVideo =()=>{
     try{        
       // Send a PUT request to the API to update the course with the given ID
-      fetch(`https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/updatecoursedata/${courses.title}/videos/${videoData.id}`, {
+      fetch(`https://api-4l9mujm5u-chiragbhanderi1.vercel.app/updatecoursedata/${courses.title}/videos/${videoData.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -202,7 +202,7 @@ const CoursesDetails = () => {
       try{
         const formData = new FormData();
         formData.append("file", files);
-        const res = await  fetch("https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/filecourses",{
+        const res = await  fetch("https://api-4l9mujm5u-chiragbhanderi1.vercel.app/filecourses",{
           method:"POST",
           body:formData
         })
@@ -224,7 +224,7 @@ const CoursesDetails = () => {
       try {
       const formData = new FormData();
       formData.append("file", files);
-      const res = await  fetch("https://api-f0ms2ifmj-chiragbhanderi1.vercel.app/filecourses",{
+      const res = await  fetch("https://api-4l9mujm5u-chiragbhanderi1.vercel.app/filecourses",{
         method:"POST",
         body:formData
       })
@@ -252,9 +252,9 @@ const CoursesDetails = () => {
             <div className="ms-5">
               <div  dangerouslySetInnerHTML={{__html:courses.details}} ></div>
             </div>
-            <h5 className="mt-3 bg-white p-2">Benifits :</h5>
+            <h5 className="mt-3 bg-white p-2">Benefits :</h5>
             <div className="ms-5 ">                
-              <div  dangerouslySetInnerHTML={{__html:courses.benifits}} ></div>      
+              <div  dangerouslySetInnerHTML={{__html:courses.benefits}} ></div>      
             </div>
           <h5 className="mt-3 bg-white p-2">Duration :</h5>
           <div className="col-md ms-5 ">{courses.duration}</div>
