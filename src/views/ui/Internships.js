@@ -41,7 +41,7 @@ const Internships = () => {
       Navigate("/login")
     }
     // Fetch all internships from the API
-    fetch("https://api-4l9mujm5u-chiragbhanderi1.vercel.app/getinternships")
+    fetch("https://api-flu5fl4i5-chiragbhanderi1.vercel.app/getinternships")
       .then((res) => res.json())
       .then((data) =>{setInternships(data)})
       .catch((err) => console.log(err));
@@ -80,13 +80,13 @@ const Internships = () => {
     setLoading(true)
     const formData = new FormData();
     formData.append("file", selectedImg);
-    const res = await  fetch("https://api-4l9mujm5u-chiragbhanderi1.vercel.app/fileinternship",{
+    const res = await  fetch("https://api-flu5fl4i5-chiragbhanderi1.vercel.app/fileinternship",{
       method:"POST",
       body:formData
     })
      console.log(res);
       const json = await res.json()
-      const downloadUrl = await json.downloadUrl[0];
+      const downloadUrl = await json.downloadUrl;
       setInternshipData({
         ...internshipData,
         img:downloadUrl
@@ -97,7 +97,7 @@ const Internships = () => {
   const handleAddInternship = async (e) => {
     e.preventDefault();
     // Add the internship to the database with the download URLs of the files
-    fetch("https://api-4l9mujm5u-chiragbhanderi1.vercel.app/internships", {
+    fetch("https://api-flu5fl4i5-chiragbhanderi1.vercel.app/internships", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -114,7 +114,7 @@ const Internships = () => {
   };
   const handleDeleteInternship = (id) => {
     // Send a DELETE request to the API to delete the internship with the given ID
-    fetch(`https://api-4l9mujm5u-chiragbhanderi1.vercel.app/deleteinternship/${id}`, {
+    fetch(`https://api-flu5fl4i5-chiragbhanderi1.vercel.app/deleteinternship/${id}`, {
       method: "DELETE",
     })
       .then(() => {
@@ -129,7 +129,7 @@ const Internships = () => {
    try{ 
      e.preventDefault();
      // Send a PUT request to the API to update the internship with the given ID
-     fetch(`https://api-4l9mujm5u-chiragbhanderi1.vercel.app/updateinternship/${internshipData.title}`, {
+     fetch(`https://api-flu5fl4i5-chiragbhanderi1.vercel.app/updateinternship/${internshipData.title}`, {
        method: "PUT",
        headers: {
          "Content-Type": "application/json",

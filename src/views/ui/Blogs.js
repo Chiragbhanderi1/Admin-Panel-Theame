@@ -38,7 +38,7 @@ const Blogs = () => {
           Navigate("/login")
         }
         // Fetch all internships from the API
-        fetch("https://api-4l9mujm5u-chiragbhanderi1.vercel.app/getblogs")
+        fetch("https://api-flu5fl4i5-chiragbhanderi1.vercel.app/getblogs")
           .then((res) => res.json())
           .then((data) =>{setBlogs(data); })
           .catch((err) => console.log(err));
@@ -51,7 +51,7 @@ const Blogs = () => {
         setLoading(true)
         const formData = new FormData();
         formData.append("file", selectedImg);
-        const res = await  fetch("https://api-4l9mujm5u-chiragbhanderi1.vercel.app/fileevent",{
+        const res = await  fetch("https://api-flu5fl4i5-chiragbhanderi1.vercel.app/fileevent",{
           method:"POST",
           body:formData
         })
@@ -66,7 +66,7 @@ const Blogs = () => {
       const handleSubmit = async (e) => {
         e.preventDefault();
         // Add the blog to the database with the download URLs of the files
-        fetch("https://api-4l9mujm5u-chiragbhanderi1.vercel.app/blogs", {
+        fetch("https://api-flu5fl4i5-chiragbhanderi1.vercel.app/blogs", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -83,7 +83,7 @@ const Blogs = () => {
       };
       const handleDeleteBlog = (id) => {
         // Send a DELETE request to the API to delete the blog with the given ID
-        fetch(`https://api-4l9mujm5u-chiragbhanderi1.vercel.app/deleteblog/${id}`, {
+        fetch(`https://api-flu5fl4i5-chiragbhanderi1.vercel.app/deleteblog/${id}`, {
           method: "DELETE",
         })
           .then((res) => {
@@ -95,7 +95,7 @@ const Blogs = () => {
       const handleUpdateBlog = (e) => {
         e.preventDefault();
         // Send a PUT request to the API to update the blog with the given ID
-        fetch(`https://api-4l9mujm5u-chiragbhanderi1.vercel.app/updateblog/${blogData.id}`, {
+        fetch(`https://api-flu5fl4i5-chiragbhanderi1.vercel.app/updateblog/${blogData.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",

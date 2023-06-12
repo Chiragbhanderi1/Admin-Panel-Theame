@@ -21,6 +21,7 @@ const TechnicalBlog = lazy(()=>import("../views/ui/TechnicalBlog"))
 const TechnicalBlogDetails = lazy(()=>import("../views/ui/TechnicalBlogDetails"))
 const Banner = lazy(()=>import("../views/ui/Banner"))
 const Blogs = lazy(()=>import("../views/ui/Blogs"))
+const Requests = lazy(()=>import("../views/ui/Requests"))
 const Contactus = lazy(()=>import("../views/ui/Contactus"))
 const Achievement = lazy(()=>import("../views/ui/Achievements.js"))
 const MyAccount = lazy(()=>import("../views/ui/MyAccount.js"))
@@ -49,6 +50,7 @@ const ThemeRoutes = [
       { path: "/achievements", exact: true, element: <Achievement/> },
       { path: "/signup", exact: true, element: <Signup/> },
       { path: "/myaccount", exact: true, element: <MyAccount/> },
+      { path: "/requests", exact: true, element: <Requests/> },
     ],
   },{ path: "/login", element: <Login/> },
 ];
