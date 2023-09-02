@@ -11,6 +11,8 @@ const Starter = lazy(() => import("../views/Starter.js"));
 const Login = lazy(()=>import("../views/ui/Login"));
 const Signup = lazy(()=>import("../views/ui/Signup"));
 const MyAccount = lazy(()=>import("../views/ui/MyAccount.js"))
+const ParticularProperty = lazy(()=>import("../views/ui/ParticularProperty.js"))
+const User  = lazy(()=>import("../views/ui/User.js"))
 /*****Routes******/
 
 // Function to wrap routes with the ProtectedRoute component
@@ -36,9 +38,11 @@ const ThemeRoutes = [
     children: wrapRoutesWithProtection([
       { path: "/", element: <Navigate to="/starter" /> },
       { path: "/starter", exact: true, element: <Starter   /> },
+      { path: "/paying-guest-in-ahmedabad/:id", exact: true, element: <ParticularProperty/> },
       { path: "/unverifiedproperties", exact: true, element: <UnverifiedProperties /> },
       { path: "/signup", exact: true, element: <Signup/> },
       { path: "/myaccount", exact: true, element: <MyAccount/> },
+      { path: "/user", exact: true, element: <User/> },
     ], '/login'),
   },{ path: "/login", element: <Login/> },
 ];

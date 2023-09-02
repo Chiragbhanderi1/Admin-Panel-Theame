@@ -436,7 +436,7 @@ const UnverifiedProperties = () => {
                   <div className="col-md-6" id="propertyCard-body">
                     <Link
                       className="text-decoration-none text-dark"
-                      to={`/pg/${property.id}`}
+                      to={`/paying-guest-in-ahmedabad/${property.id}`}
                     >
                       <div id="card-Heading">
                         2 bhk fully furnished flat in sagar apartment
