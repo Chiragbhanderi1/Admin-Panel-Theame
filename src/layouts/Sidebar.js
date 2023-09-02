@@ -8,55 +8,11 @@ const navigation = [
     icon: "bi bi-speedometer2",
   },
   {
-    title: "Internships",
-    href: "/internships",
+    title: "Unverified Properties",
+    href: "/unverifiedproperties",
     icon: "bi bi-bullseye",
   },
-  {
-    title: "Courses",
-    href: "/courses",
-    icon: "bi bi-book",
-  },
-  {
-    title: "Events",
-    href: "/events",
-    icon: "bi bi-calendar-event",
-  },
-  {
-    title: "Assignments",
-    href: "/assignments",
-    icon: "bi bi-journal-text",
-  },
-  {
-    title: "Users",
-    href: "/users",
-    icon: "bi bi-people",
-  },
-  {
-    title: "Technical Update",
-    href: "/technicalblogs",
-    icon: "bi bi-journal-code",
-  },
-  {
-    title: "Banner",
-    href: "/banner",
-    icon: "bi bi-kanban",
-  },
-  {
-    title: "Blogs",
-    href: "/blogs",
-    icon: "bi bi-journal-richtext",
-  },
-  {
-    title: "Achievements",
-    href: "/achievements",
-    icon: "bi bi-bar-chart",
-  },
-  {
-    title: "Contact Us",
-    href: "/contactus",
-    icon: "bi bi-person-lines-fill",
-  },
+  
 ];
 
 const Sidebar = () => {

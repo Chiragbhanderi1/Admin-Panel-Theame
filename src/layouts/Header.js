@@ -15,6 +15,7 @@ import {
 } from "reactstrap";
 // import { ReactComponent as LogoWhite } from "../assets/images/logos/xtremelogowhite.svg";
 import user1 from "../assets/images/users/user1.jpg";
+import Cookies from "js-cookie";
 
 const Header = () => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -24,10 +25,10 @@ const Header = () => {
   // const Handletoggle = () => {
   //   setIsOpen(!isOpen);
   // };
-  const name = localStorage.getItem('name');
+  const name = Cookies.get('number');
   
   const handlelogout =()=>{
-    localStorage.removeItem("name")
+    Cookies.remove('number');
     Navigate("/login")
   }
   const showMobilemenu = () => {
@@ -36,9 +37,6 @@ const Header = () => {
   return (
     <Navbar color="dark" dark expand="md" >
       <div className="d-flex align-items-center">
-        {/* <NavbarBrand href="/" className="d-lg-none">
-        <img  src="https://technoithub.in/assets/images/logo.png" width={"50px"}></img>
-        </NavbarBrand> */}
         <Button
           color="dark"
           className="d-lg-none"

@@ -1,0 +1,573 @@
+.main {
+    max-width: 100vw;
+    overflow: hidden;
+    background-color: #f7f7f9;
+    padding-bottom: 50px;
+  }
+  .button {
+    max-height: 52px;
+  }
+  #row {
+    width: 100%;
+  }
+  .grey{
+    color: rgba(0, 0, 0, 0.65);
+  }
+  .searchBar {
+    min-width: 80%;
+  } 
+  #filterBar {
+    border-radius: 10px;
+    padding: 20px 20px;
+    margin-top: 8px;
+    max-width: 21vw;
+    background-color: #fff;
+  }
+  #filterBar form div label {
+    color: rgba(0, 0, 0, 0.65);
+    font-weight: 600;
+  }
+  #filterBar form div input {
+    margin-top: 0 !important;
+  }
+  .mainContain {
+    background-color: #f7f7f9;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 50px;
+    font-size: medium;
+  }
+  .resultCount{
+    color: gray;
+    margin-bottom: 0 !important;
+  }
+  .toggle-container {
+    display: flex;
+    align-items: center;
+  }
+  .toggle-text {
+    margin: 0 10px;
+  }
+  
+  .toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 30px; /* Adjust the width */
+    height: 17px;
+    margin-bottom: 0 !important;
+  }
+  
+  .toggle-switch input {
+    display: none;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 17px;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 13px; /* Adjust the height */
+    width: 13px; /* Adjust the width */
+    left: 2px; /* Adjust the positioning */
+    bottom: 2px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+  }
+  
+  input:checked + .slider {
+    background-color: #2196f3;
+  }
+  
+  input:checked + .slider:before {
+    transform: translateX(13px);
+  }
+  .location-groups {
+    display: flex;
+    justify-content: left;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+  .location-button {
+    border: 1px solid #dcdcdc;
+    padding: 4px 8px;
+    font-size: 14px;
+    background-color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .location-button:hover {
+    background-color: #f0f0f0;
+  }
+  .location-button.selected {
+    background-color: #287dfd15;
+    border: 1px solid #287dfd;
+  }
+  .location-label {
+    position: relative;
+    display: inline-block;
+    margin: 0 !important;
+    color: #000000b4;
+    font-weight: 500 !important;
+  }
+  
+  .location-label input[type="radio"] {
+    position: absolute;
+    left: 0;
+    opacity: 0; /* Hide default location button */
+    width: 0;
+    height: 0;
+  }
+  
+  .location-button:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%); /* Adjust the size of the custom circle */
+  }
+  
+  .location-button.selected:before {
+    background-color: #007bff; /* Customize the color for selected state */
+    border-color: #007bff; /* Customize the border color for selected state */
+  }
+  .range-container {
+    text-align: center;
+  }
+  
+  .range-input {
+    width: 80%;
+    color: #007bff;
+  }
+  .range-labels {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    color: rgba(0, 0, 0, 0.65);
+    margin-top: 5px;
+  }
+  #propertyCard-body {
+    padding: 20px;
+  }
+  #propertyCard {
+    background-color: #fff;
+    margin-bottom: 30px;
+  }
+  #card-Heading {
+    font-size: 22px !important;
+    font-weight: normal;
+    color: #30363C;
+    letter-spacing: 2.2cap;
+  }
+  #card-location {
+    color: rgba(0, 0, 0, 0.65);
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+  #Details{
+    padding: 0 !important;
+  }
+  #card-Details {
+    margin: 10px 0;
+  }
+  #emnities img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+  }
+  #emnities {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  #rentBox {
+    font-size: 1.2rem;
+    margin-left: 0px;
+    margin-top: 10px;
+  }
+  #card-ButtonBox {
+    background-color: #fff;
+    padding: 25px 0;
+    padding-right: 30px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+  #IconGroup{
+    font-size: 19px;
+    color: grey;
+    font-weight: normal;
+  }
+  .heart {
+    margin-right: 5px;
+    cursor: pointer;
+  }
+  .ShareIcons {
+    cursor: pointer; 
+  }
+  .bookmarked {
+    color: #287dfd;
+  }
+  .ownerBox span {
+    color: rgba(0, 0, 0, 0.65);
+  }
+  .ownerBox {
+    color: rgba(0, 0, 0, 0.65);
+    font-size: 15px;
+    margin: 15px 0 !important;
+    text-align: center;
+  }
+  #contact-owner {
+    color: white !important;
+    background-color: #007bff !important;
+    border: none !important;
+  }
+  #send-message {
+    margin-top: 15px;
+    color: #007bff !important;
+    background-color: white !important;
+    border: 1px solid #007bff !important;
+  }
+  .needHelp {
+    font-size: 0.8rem;
+    margin-top: 15px;
+    text-align: center;
+    text-decoration: underline;
+    color: rgba(0, 0, 0, 0.65);
+  }
+  #GenderBox {
+    display: none;
+  }
+  #iconBox {
+    display: none;
+  }
+  #mobileviewHeader{
+    display: none;
+  }
+  .mobilview-search-bar{
+    display: flex;
+      align-items: center;
+      width: 85%;
+    margin-right: 5px;
+      padding-left: 10px;
+    font-size: 14px;
+    background-color: #fff;
+      margin-top: 1.5rem;
+      margin-bottom: 1rem;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+  }
+  .mobileview-search-icon{
+    margin-right: 5px;
+    font-size: 12px;
+    color: #888;
+    
+  }
+  .mobileview-search-button {
+    background-color: #007bff;
+      color: white;
+      border: none;
+      justify-content: center;
+    font-size: 15px;
+      align-items: center;
+      padding: 0.5rem 01rem;
+      cursor: pointer;
+  }
+  .sortButton{
+    cursor: pointer;
+    border: 1px solid #007bff;
+    padding: 0.35rem 0.5rem;
+  }
+  #CarouselImage{
+    height:300px;
+    width: 100%;
+  }
+  .this {
+    position: relative; /* Needed for positioning the AdditionalBlock */
+    display: inline-block; /* Adjust as needed */
+  }
+  
+  .AdditionalBlock {
+    position: absolute;
+    top: 250px;
+    width: 200px; /* Set the width as per your design */
+    background-color: #f0f0f0; /* Set the background color */
+    border: 1px solid #ccc; /* Add a border for visual separation */
+    padding: 10px; /* Add padding as needed */
+    display: none; /* Initially hide the block */
+  }
+  .AdditionalBlock ul{
+    list-style: none;
+  }
+  .this:hover .AdditionalBlock {
+    display: block; /* Show the block on hover */
+  }
+  .paginationBox{
+    display: flex;
+    justify-content: center;
+    column-gap: 50px;
+  }
+  .paginationBtn{
+    background-color: #fff !important;
+    border: 1px solid #287dfd !important;
+    color: rgba(0, 0, 0, 0.744) !important;
+    min-width: 100px;
+  }
+  @media screen and (min-width:320px) and (max-width: 376px) {
+    #CarouselImage{
+      height:210px;
+    }
+    #card-ButtonBox{
+      flex-direction: row;
+      padding: 0 15px;
+      justify-content: space-between;
+      margin: 10px 0;
+      margin-bottom: 10px;
+    }
+    #contact-owner {
+      border-radius: 8px;
+    }
+  }
+  @media screen and (min-width:377px) and (max-width: 426px) {
+    #CarouselImage{
+      height:210px;
+    }
+    #card-ButtonBox {
+      flex-direction: row;
+      padding: 0px 15px;
+      justify-content: space-between;
+      margin: 10px 0;
+      margin-bottom: 10px;
+    }
+    #contact-owner {
+      border-radius: 8px;
+    }
+  }
+  @media screen and (min-width:427px) and (max-width: 768px) {
+    #card-ButtonBox {
+      flex-direction: row;
+      padding: 0px 15px;
+      justify-content: space-between;
+      margin: 10px 0;
+      margin-bottom: 10px;
+    }
+  }
+  @media screen and (min-width:767px) and (max-width: 3000px) {
+    .LaptopHide{
+      display: none !important;
+    }
+  }
+  @media screen and (min-width:768px) and (max-width: 1024px) {
+    #card-Heading {
+      font-size: 22px !important;
+      line-height: 1.3;
+      font-weight: normal !important;
+    }
+    #CarouselImage{
+      height:260px;
+    }
+    #contact-owner {
+      border-radius: 25px;
+    }
+    #send-message{
+      border-radius: 25px;
+    }
+    #propertyCard-body {
+      padding: 20px 10px;
+    }
+    .ownerBox{
+      margin: 5px 0 !important;
+    }
+  }
+  @media screen  and (max-width: 767px) {
+    .mobileAndTab-hide{
+      display: none !important;
+    }
+    #mobileviewHeader{
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      margin: 0 2vw;
+    }
+    .ShareIcons{
+      height: 32px;
+      width: 32px;
+      line-height: 32px;
+      background-color: rgb(242, 243, 248);
+      border-radius: 50%;
+      text-align: center;
+    }
+    #GenderBox span{
+      border-radius: 0 0 10px 10px;
+      padding: 0 20px;
+      font-size: medium;
+      background-color: #2196f3;
+      color: #fff;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+    }
+    #GenderBox {
+      display: flex;
+      justify-content: flex-start;
+      position: absolute;
+      padding-left: 10px;
+      min-height: 35px;
+      z-index: 5;
+    }
+    #iconBox {
+      display: flex;
+      justify-content: flex-end;
+      position: relative;
+      top: -50px;
+    }
+    #iconBox span{
+      margin: 0 10px;
+    }
+    .header {
+      display: none;
+    }
+    #filterBar {
+      display: none;
+    }
+    .mainContain {
+      max-width: 95vw !important;
+    }
+    #card-Details {
+      display: none;
+    }
+    #emnities img{
+      width: 30px;
+      height: 30px;
+      margin-right: 5px;
+    }
+    #emnities {
+      margin: 5px 0;
+    }
+    #rentBox {
+      font-size: 1rem;
+    }
+    #IconGroup {
+      display: none;
+    }
+    #card-Heading {
+      font-size: 20px !important;
+      line-height: 1.3;
+      font-weight: normal;
+    }
+    #card-location {
+      font-size: 0.9rem;
+      margin-top: 5px;
+    }
+    .ownerBox {
+      display: none;
+    }
+    .needHelp {
+      display: none;
+    }
+    #card-ButtonBox {
+      flex-direction: row;
+    }
+    #contact-owner {
+      font-size: 0.9rem;
+      color: #007bff !important;
+      background-color: white !important;
+      border: 1px solid #007bff !important;
+    }
+    #propertyCard-body {
+      padding: 0 20px;
+      margin-top: -20px;
+    }
+  }
+  @media screen and (min-width: 767px)and (max-width: 1024px) {
+    #mobileviewHeader{
+      display: flex;
+      align-items: baseline;
+      justify-content: space-evenly;
+      margin: 0 2vw;
+    }
+    .mobilview-search-bar{
+      width: 80%;
+      padding-left: 15px;
+    }
+    .mobileview-search-icon{
+      margin-right: 10px;
+      font-size: 15px;    
+    }
+    .mobileview-search-button {
+      font-size: 18px;
+      padding: 0.7rem 1.2rem;
+    }
+    .sortButton{
+      padding: 0.7rem 1.2rem;
+    }
+    .header {
+      display: none;
+    }
+    #filterBar {
+      display: none;
+    }
+    .mainContain {
+      margin-left: 2.5vw !important;
+      width: 95vw !important;
+    }
+    #card-Details {
+      display: none;
+    }
+    #emnities {
+      justify-content: center;
+      margin: 10px 0;
+    }
+    #rentBox {
+      font-size: 1rem;
+    }
+    #rentBox div {
+      text-align: center;
+    }
+    #IconGroup {
+      display: none;
+    }
+    #card-Heading {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    #card-location {
+      font-size: 0.9rem;
+    }
+    #card-ButtonBox {
+      padding: 0 10px;
+      flex-direction: column;
+      justify-content: space-between;
+      margin: 10px 0;
+    }
+    #contact-owner {
+      font-size: 0.9rem;
+    }
+    #send-message {
+      font-size: 0.9rem;
+      margin-top: 0;
+    }
+  }
+  #filterBarMobileview  div label{
+    color: rgba(0, 0, 0, 0.65);
+    font-weight: 600;
+    text-align: left;
+  }
+  @media screen and (min-width: 1024px) {
+    #propertyCard{
+      margin-left: 10px;
+    }
+    
+  }
