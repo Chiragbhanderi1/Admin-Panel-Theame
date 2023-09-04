@@ -157,18 +157,39 @@ const ParticularProperty = () => {
             </div>
             <span className="my-2"></span>
             <div className="">
-              <div
+            <div
                 style={{
-                  backgroundImage:
-                    "url('https://images.freeimages.com/images/previews/bc9/stockholm-harbour-1630304.jpg')",
+                  position: "relative",
+                  height: "100%",
                 }}
-                onClick={() => openImageViewer(2)}
-                alt="photos"
-                width={"100%"}
-                height={"100%"}
-                className="overlay-text"
               >
-                +3 More
+                <img
+                  src={property.photoUrls[3]}
+                  alt="property "
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                  }}
+                />
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                    backgroundColor: "rgba(0, 0, 0, 0.5)", // Adjust opacity as needed
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "white", // Text color
+                    fontSize: "24px", // Text font size
+                  }}
+                  onClick={() => openImageViewer(3)}
+                >
+                  +3 More
+                </div>
               </div>
             </div>
           </div>
@@ -825,7 +846,7 @@ const ParticularProperty = () => {
                         <div className="col-1">:</div>
                         <div className="valueTextForDetail fs-6 grey col-4">
                           {" "}
-                          {property.additionalCosts.cost1 ? "Yes" : "NO"}
+                          {property.additionalCosts.cost1 ? "Yes" : "No"}
                         </div>
                       </div>
                       {property.additionalCosts.description1 &&
@@ -875,7 +896,7 @@ const ParticularProperty = () => {
                 </div>
               </TabPanel>
             </div> */}
-            <div className="detailsBox mobileAndTab-hide">
+           {property.instructions  &&<> <div className="detailsBox mobileAndTab-hide">
               <div className="boxHeader">
                 {" "}
                 Instructions / rules or regulations:
@@ -911,7 +932,7 @@ const ParticularProperty = () => {
                   {property.instructions}
                 </div>
               )}
-            </div>
+            </div></>}
           </div>
           <div className="col-md-4">
             <div className="detailsBox">
@@ -943,12 +964,12 @@ const ParticularProperty = () => {
                 <div className="innerDetailsBox">
                   <div className="bg-white rounded-2 my-1">
                     <div className="row align-items-center">
-                      <div className="col-7 pricingLabel ">
+                      <div className="col-6 pricingLabel ">
                         {" "}
                         Rent (Per Month)
                       </div>
                       <div className="col-1">:</div>
-                      <div className="valueTextForDetail  fw-bold  col-4">
+                      <div className="valueTextForDetail  fw-bold  col-3">
                         {" "}
                         {property.rent || property.totalFlatRent}
                       </div>
@@ -956,37 +977,37 @@ const ParticularProperty = () => {
                   </div>
                   <div className="bg-white rounded-2 my-1">
                     <div className="row align-items-center">
-                      <div className="col-7 pricingLabel">
+                      <div className="col-6 pricingLabel">
                         {" "}
                         Deposit (in months)
                       </div>
                       <div className="col-1">:</div>
-                      <div className="valueTextForDetail fw-bold  col-4">
+                      <div className="valueTextForDetail fw-bold  col-3">
                         {property.depoist} rent
                       </div>
                     </div>
                   </div>
                   <div className="bg-white rounded-2 my-2">
                     <div className="row align-items-center">
-                      <div className="col-7 grey fs-6 pricingLabel">
+                      <div className="col-6 grey fs-6 pricingLabel">
                         {" "}
                         Additional Cost
                       </div>
                       <div className="col-1">:</div>
-                      <div className="valueTextForDetail fs-6 grey col-4">
+                      <div className="valueTextForDetail fs-6 grey col-3">
                         {" "}
-                        {property.additionalCosts.cost1 ? "Yes" : "NO"}
+                        {property.additionalCosts.cost1 ? "Yes" : "No"}
                       </div>
                     </div>
                     {property.additionalCosts.description1 &&
                       property.additionalCosts.cost1 && (
                         <div className="row align-items-center">
-                          <div className="col-7  pricingLabel">
+                          <div className="col-6  pricingLabel">
                             {" "}
                             {property.additionalCosts.description1}
                           </div>
                           <div className="col-1">:</div>
-                          <div className="valueTextForDetail  col-4">
+                          <div className="valueTextForDetail  col-3">
                             {" "}
                             {property.additionalCosts.cost1}
                           </div>
@@ -995,12 +1016,12 @@ const ParticularProperty = () => {
                     {property.additionalCosts.description2 &&
                       property.additionalCosts.cost2 && (
                         <div className="row align-items-center">
-                          <div className="col-7  pricingLabel">
+                          <div className="col-6  pricingLabel">
                             {" "}
                             {property.additionalCosts.description2}
                           </div>
                           <div className="col-1">:</div>
-                          <div className="valueTextForDetail  col-4">
+                          <div className="valueTextForDetail  col-3">
                             {" "}
                             {property.additionalCosts.cost2}
                           </div>
@@ -1009,12 +1030,12 @@ const ParticularProperty = () => {
                     {property.additionalCosts.description3 &&
                       property.additionalCosts.cost3 && (
                         <div className="row align-items-center">
-                          <div className="col-7  pricingLabel">
+                          <div className="col-6  pricingLabel">
                             {" "}
                             {property.additionalCosts.description3}
                           </div>
                           <div className="col-1">:</div>
-                          <div className="valueTextForDetail  col-4">
+                          <div className="valueTextForDetail  col-3">
                             {" "}
                             {property.additionalCosts.cost3}
                           </div>
@@ -1022,14 +1043,6 @@ const ParticularProperty = () => {
                       )}
                   </div>
                 </div>
-              </div>
-            </div>
-            <div className="detailsBox">
-              <div className="boxHeader"> Contact Owner :</div>
-              <div className="innerDetailsBox">
-                <div className="labelTextForDetail">Owner:</div>
-                <div className="fs-6">{property.name}</div>
-                
               </div>
             </div>
           </div>

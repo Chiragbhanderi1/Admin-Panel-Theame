@@ -573,7 +573,17 @@ const UnverifiedProperties = () => {
                         /per month
                       </span>
                     </div>
-                    
+                    <Button
+                      id="contact-owner"
+                    >
+                      Delete Property
+                    </Button>
+                    <Button
+                      className=" mobileAndTab-hide"
+                      id="send-message"
+                    >
+                      Edit Property
+                    </Button>
                   </div>
                 </div>
               ))}

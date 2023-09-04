@@ -203,7 +203,6 @@
     padding: 25px 0;
     padding-right: 30px;
     display: flex;
-    justify-content: space-between;
     flex-direction: column;
   }
   #IconGroup{
