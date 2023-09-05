@@ -13,6 +13,7 @@ import ImageViewer from "react-simple-image-viewer";
 import "./ParticularProperty.css";
 import { Carousel, CarouselItem, CarouselControl, Button } from "reactstrap";
 import { useEffect } from "react";
+import Map from "../../components/Map";
 const ParticularProperty = () => {
   const [property, setProperty] = useState();
   // const [selectedTab, setSelectedTab] = useTabs([
@@ -48,14 +49,26 @@ const ParticularProperty = () => {
   };
   const [showInstructions, setShowInstructions] = useState(false);
 
+  const [address, setAddress] = useState([]);
   const { id } = useParams();
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_IP}/property/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setProperty(data);
+        console.log(data)
+        const address = {
+          coordinates: [
+            parseFloat(data.address.latitude) || 23.0225,
+            parseFloat(data.address.logitude) || 72.5714,
+          ],
+          label: data.title,
+          link: `/particular-property/${data.id}`,
+        };
+        setAddress([address]);
       })
       .catch((err) => console.log(err));
+    // eslint-disable-next-line
   }, [id]);
   const [properties,setProperties] = useState();
   useEffect(() => {
@@ -945,16 +958,7 @@ const ParticularProperty = () => {
                   {property.address.area} {property.address.pincode}{" "}
                 </div>
                 <div className="mapBox mt-3">
-                  <iframe
-                    title="addressMap"
-                    src={property.address.link}
-                    width="100%"
-                    height="200"
-                    style={{ border: "0" }}
-                    allowFullScreen=""
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                  ></iframe>
+                  <Map addresses={address} height={"300px"} />
                 </div>
               </div>
             </div>
