@@ -20,30 +20,30 @@ const Starter = () => {
     if(!localStorage.getItem('name')){
       Navigate("/login")
     }
-    fetch("https://api-flu5fl4i5-chiragbhanderi1.vercel.app/getcourses")
+    fetch("https://api-cnn5jio2q-chiragbhanderi1.vercel.app/getcourses")
       .then((res) => res.json())
       .then((data) => {
         setCourses(data)
       })
       .catch((err) => console.log(err));
-    fetch("https://api-flu5fl4i5-chiragbhanderi1.vercel.app/getrequests")
+    fetch("https://api-cnn5jio2q-chiragbhanderi1.vercel.app/getrequests")
       .then((res) => res.json())
       .then((data) => {
         setRequest(data)
       })
       .catch((err) => console.log(err));
 
-    fetch("https://api-flu5fl4i5-chiragbhanderi1.vercel.app/getinternships")
+    fetch("https://api-cnn5jio2q-chiragbhanderi1.vercel.app/getinternships")
     .then((res) => res.json())
     .then((data) =>{setInternships(data)})
     .catch((err) => console.log(err));
 
-    fetch("https://api-flu5fl4i5-chiragbhanderi1.vercel.app/getevents")
+    fetch("https://api-cnn5jio2q-chiragbhanderi1.vercel.app/getevents")
       .then((res) => res.json())
       .then((data) => setEvents(data))
       .catch((err) => console.log(err));
 
-    fetch("https://api-flu5fl4i5-chiragbhanderi1.vercel.app/getusers")
+    fetch("https://api-cnn5jio2q-chiragbhanderi1.vercel.app/getusers")
     .then((res) => res.json())
     .then((data) =>{setUsers(data)})
     .catch((err) => console.log(err));

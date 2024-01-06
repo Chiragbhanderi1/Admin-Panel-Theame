@@ -9,6 +9,7 @@ import {
   Button,
   Form,
   FormGroup,
+  Table,
   Label,
   Input,
   FormText
@@ -19,6 +20,8 @@ const Internships = () => {
   const [internships, setInternships] = useState([]);
   const [update,setUpdate] = useState(false)
   const [loading,setLoading]=useState(false)
+  // eslint-disable-next-line
+  const [faqArray,setFaqArray]=useState([]);
   const [detailsData,setdetailsData] = useState({
     location:"",
     exp:"",
@@ -34,14 +37,37 @@ const Internships = () => {
     subtitle:"",
     details:detailsData,
     perks:"",
-    img:""
+    img:"",
+    faq:{}
   });
+  const [faqData, setFaqData] = useState({
+    question:"",
+    answer:""
+  });
+  const handleFaqData=(e)=>{
+    setFaqData({
+      ...faqData,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const addFaqs=()=>{
+    try{
+      faqArray.push(faqData);
+      setFaqData({
+        answer:"",
+        question:""
+      }) 
+      setInternshipData({...internshipData,faqs:faqArray});
+    }catch(error){
+      console.log(error)
+    }
+  }
   useEffect(() => {
     if(!localStorage.getItem('name')){
       Navigate("/login")
     }
     // Fetch all internships from the API
-    fetch("https://api-flu5fl4i5-chiragbhanderi1.vercel.app/getinternships")
+    fetch("https://api-cnn5jio2q-chiragbhanderi1.vercel.app/getinternships")
       .then((res) => res.json())
       .then((data) =>{setInternships(data)})
       .catch((err) => console.log(err));
@@ -80,7 +106,7 @@ const Internships = () => {
     setLoading(true)
     const formData = new FormData();
     formData.append("file", selectedImg);
-    const res = await  fetch("https://api-flu5fl4i5-chiragbhanderi1.vercel.app/fileinternship",{
+    const res = await  fetch("https://api-cnn5jio2q-chiragbhanderi1.vercel.app/fileinternship",{
       method:"POST",
       body:formData
     })
@@ -97,7 +123,7 @@ const Internships = () => {
   const handleAddInternship = async (e) => {
     e.preventDefault();
     // Add the internship to the database with the download URLs of the files
-    fetch("https://api-flu5fl4i5-chiragbhanderi1.vercel.app/internships", {
+    fetch("https://api-cnn5jio2q-chiragbhanderi1.vercel.app/internships", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -114,7 +140,7 @@ const Internships = () => {
   };
   const handleDeleteInternship = (id) => {
     // Send a DELETE request to the API to delete the internship with the given ID
-    fetch(`https://api-flu5fl4i5-chiragbhanderi1.vercel.app/deleteinternship/${id}`, {
+    fetch(`https://api-cnn5jio2q-chiragbhanderi1.vercel.app/deleteinternship/${id}`, {
       method: "DELETE",
     })
       .then(() => {
@@ -129,7 +155,7 @@ const Internships = () => {
    try{ 
      e.preventDefault();
      // Send a PUT request to the API to update the internship with the given ID
-     fetch(`https://api-flu5fl4i5-chiragbhanderi1.vercel.app/updateinternship/${internshipData.title}`, {
+     fetch(`https://api-cnn5jio2q-chiragbhanderi1.vercel.app/updateinternship/${internshipData.title}`, {
        method: "PUT",
        headers: {
          "Content-Type": "application/json",
@@ -315,6 +341,27 @@ const Internships = () => {
                   You Must Wait Unit Image is been Uploaded
                 </FormText>
               </FormGroup>
+              {!update &&<FormGroup style={{backgroundColor:"#ededed"}} className="rounded p-3">
+                <h6>FAQs</h6>                
+                <Label for="question">Question</Label>
+                <Input id="question" name="question"  type="text" value={faqData.question} onChange={handleFaqData}/>               
+                <Label for="answer">Answer</Label>
+                <Input id="answer" name="answer"  type="text" value={faqData.answer} onChange={handleFaqData}/>               
+                <Button onClick={addFaqs}  className="mt-2">Add</Button>
+                { faqArray!=null && faqArray.map((faq,index)=>(
+                            <CardBody style={{overflowX:"auto"}}  key={index} >
+                            <Table bordered hover>
+                              <tbody>                                   
+                                <tr >
+                                  <th scope="row">{index+1}</th>
+                                  <td>{faq.question}</td>
+                                  <td>{faq.answer}</td>
+                                </tr>                                   
+                              </tbody>
+                            </Table>                           
+                          </CardBody>
+                   ))}
+              </FormGroup>}
               <Button type='submit' disabled={loading} style={{width:"100%"}}>{update?"Update":"Add"} Internship</Button>
             </Form>
           </CardBody>

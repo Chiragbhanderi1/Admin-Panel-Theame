@@ -29,7 +29,7 @@ const Signup = () => {
       Navigate("/login")
     }
     // Fetch all internships from the API
-    fetch("https://api-flu5fl4i5-chiragbhanderi1.vercel.app/getadmins")
+    fetch("https://api-cnn5jio2q-chiragbhanderi1.vercel.app/getadmins")
       .then((res) => res.json())
       .then((data) =>{setAdmins(data)})
       .catch((err) => console.log(err));
@@ -45,7 +45,7 @@ const Signup = () => {
   };
   const handleDelete = (id) => {
     // Send a DELETE request to the API to delete the event with the given ID
-    fetch(`https://api-flu5fl4i5-chiragbhanderi1.vercel.app/admindelete/${id}`, {
+    fetch(`https://api-cnn5jio2q-chiragbhanderi1.vercel.app/admindelete/${id}`, {
       method: "DELETE",
     })
       .then(() => {
@@ -59,7 +59,7 @@ const Signup = () => {
   };
   const handleSubmit=(e)=>{
     e.preventDefault();
-    fetch("https://api-flu5fl4i5-chiragbhanderi1.vercel.app/adminsignup", {
+    fetch("https://api-cnn5jio2q-chiragbhanderi1.vercel.app/adminsignup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

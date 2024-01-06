@@ -15,7 +15,7 @@ const EventsDetails = () => {
       Navigate("/login")
     }
     // Fetch all internships from the API
-    fetch(`https://api-flu5fl4i5-chiragbhanderi1.vercel.app/getevent/${eventslug}`)
+    fetch(`https://api-cnn5jio2q-chiragbhanderi1.vercel.app/getevent/${eventslug}`)
     .then((res) => res.json())
     .then((data) =>{
       setEvents(data)

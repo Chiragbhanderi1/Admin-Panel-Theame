@@ -12,7 +12,7 @@ const Login = () => {
   },[])
   const handleSubmit=(e)=>{
     e.preventDefault();
-    fetch("https://api-flu5fl4i5-chiragbhanderi1.vercel.app/adminlogin", {
+    fetch("https://api-cnn5jio2q-chiragbhanderi1.vercel.app/adminlogin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

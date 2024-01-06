@@ -1,13 +1,13 @@
 import React,{ useEffect,useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Row, Col, Table, Card, CardTitle, CardBody,Button, Modal, ModalHeader, ModalBody, ModalFooter,Input,Label,FormGroup } from "reactstrap";
+import { Row, Col, Table, Card, CardTitle, CardBody,Button, Modal, ModalHeader, ModalBody, ModalFooter,FormGroup } from "reactstrap";
 const Requests = () => {
     const [requests, setRequests] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [user,setUser]=useState([]);
     const Navigate = useNavigate();
     const openuser =(id)=>{
-      fetch(`https://api-flu5fl4i5-chiragbhanderi1.vercel.app/getuser/${id}`)
+      fetch(`https://api-cnn5jio2q-chiragbhanderi1.vercel.app/getuser/${id}`)
           .then((res) => res.json())
           .then((data) =>{setUser(data)})
           .catch((err) => console.log(err));
@@ -22,7 +22,7 @@ const Requests = () => {
         courseId:request.courseId,
         courseimage:request.courseimage
       }
-      fetch(`https://api-flu5fl4i5-chiragbhanderi1.vercel.app/subscribedcourse/${request.email}`, {
+      fetch(`https://api-cnn5jio2q-chiragbhanderi1.vercel.app/subscribedcourse/${request.email}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -42,7 +42,7 @@ const Requests = () => {
       const info = {
         status : "Approved"
       }
-      fetch(`https://api-flu5fl4i5-chiragbhanderi1.vercel.app/updaterequest/${request.id}`, {
+      fetch(`https://api-cnn5jio2q-chiragbhanderi1.vercel.app/updaterequest/${request.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -64,7 +64,7 @@ const Requests = () => {
       const data = {
         status : "Rejected"
       }
-      fetch(`https://api-flu5fl4i5-chiragbhanderi1.vercel.app/updaterequest/${id}`, {
+      fetch(`https://api-cnn5jio2q-chiragbhanderi1.vercel.app/updaterequest/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -82,12 +82,34 @@ const Requests = () => {
       })
       .catch((err) => console.log(err));
     };
+    const undo = (id)=>{
+      const data = {
+        status : "Pending"
+      }
+      fetch(`https://api-cnn5jio2q-chiragbhanderi1.vercel.app/updaterequest/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) =>{ 
+        if(Response.status ===200){ 
+          res.json()
+        }
+      })
+      .then((data) => {
+        // eslint-disable-next-line no-restricted-globals
+        location.reload();
+      })
+      .catch((err) => console.log(err));
+    };
     useEffect(() => {
         if(!localStorage.getItem('name')){
           Navigate("/login")
         }
         // Fetch all internships from the API
-        fetch("https://api-flu5fl4i5-chiragbhanderi1.vercel.app/getrequests")
+        fetch("https://api-cnn5jio2q-chiragbhanderi1.vercel.app/getrequests")
           .then((res) => res.json())
           .then((data) =>{setRequests(data)})
           .catch((err) => console.log(err));
@@ -123,6 +145,9 @@ const Requests = () => {
                   { request.status==="Pending"&& <div> 
                       <button className="btn btn-success" onClick={()=>{approve(request)}}> Approve</button>
                       <button className="btn btn-danger ms-2" onClick={()=>{reject(request.id)}}> Reject</button>
+                    </div> }
+                  { request.status==="Rejected"&& <div> 
+                      <button className="btn btn-warning" onClick={()=>{undo(request.id)}}> Undo <i class="bi bi-arrow-counterclockwise"></i></button>
                     </div> }
                   </td>
                   <td>{ request.status}</td>

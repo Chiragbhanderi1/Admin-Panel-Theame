@@ -41,7 +41,7 @@ const Users = () => {
     const Navigate = useNavigate();
     const openModal =(uid)=>{
       setModalShow(true)
-      fetch(`https://api-flu5fl4i5-chiragbhanderi1.vercel.app/getsubmittedassignment/${uid}`)
+      fetch(`https://api-cnn5jio2q-chiragbhanderi1.vercel.app/getsubmittedassignment/${uid}`)
       .then((res) => res.json())
       .then((data) => setModalData(data))
       .catch((err) => console.log(err));
@@ -53,7 +53,7 @@ const Users = () => {
           Navigate("/login")
         }
         // Fetch all internships from the API
-        fetch("https://api-flu5fl4i5-chiragbhanderi1.vercel.app/getusers")
+        fetch("https://api-cnn5jio2q-chiragbhanderi1.vercel.app/getusers")
           .then((res) => res.json())
           .then((data) =>{setUsers(data)})
           .catch((err) => console.log(err));

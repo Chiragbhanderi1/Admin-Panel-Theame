@@ -19,7 +19,7 @@ const MyAccount = () => {
       Navigate("/login")
     }
     // Fetch all internships from the API
-    fetch("https://api-flu5fl4i5-chiragbhanderi1.vercel.app/getadmins")
+    fetch("https://api-cnn5jio2q-chiragbhanderi1.vercel.app/getadmins")
       .then((res) => res.json())
       .then((data) =>{
         data.forEach(element => {
@@ -36,7 +36,7 @@ const MyAccount = () => {
     e.preventDefault();
     if (password===confirmpassword) {
 
-      fetch(`https://api-flu5fl4i5-chiragbhanderi1.vercel.app/adminforget`, {
+      fetch(`https://api-cnn5jio2q-chiragbhanderi1.vercel.app/adminforget`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

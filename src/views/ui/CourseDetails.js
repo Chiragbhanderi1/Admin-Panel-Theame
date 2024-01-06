@@ -10,9 +10,12 @@ const CoursesDetails = () => {
   const [courses, setCourses] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [showaddModal, setShowaddModal] = useState(false);
+  const [showFaqModal, setShowFaqModal] = useState(false);
   const [showaddAssModal, setShowaddAssModal] = useState(false);
+  const [showaddFaqModal, setShowaddFaqModal] = useState(false);
   const [showaddMatModal, setShowaddMatModal] = useState(false);
   const [videos,setVideos] = useState([])
+  const [faqs,setFaqs] = useState([])
   const [materials,setMaterials] = useState({})
   const [student,setStudents] = useState([])
   const [loadingvid,setLoadingvid] =useState();
@@ -27,6 +30,10 @@ const CoursesDetails = () => {
     title:"",
     desc:""
   });
+  const [faqData ,setFaqData] = useState({
+    answer:"",
+    question:""
+  });
   const [assignmentData, setAssignmentData] = useState({
     url:"",
     title:"",
@@ -38,13 +45,14 @@ const CoursesDetails = () => {
       Navigate("/login")
     }
     // Fetch all internships from the API
-    fetch(`https://api-flu5fl4i5-chiragbhanderi1.vercel.app/getcourse/${courseslug}`)
+    fetch(`https://api-cnn5jio2q-chiragbhanderi1.vercel.app/getcourse/${courseslug}`)
       .then((res) => res.json())
       .then((data) =>{
         setCourses(data) 
         setVideos(data.videos)
         setMaterials(data.materials) 
         setAssignments(data.assignments) 
+        setFaqs(data.faqs) 
         setStudents((data.students))
       })
       .catch((err) => console.log(err));
@@ -54,11 +62,15 @@ const CoursesDetails = () => {
     setVideoData(video);
     setShowModal(!showModal);
   };
+  const handleFaqClick = (faq) => {
+    setFaqData(faq);
+    setShowFaqModal(!showFaqModal);
+  };
   const handleaddButton = () => {
     setShowaddModal(!showaddModal);
   };
   const deleteVideo =(id)=>{
-    fetch(`https://api-flu5fl4i5-chiragbhanderi1.vercel.app/deletecoursedata/${courses.title}/videos/${id}`, {
+    fetch(`https://api-cnn5jio2q-chiragbhanderi1.vercel.app/deletecoursedata/${courses.title}/videos/${id}`, {
     method: "DELETE",
   })
     .then(() => {
@@ -66,8 +78,17 @@ const CoursesDetails = () => {
     })
     .catch((err) => console.log(err));
   }
+  const deleteFaq =(id)=>{
+    fetch(`https://api-cnn5jio2q-chiragbhanderi1.vercel.app/deletecoursedata/${courses.title}/faqs/${id}`, {
+    method: "DELETE",
+  })
+    .then(() => {
+      setFaqs(faqs.filter((faq) => faq.id !== id));
+    })
+    .catch((err) => console.log(err));
+  }
   const deleteMat =(id)=>{
-    fetch(`https://api-flu5fl4i5-chiragbhanderi1.vercel.app/deletecoursedata/${courses.title}/materials/${id}`, {
+    fetch(`https://api-cnn5jio2q-chiragbhanderi1.vercel.app/deletecoursedata/${courses.title}/materials/${id}`, {
     method: "DELETE",
   })
     .then(() => {
@@ -76,7 +97,7 @@ const CoursesDetails = () => {
     .catch((err) => console.log(err));
   }
   const deleteAss =(id)=>{
-    fetch(`https://api-flu5fl4i5-chiragbhanderi1.vercel.app/deletecoursedata/${courses.title}/assignments/${id}`, {
+    fetch(`https://api-cnn5jio2q-chiragbhanderi1.vercel.app/deletecoursedata/${courses.title}/assignments/${id}`, {
     method: "DELETE",
   })
     .then(() => {
@@ -89,7 +110,7 @@ const CoursesDetails = () => {
     try {
       const formData = new FormData();
       formData.append("file", files);
-      const res = await  fetch("https://api-flu5fl4i5-chiragbhanderi1.vercel.app/filecourses",{
+      const res = await  fetch("https://api-cnn5jio2q-chiragbhanderi1.vercel.app/filecourses",{
         method:"POST",
         body:formData
       })
@@ -108,7 +129,7 @@ const CoursesDetails = () => {
   }
   const addvideos =(e)=>{
   // Add the course to the database with the download URLs of the files
-  fetch(`https://api-flu5fl4i5-chiragbhanderi1.vercel.app/addcoursedata/${courses.title}/videos`, {
+  fetch(`https://api-cnn5jio2q-chiragbhanderi1.vercel.app/addcoursedata/${courses.title}/videos`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -123,9 +144,31 @@ const CoursesDetails = () => {
     })
     .catch((err) => console.log(err));
   }
+  const addfaqs =(e)=>{
+  // Add the course to the database with the download URLs of the files
+  fetch(`https://api-cnn5jio2q-chiragbhanderi1.vercel.app/addcoursedata/${courses.title}/faqs`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(faqData),
+  })
+    .then((res) => {res.json()})
+    .then((data) => {
+      setShowaddFaqModal(!showaddFaqModal);
+      faqs.push(faqData);
+      setFaqData({
+        question:"",
+        answer:""
+      })
+      // eslint-disable-next-line no-restricted-globals
+      // location.reload();
+    })
+    .catch((err) => console.log(err));
+  }
   const addass =()=>{
     // Add the course to the database with the download URLs of the files
-    fetch(`https://api-flu5fl4i5-chiragbhanderi1.vercel.app/addcoursedata/${courses.title}/assignments`, {
+    fetch(`https://api-cnn5jio2q-chiragbhanderi1.vercel.app/addcoursedata/${courses.title}/assignments`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -142,7 +185,7 @@ const CoursesDetails = () => {
   }
   const addmat =()=>{
       // Add the course to the database with the download URLs of the files
-    fetch(`https://api-flu5fl4i5-chiragbhanderi1.vercel.app/addcoursedata/${courses.title}/materials`, {
+    fetch(`https://api-cnn5jio2q-chiragbhanderi1.vercel.app/addcoursedata/${courses.title}/materials`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -167,10 +210,16 @@ const CoursesDetails = () => {
       [e.target.name] : e.target.value
     })
   }
+  const updateFaq =(e)=>{
+    setFaqData({
+      ...faqData,
+      [e.target.name] : e.target.value
+    })
+  }
   const editVideo =()=>{
     try{        
       // Send a PUT request to the API to update the course with the given ID
-      fetch(`https://api-flu5fl4i5-chiragbhanderi1.vercel.app/updatecoursedata/${courses.title}/videos/${videoData.id}`, {
+      fetch(`https://api-cnn5jio2q-chiragbhanderi1.vercel.app/updatecoursedata/${courses.title}/videos/${videoData.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -195,13 +244,40 @@ const CoursesDetails = () => {
         .catch((err) => console.log(err));
       }catch(error){alert(error)}
     }
+  const editFaq =()=>{
+    try{        
+      // Send a PUT request to the API to update the course with the given ID
+      fetch(`https://api-cnn5jio2q-chiragbhanderi1.vercel.app/updatecoursedata/${courses.title}/faqs/${faqData.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(faqData),
+      })
+        .then((res) =>{ 
+          if(Response.status ===200){
+            res.json()
+          }
+        })
+        .then((data) => {
+          setShowFaqModal(!showFaqModal);
+          setFaqData({
+            question:"",
+            answer:""
+          })
+          // eslint-disable-next-line no-restricted-globals
+          location.reload();
+        })
+        .catch((err) => console.log(err));
+      }catch(error){alert(error)}
+    }
   const uploadMaterial = async ()=>{
     setLoadingvid(true)
     // Upload files to the database and get their download URLs
       try{
         const formData = new FormData();
         formData.append("file", files);
-        const res = await  fetch("https://api-flu5fl4i5-chiragbhanderi1.vercel.app/filecourses",{
+        const res = await  fetch("https://api-cnn5jio2q-chiragbhanderi1.vercel.app/filecourses",{
           method:"POST",
           body:formData
         })
@@ -223,7 +299,7 @@ const CoursesDetails = () => {
       try {
       const formData = new FormData();
       formData.append("file", files);
-      const res = await  fetch("https://api-flu5fl4i5-chiragbhanderi1.vercel.app/filecourses",{
+      const res = await  fetch("https://api-cnn5jio2q-chiragbhanderi1.vercel.app/filecourses",{
         method:"POST",
         body:formData
       })
@@ -355,6 +431,55 @@ const CoursesDetails = () => {
                   </CardBody> 
           })}  
           </div>
+          <h1 className="text-center mt-4"> FAQs</h1>
+          <div>
+          <Button className="float-end p- mb-1" style={{width:"max-content"}}  onClick={()=>{setShowaddFaqModal(!showaddFaqModal)}}>
+            <i className="bi bi-plus me-2"> </i>
+            Add Questions
+          </Button>
+          </div>
+          <div className="rounded mt-2" style={{backgroundColor:"#ededed"}}>
+          {(!Array.isArray(faqs) || faqs.length ===0 )&& <div> No Questions to show</div>}
+         <div className="accordion" id="accordionExample">
+          {Array.isArray(faqs) && faqs.map((faq,index)=>{
+             return  <div className="accordion-item" key={index}>
+               <h2 className="accordion-header" id={`heading${index}`}>
+                 <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target={`#collapse${index}`} aria-expanded="true" aria-controls={`collapse${index}`}>
+                  Question {index+1}: {faq.question}
+                  <i onClick={()=>{deleteFaq(faq.id)}}  className="bi bi-trash bg-dark text-white p-2 ms-4  rounded " role="button" > </i>
+                  <i className="bi bi-pencil-square bg-dark text-white p-2 m-1 rounded " onClick={()=>{handleFaqClick(faq)}} role="button" > </i>
+                 </button>
+               </h2>
+               <div id={`collapse${index}`} className="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                 <div className="accordion-body">
+                  Answer : {faq.answer}
+                 </div>
+               </div>
+             </div>
+          })}  
+           </div>
+          </div>
+          <Modal isOpen={showFaqModal} toggle={handleFaqClick}>
+            <ModalHeader toggle={handleFaqClick}>Update Question</ModalHeader>
+            <ModalBody>
+              <FormGroup className="mt-2">
+                <Label for="question">Question</Label>
+                <Input id="question" name="question" type="text" value={faqData.question} onChange={updateFaq}/>
+              </FormGroup>
+              <FormGroup className="mt-2">
+                <Label for="answer">Answer</Label>
+                <Input id="answer" name="answer" type="text" value={faqData.answer} onChange={updateFaq}/>
+              </FormGroup>
+            </ModalBody>
+            <ModalFooter>
+              <Button color="dark" onClick={()=>{editFaq()}}>
+                Update
+              </Button>
+              <Button color="secondary" onClick={handleFaqClick}>
+                Cancel
+              </Button>
+            </ModalFooter>
+          </Modal>
           <Modal isOpen={showModal} toggle={handleButtonClick}>
             <ModalHeader toggle={handleButtonClick}>{videoData.title}</ModalHeader>
             <ModalBody>
@@ -411,6 +536,27 @@ const CoursesDetails = () => {
                 Add
               </Button>{' '}
               <Button color="secondary" onClick={()=>{setShowaddMatModal(!showaddMatModal);}}>
+                Cancel
+              </Button>
+            </ModalFooter>
+          </Modal>
+          <Modal isOpen={showaddFaqModal} toggle={()=>{setShowaddFaqModal(!showaddFaqModal);}}>
+            <ModalHeader toggle={()=>{setShowaddFaqModal(!showaddFaqModal);}}>Add Question</ModalHeader>
+            <ModalBody>
+              <FormGroup className="mt-2">
+                <Label for="question">Question</Label>
+                <Input id="question" name="question"  type="text" onChange={updateFaq} />
+              </FormGroup>
+              <FormGroup className="mt-2">
+                <Label for="answer">Answer</Label>
+                <Input id="answer" name="answer"  type="text" onChange={updateFaq} />
+              </FormGroup>
+            </ModalBody>
+            <ModalFooter>
+              <Button color="dark"  onClick={()=>{addfaqs()}}>
+                Add
+              </Button>{' '}
+              <Button color="secondary" onClick={()=>{setShowaddFaqModal(!showaddFaqModal);}}>
                 Cancel
               </Button>
             </ModalFooter>

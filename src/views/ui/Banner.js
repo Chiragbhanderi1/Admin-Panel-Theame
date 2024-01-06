@@ -26,6 +26,7 @@ const Banner = () => {
       title: "",
       subtitle: "",
       type:"",
+      link:"",
       imgDesk:"",
       imgMob:""
     });
@@ -41,7 +42,7 @@ const Banner = () => {
           Navigate("/login")
         }
         // Fetch all internships from the API
-        fetch("https://api-flu5fl4i5-chiragbhanderi1.vercel.app/getbanners")
+        fetch("https://api-cnn5jio2q-chiragbhanderi1.vercel.app/getbanners")
           .then((res) => res.json())
           .then((data) =>{setBanners(data);console.log(banners) })
           .catch((err) => console.log(err));
@@ -54,7 +55,7 @@ const Banner = () => {
         setLoading(true)
         const formData = new FormData();
         formData.append("file", selectedImg);
-        const res = await  fetch("https://api-flu5fl4i5-chiragbhanderi1.vercel.app/fileevent",{
+        const res = await  fetch("https://api-cnn5jio2q-chiragbhanderi1.vercel.app/fileevent",{
           method:"POST",
           body:formData
         })
@@ -73,7 +74,7 @@ const Banner = () => {
         setLoading(true)
         const formData = new FormData();
         formData.append("file", selectedImgMob);
-        const res = await  fetch("https://api-flu5fl4i5-chiragbhanderi1.vercel.app/fileevent",{
+        const res = await  fetch("https://api-cnn5jio2q-chiragbhanderi1.vercel.app/fileevent",{
           method:"POST",
           body:formData
         })
@@ -88,7 +89,7 @@ const Banner = () => {
       const handleSubmit = async (e) => {
         e.preventDefault();
         // Add the banner to the database with the download URLs of the files
-        fetch("https://api-flu5fl4i5-chiragbhanderi1.vercel.app/banners", {
+        fetch("https://api-cnn5jio2q-chiragbhanderi1.vercel.app/banners", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -105,7 +106,7 @@ const Banner = () => {
       };
       const handleDeleteBanner = (id) => {
         // Send a DELETE request to the API to delete the banner with the given ID
-        fetch(`https://api-flu5fl4i5-chiragbhanderi1.vercel.app/deletebanner/${id}`, {
+        fetch(`https://api-cnn5jio2q-chiragbhanderi1.vercel.app/deletebanner/${id}`, {
           method: "DELETE",
         })
           .then((res) => {
@@ -117,7 +118,7 @@ const Banner = () => {
       const handleUpdateBanner = (e) => {
         e.preventDefault();
         // Send a PUT request to the API to update the banner with the given ID
-        fetch(`https://api-flu5fl4i5-chiragbhanderi1.vercel.app/updatebanner/${bannerData.id}`, {
+        fetch(`https://api-cnn5jio2q-chiragbhanderi1.vercel.app/updatebanner/${bannerData.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -143,7 +144,8 @@ const Banner = () => {
           id:banner.id,
           title: banner.title,
           subtitle: banner.subtitle,
-          type:banner.type
+          type:banner.type,
+          link:banner.link
         });
         setUpdate(true);
       };
@@ -194,6 +196,15 @@ const Banner = () => {
                 </Input>
               </FormGroup> 
               <FormGroup>
+                <Label for="type">Link</Label>
+                <Input
+                  id="link"
+                  name="link"
+                  value={bannerData.link}
+                  onChange={handleInputChange}
+                  type="text"/>
+              </FormGroup> 
+              <FormGroup>
                 <Label for="imgDesk">Desktop Image</Label>
                 <div className='d-flex'>
                 <Input id="imgDesk" name="imgDesk" type="file" onChange={handleImageUpload}/>
@@ -225,6 +236,7 @@ const Banner = () => {
                 <th>Title</th>
                 <th>Subtitle</th>
                 <th>Type</th>
+                <th>Link</th>
                 <th><i className="bi bi-pen me-2"> </i></th>
                 <th><i className="bi bi-trash me-2"> </i></th>
               </tr>
@@ -238,6 +250,7 @@ const Banner = () => {
                 <td>{banner.title}</td>
                 <td>{banner.subtitle}</td>
                 <td>{banner.type}</td>
+                <td><a href={banner.link}>Link</a></td>
                 <td ><Button onClick={()=>{handleEditBanner(banner)}}>Edit</Button></td>
                 <td ><Button onClick={()=>{handleDeleteBanner(banner.id)}}>Delete</Button></td>
               </tr>

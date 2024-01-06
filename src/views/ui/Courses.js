@@ -32,6 +32,12 @@ const Courses = () => {
   });
   // eslint-disable-next-line
   const [videoArray,setVideoArray]=useState([]);
+  const [faqData, setFaqData] = useState({
+    question:"",
+    answer:""
+  });
+  // eslint-disable-next-line
+  const [faqArray,setFaqArray]=useState([]);
   const [update, setUpdate] = useState(null);
   // eslint-disable-next-line
   const [materials,setMaterials] =useState({})
@@ -63,14 +69,15 @@ const Courses = () => {
     category:"",
     materials:{},
     assignments:{},
-    videos:{}
+    videos:{},
+    faqs:{}
   });
   useEffect(() => {
     if(!localStorage.getItem('name')){
       Navigate("/login")
     }
     // Fetch all courses from the API
-    fetch("https://api-flu5fl4i5-chiragbhanderi1.vercel.app/getcourses")
+    fetch("https://api-cnn5jio2q-chiragbhanderi1.vercel.app/getcourses")
       .then((res) => res.json())
       .then((data) => setCourses(data))
       .catch((err) => console.log(err));
@@ -90,7 +97,7 @@ const Courses = () => {
     setLoadingbann(true)
     const formData = new FormData();
     formData.append("file", selectedBann);
-    const res = await  fetch("https://api-flu5fl4i5-chiragbhanderi1.vercel.app/filecourses",{
+    const res = await  fetch("https://api-cnn5jio2q-chiragbhanderi1.vercel.app/filecourses",{
       method:"POST",
       body:formData
     })
@@ -110,7 +117,7 @@ const Courses = () => {
     setLoadingimg(true)
     const formData = new FormData();
     formData.append("file", selectedImg);
-    const res = await  fetch("https://api-flu5fl4i5-chiragbhanderi1.vercel.app/filecourses",{
+    const res = await  fetch("https://api-cnn5jio2q-chiragbhanderi1.vercel.app/filecourses",{
       method:"POST",
       body:formData
     })
@@ -143,7 +150,7 @@ const Courses = () => {
         try {
         const formData = new FormData();
         formData.append("file", assignments);
-        const res = await  fetch("https://api-flu5fl4i5-chiragbhanderi1.vercel.app/filecourses",{
+        const res = await  fetch("https://api-cnn5jio2q-chiragbhanderi1.vercel.app/filecourses",{
           method:"POST",
           body:formData
         })
@@ -180,7 +187,7 @@ const Courses = () => {
       try{
         const formData = new FormData();
         formData.append("file", materials);
-        const res = await  fetch("https://api-flu5fl4i5-chiragbhanderi1.vercel.app/filecourses",{
+        const res = await  fetch("https://api-cnn5jio2q-chiragbhanderi1.vercel.app/filecourses",{
           method:"POST",
           body:formData
         })
@@ -203,7 +210,7 @@ const Courses = () => {
     try {
       const formData = new FormData();
       formData.append("file", files);
-      const res = await  fetch("https://api-flu5fl4i5-chiragbhanderi1.vercel.app/filecourses",{
+      const res = await  fetch("https://api-cnn5jio2q-chiragbhanderi1.vercel.app/filecourses",{
         method:"POST",
         body:formData
       })
@@ -261,30 +268,48 @@ const Courses = () => {
     })
     setCourseData({...courseData,assignments:assignmentArray})
   }
+  const handleFaqData=(e)=>{
+    setFaqData({
+      ...faqData,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const addFaqs=()=>{
+    try{
+      faqArray.push(faqData);
+      setFaqData({
+        answer:"",
+        question:""
+      }) 
+      setCourseData({...courseData,faqs:faqArray});
+    }catch(error){
+      setError(error)
+    }
+  }
   const handleVideoData=(e)=>{
     setVideoData({
       ...videoData,
       [e.target.name]: e.target.value,
     });
   };
-
   const handleAddCourse = async (e) => {
     e.preventDefault();
     setCourseData({
       ...courseData,
       videos:videoArray,
       materials:materialArray,
-      assignments:assignmentArray
+      assignments:assignmentArray,
+      faqs:faqArray
     })
     // Add the course to the database with the download URLs of the files
-    fetch("https://api-flu5fl4i5-chiragbhanderi1.vercel.app/courses", {
+    fetch("https://api-cnn5jio2q-chiragbhanderi1.vercel.app/courses", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(courseData),
     })
-      .then((res) => {res.json()})
+      .then((res) => {})
       .then((data) => {
         setUpdate(false);
         // eslint-disable-next-line no-restricted-globals
@@ -294,7 +319,7 @@ const Courses = () => {
   };
   const handleDeleteCourse = (id) => {
     // Send a DELETE request to the API to delete the course with the given ID
-    fetch(`https://api-flu5fl4i5-chiragbhanderi1.vercel.app/deletecourse/${id}`, {
+    fetch(`https://api-cnn5jio2q-chiragbhanderi1.vercel.app/deletecourse/${id}`, {
       method: "DELETE",
     })
       .then(() => {
@@ -307,7 +332,7 @@ const Courses = () => {
     e.preventDefault();
    
     // Send a PUT request to the API to update the course with the given ID
-    fetch(`https://api-flu5fl4i5-chiragbhanderi1.vercel.app/updatecourse/${courseData.title}`, {
+    fetch(`https://api-cnn5jio2q-chiragbhanderi1.vercel.app/updatecourse/${courseData.title}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -547,6 +572,27 @@ const Courses = () => {
                                   <td>{ass.title}</td>
                                   <td><a href={ass.url}> <embed src={ass.url} width="100px" height="100px" /></a></td>
                                   <td onClick={()=>{deleteAss(index)}} className="text-center align-middle" ><i className="bi bi-trash bg-dark text-white p-2 rounded " role="button" > </i></td>
+                                </tr>                                   
+                              </tbody>
+                            </Table>                           
+                          </CardBody>
+                   ))}
+              </FormGroup>}
+              {!update &&<FormGroup style={{backgroundColor:"#ededed"}} className="rounded p-3">
+                <h6>FAQs</h6>                
+                <Label for="question">Question</Label>
+                <Input id="question" name="question"  type="text" value={faqData.question} onChange={handleFaqData}/>               
+                <Label for="answer">Answer</Label>
+                <Input id="answer" name="answer"  type="text" value={faqData.answer} onChange={handleFaqData}/>               
+                <Button onClick={addFaqs}  className="mt-2">Add</Button>
+                { faqArray!=null && faqArray.map((faq,index)=>(
+                            <CardBody style={{overflowX:"auto"}}  key={index} >
+                            <Table bordered hover>
+                              <tbody>                                   
+                                <tr >
+                                  <th scope="row">{index+1}</th>
+                                  <td>{faq.question}</td>
+                                  <td>{faq.answer}</td>
                                 </tr>                                   
                               </tbody>
                             </Table>                           
