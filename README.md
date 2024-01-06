@@ -10,7 +10,7 @@
 
 <!-- Description of Template -->
 <p>
-  Xtreme React Admin Lite based on modular, modern design, React router 6 + Redux Toolkit framework along with SaSS base CSS, provides customization options and fully responsive pages. This  carefully handcrafted free react admin modular design template offers a wide range of features to be used for your react projects avoiding extra spending on expensive designers. This also helps you to focus on key areas that need more attention and improvement.
+  This is react based admin panel
 </p>
 
 <p>
