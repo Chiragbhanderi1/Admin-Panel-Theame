@@ -5,7 +5,7 @@ import ProjectTables from "../components/dashboard/ProjectTable";
 import TopCards from "../components/dashboard/TopCards";
 import Blog from "../components/dashboard/Blog";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Card, CardBody, CardTitle, CardSubtitle, Table } from "reactstrap";
 
 const Starter = () => {
@@ -15,11 +15,13 @@ const Starter = () => {
   const [events, setEvents] = useState([]);
   // const [earning,setEarning] = useState(0);
   const [users, setUsers] = useState([]);
-  const Navigate =useNavigate();
   useEffect(()=>{
+<<<<<<< HEAD
     if(!localStorage.getItem('name')){
       Navigate("/login")
     }
+=======
+>>>>>>> f0e1a8bddf0022ebc60453a06aab7726506e2e50
     fetch("https://api-cnn5jio2q-chiragbhanderi1.vercel.app/getcourses")
       .then((res) => res.json())
       .then((data) => {

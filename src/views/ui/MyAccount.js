@@ -1,5 +1,4 @@
 import React,{useState ,useEffect} from 'react'
-import { useNavigate } from 'react-router-dom';
 import {
   Button,
   Form,
@@ -13,11 +12,7 @@ const MyAccount = () => {
   const [password, setPassword] = useState('');
   const [confirmpassword, setConfirmpassword] = useState('');
   const [admins, setAdmins] = useState([]);    
-  const Navigate = useNavigate();
   useEffect(() => {
-    if(!localStorage.getItem('name')){
-      Navigate("/login")
-    }
     // Fetch all internships from the API
     fetch("https://api-cnn5jio2q-chiragbhanderi1.vercel.app/getadmins")
       .then((res) => res.json())

@@ -1,0 +1,156 @@
+#property-heading{
+    width: 100%;
+}
+.bg-lightblue{
+    background-color: #f7f7f9;
+}
+.selected-tab{
+    background-color: #fff;
+    border: none;
+    padding: 10px 0;
+    color: #287DFD;
+    border-bottom: 1px solid #287DFD;
+}
+#contactOwner-pp{
+    color: white !important;
+    background-color: #007bff !important;
+    border: none !important;
+    margin-top: 15px;
+}
+#sendMessage-pp{
+    margin-top: 15px;
+    color: #007bff !important;
+    background-color: white !important;
+    border: 1px solid #007bff !important;
+}
+#similarPropertyHeading h3 {
+    position: relative;
+    margin: 0px 0px 40px 0px;
+    height: 25px;
+    font-size: 20px;
+    /* line-height: 131.02%; */
+}
+#similarPropertyHeading h3::after{
+		content: "";
+		position: absolute;
+		bottom: -15px;
+		left: 0%;
+		width: 100px;
+		border: 1px solid #3F8EFC;
+		border-radius: 25px;
+}
+.unselected-tab{
+    background-color: #fff;
+    border: none;
+    padding: 10px 0;
+}
+#propertyPhotos{
+    min-height: 50vh;
+    margin-top: 20px;
+}
+#SecondaryImageBox div{
+    min-height: 48%;
+}
+#SecondaryImageBox{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    column-gap: 10px;
+}
+.AmenityBox{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    align-items: center;
+}
+.imageViewer{
+    max-width: 100%;
+    max-height: 90% !important;
+    z-index: 6;
+} 
+.overlay-text {
+    color: white;
+    display: flex;
+    font-size: 24px;
+    font-weight: bold;
+    height: 100%;    
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+#propertyDetails{
+    margin-top: 1.5rem;
+}
+.detailsBox{
+    background-color: #fff;
+    margin: 1.5rem 0;
+}
+.innerDetailsBox{
+    padding: 1rem 2rem;
+}
+.boxHeader{
+    padding: 1rem 2rem;
+    font-size: x-large;
+    color: rgba(0, 0, 0, 0.7);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.26);
+}
+.labelTextForDetail{
+    color: rgba(0, 0, 0, 0.5);
+    margin-top: 20px;
+}
+.valueTextForDetail{
+    /* font-weight: bold; */
+    color: rgba(0, 0, 0, 0.8);
+    line-height: 2;
+}
+.amenitiesBox{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 30px;
+    align-items: center;
+}
+@media screen and (max-width:768px) {
+    #SecondaryImageBox{
+        padding-left: 0 !important;
+    }
+    .AmenityBox{
+        padding: 0;
+    }
+    #addressHeading{
+        font-size: large;
+    }
+    .pricingLabel{
+        font-size: 13px;
+    }
+    .amenitiesBox{
+        padding: 10px;
+        flex-wrap: wrap;
+        font-size: 12px;
+    }
+    .labelTextForDetail{
+        margin-top: 0px;
+        font-size: 12px ;
+    }
+    .valueTextForDetail{
+        line-height: 1.2;
+        font-size: 13px;
+    }
+    .detailsBox{
+        margin-top: 0;
+        /* padding: 30px 0; */
+    }
+    .innerDetailsBox{
+        padding: 1.5rem 1rem;
+        color: rgba(0, 0, 0, 0.8);
+    }
+    .boxHeader{
+        padding: 1rem 2rem;
+        font-size: medium;
+    }
+    .SingleDetailBox{
+        display: flex;
+        align-items: flex-start;
+        margin-top: 10px;
+    }
+}

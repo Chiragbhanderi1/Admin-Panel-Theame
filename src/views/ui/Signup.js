@@ -25,9 +25,6 @@ const Signup = () => {
   const [showModal, setShowModal] = useState(true);
   const Navigate = useNavigate();
   useEffect(() => {
-    if(!localStorage.getItem('name')){
-      Navigate("/login")
-    }
     // Fetch all internships from the API
     fetch("https://api-cnn5jio2q-chiragbhanderi1.vercel.app/getadmins")
       .then((res) => res.json())
